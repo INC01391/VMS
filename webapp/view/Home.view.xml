@@ -25,6 +25,11 @@
 								<ImageContent src="sap-icon://key-user-settings"/>
 							</TileContent>
 						</GenericTile>
+						<GenericTile header="SECURITY" press="onSecurityPress" subheader="Have the  control of the VMS Delivery">
+							<TileContent>
+								<ImageContent src="sap-icon://supplier"/>
+							</TileContent>
+						</GenericTile>
 					</l:Grid>
 				</content>
 			</Page>

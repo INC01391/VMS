@@ -62,12 +62,20 @@
 				"settings": {
 					"defaultBindingMode": "TwoWay"
 				}
+			},
+			"oSecurityModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -79,19 +87,29 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteHome",
-				"pattern": "RouteHome",
-				"target": [
-					"TargetHome"
-				]
-			}, {
-				"name": "AdminDetails",
-				"pattern": "AdminDetails",
-				"target": [
-					"Admin"
-				]
-			}],
+			"routes": [
+				{
+					"name": "RouteHome",
+					"pattern": "RouteHome",
+					"target": [
+						"TargetHome"
+					]
+				},
+				{
+					"name": "AdminDetails",
+					"pattern": "AdminDetails",
+					"target": [
+						"Admin"
+					]
+				},
+				{
+					"name": "SecurityDetails",
+					"pattern": "SecurityDetails",
+					"target": [
+						"Security"
+					]
+				}
+			],
 			"targets": {
 				"TargetHome": {
 					"viewType": "XML",
@@ -103,6 +121,10 @@
 				"Admin": {
 					"viewType": "XML",
 					"viewName": "Admin"
+				},
+				"Security": {
+					"viewType": "XML",
+					"viewName": "Security"
 				}
 			}
 		}
