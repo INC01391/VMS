@@ -98,11 +98,11 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oAdminModel>visitorName}"/>
-											<Text text="{oAdminModel>email}"/>
-											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
-											<Text text="{oAdminModel>organisation}"/>
+											<Text text="{oAdminModel>organization}"/>
 											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
 										</cells>
 									</ColumnListItem>

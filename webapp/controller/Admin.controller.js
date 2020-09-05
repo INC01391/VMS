@@ -17,14 +17,17 @@ sap.ui.define([
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oAdminModel.setProperty("/date", newdate);
-			var sUrl1 = "/VMS_Service/admin/getCheckedInVisitors?date=" + newdate;
-			this.fndoajax(sUrl1, "/CheckInDetails");
-			var sUrl2 = "/VMS_Service/admin/getCheckedOutVisitors?date=" + newdate;
-			this.fndoajax(sUrl2, "/CheckOutDetails");
-			var sUrl3 = "/VMS_Service/admin/getExpectedVisitors?date=" + newdate;
-			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
-			var sUrl4 = "/VMS_Service/admin/getAllVisitorHistory?date=" + newdate;
+			// var sUrl1 = "/VMS_Service/admin/getCheckedInVisitors?date=" + newdate;
+			// this.fndoajax(sUrl1, "/CheckInDetails");
+			// var sUrl2 = "/VMS_Service/admin/getCheckedOutVisitors?date=" + newdate;
+			// this.fndoajax(sUrl2, "/CheckOutDetails");
+			// var sUrl3 = "/VMS_Service/admin/getExpectedVisitors?date=" + newdate;
+			// this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
+			var sUrl4 = "/VMS_Service/rest/visitorController/selectAllVisitor";
 			this.fndoajax(sUrl4, "/Details");
+			// var sUrl5 = "";
+			// this.fndoajax(sUrl5, "/FrequentVisits");
+			console.log(oAdminModel);
 		},
 		onItemSelect: function (oEvent) {
 			var oItem = oEvent.getParameter("item");
