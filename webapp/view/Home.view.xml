@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.incture.VMS.controller.Home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
 	xmlns:l="sap.ui.layout">
-	<App id="Home">
+	<App id="app">
 		<pages>
 			<Page id="page" title="{i18n>title}">
 				<customHeader>

@@ -56,6 +56,12 @@
 				"settings": {
 					"bundleName": "com.incture.VMS.i18n.i18n"
 				}
+			},
+			"oAdminModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"resources": {
@@ -91,8 +97,8 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewId": "Home",
-					"viewName": "Home"
+					"viewName": "Home",
+					"viewLevel": 1
 				},
 				"Admin": {
 					"viewType": "XML",

@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.incture.VMS.controller.Admin"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:layout="sap.ui.layout"
 	xmlns:chart="sap.suite.ui.microchart" xmlns:smartchart="sap.ui.comp.smartchart" xmlns:f="sap.f">
-	<App id="Admin">
+	<App>
 		<tnt:ToolPage id="toolPage">
 			<tnt:header>
 				<tnt:ToolHeader class="sapUiResponsiveLayout">
@@ -44,10 +44,26 @@
 								<DatePicker id="date" valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
 							<l:Grid>
-								<GenericTile header="Check In" headerImage="sap-icon://trend-down"></GenericTile>
-								<GenericTile header="Check Out" headerImage="sap-icon://trend-up"></GenericTile>
-								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down"></GenericTile>
-								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits"></GenericTile>
+								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Good" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Error" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Critical" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
+									<TileContent>
+										<NumericContent value="12" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
 							</l:Grid>
 							<Table id="dashboardtable" items="{oAdminModel>/Details}" alternateRowColors="true" class="sapUiSizeCompact">
 								<headerToolbar>
@@ -87,7 +103,7 @@
 											<Text text="{oAdminModel>contactNo}"/>
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organisation}"/>
-											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -98,6 +114,201 @@
 								<Label text="Date" class="sapUiTinyMargin"></Label>
 								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
+							<l:Grid>
+								<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Good" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="idCheckout" header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Error" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="idYettovisit" header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
+									<TileContent>
+										<NumericContent value="12" valueColor="Critical" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="idFrequentVisits" header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
+									<TileContent>
+										<NumericContent value="12" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+							</l:Grid>
+							<Table id="idCheckInTable" items="{oAdminModel>/CheckInDetails}" alternateRowColors="true" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>email}"/>
+											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organisation}"/>
+											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="idCheckOutTable" items="{oAdminModel>/Details}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Action}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>email}"/>
+											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organisation}"/>
+											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+											<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"></Button>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="idYetToVisitTable" items="{oAdminModel>/ExpectedVisitorDetails}" alternateRowColors="true" class="sapUiSizeCompact"
+								visible="false">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>email}"/>
+											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organisation}"/>
+											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="idFrequentVisitsTable" items="{oAdminModel>/FrequentVisits}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>HostName}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Action}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>email}"/>
+											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Link text="Show Visitors" press="onShowFrequentVisitorsPress"></Link>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="preregistration" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>
