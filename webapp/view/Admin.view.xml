@@ -1,0 +1,125 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.incture.VMS.controller.Admin"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:layout="sap.ui.layout"
+	xmlns:chart="sap.suite.ui.microchart" xmlns:smartchart="sap.ui.comp.smartchart" xmlns:f="sap.f">
+	<App id="Admin">
+		<tnt:ToolPage id="toolPage">
+			<tnt:header>
+				<tnt:ToolHeader class="sapUiResponsiveLayout">
+					<Bar>
+						<contentLeft>
+							<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onMenuPress">
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+							</Button>
+							<Image src="./Images/logo_old.png" alt="Image not found" height="80%" press="onPressImage" class="sapUiResponsiveLayout"></Image>
+						</contentLeft>
+						<contentMiddle>
+							<Label text="VISITOR MANAGEMENT SYSTEM"></Label>
+						</contentMiddle>
+						<contentRight>
+							<core:Icon src="sap-icon://bell" tooltip="Notification" press="onNotificationPress" class="iconSize"></core:Icon >
+							<Text text="{oAdminModel>/Notificationcount}" class="number"/>
+							<Avatar src="data:image/png;base64,{oAdminModel>/userDetails/photo}" press="onUserPress" displaySize="XS"></Avatar>
+						</contentRight>
+					</Bar>
+				</tnt:ToolHeader>
+			</tnt:header>
+			<tnt:sideContent>
+				<tnt:SideNavigation expanded="true" itemSelect=".onItemSelect" class="masterPage">
+					<tnt:NavigationList>
+						<tnt:NavigationListItem icon="sap-icon://bbyd-dashboard" text="Dashboard" key="dashboard"/>
+						<tnt:NavigationListItem icon="sap-icon://activity-individual" text="Pre-Registration" key="preregistration"/>
+						<tnt:NavigationListItem icon="sap-icon://employee-rejections" text="BlackListed Visitors" key="blacklisted"/>
+						<tnt:NavigationListItem icon="sap-icon://alert" text="Evacuation" key="evacuation"/>
+					</tnt:NavigationList>
+				</tnt:SideNavigation>
+			</tnt:sideContent>
+			<tnt:mainContents>
+				<NavContainer id="pageContainer" initialPage="dashboard">
+					<pages>
+						<ScrollContainer id="dashboard" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<HBox>
+								<Label text="Date" class="sapUiTinyMargin"></Label>
+								<DatePicker id="date" valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							</HBox>
+							<l:Grid>
+								<GenericTile header="Check In" headerImage="sap-icon://trend-down"></GenericTile>
+								<GenericTile header="Check Out" headerImage="sap-icon://trend-up"></GenericTile>
+								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down"></GenericTile>
+								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits"></GenericTile>
+							</l:Grid>
+							<Table id="dashboardtable" items="{oAdminModel>/Details}" alternateRowColors="true" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>email}"/>
+											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organisation}"/>
+											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+						<ScrollContainer id="idFilters" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<HBox>
+								<Label text="Date" class="sapUiTinyMargin"></Label>
+								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							</HBox>
+						</ScrollContainer>
+						<ScrollContainer id="preregistration" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<HBox>
+								<Label text="Date" class="sapUiTinyMargin"></Label>
+								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							</HBox>
+						</ScrollContainer>
+						<ScrollContainer id="blacklisted" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<HBox>
+								<Label text="Date" class="sapUiTinyMargin"></Label>
+								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							</HBox>
+						</ScrollContainer>
+						<ScrollContainer id="evacuation" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<HBox>
+								<Label text="Date" class="sapUiTinyMargin"></Label>
+								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							</HBox>
+						</ScrollContainer>
+					</pages>
+				</NavContainer>
+			</tnt:mainContents>
+		</tnt:ToolPage>
+	</App>
+</mvc:View>
