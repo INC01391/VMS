@@ -68,6 +68,12 @@
 				"settings": {
 					"defaultBindingMode": "TwoWay"
 				}
+			},
+			"oHostModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"resources": {

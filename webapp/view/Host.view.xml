@@ -61,7 +61,7 @@
 								</GenericTile>
 							</l:Grid>
 							<Table id="idVisitorsTable" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
-								items="{oHostModel>/Details}">
+								items="{oHostModel>/Details/data}">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>
@@ -94,12 +94,12 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorName}"/>
-											<Text text="{oHostModel>email}"/>
-											<Text text="{oHostModel>contactNo}"/>
+											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
+											<Text text="{oHostModel>visitorEmail}"/>
+											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>organisation}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<Text text="{oHostModel>organization}"/>
+											<Text text="{path: 'oHostModel>visitorStatus',  formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -110,30 +110,23 @@
 								<Label text="Date" class="sapUiTinyMargin"></Label>
 								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oHostModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
-							<l:VerticalLayout width="100%">
-								<l:Grid>
-									<l:content>
-										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Check In" press="CheckInPress" id="idCheckin"
-											headerImage="sap-icon://trend-down">
-											<layoutData>
-												<l:GridData span="XL3 L3 M6 S12"/>
-											</layoutData>
-										</GenericTile>
-										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Check Out" press="CheckOutPress" id="idCheckout"
-											headerImage="sap-icon://trend-up">
-											<layoutData>
-												<l:GridData span="XL3 L3 M6 S12"/>
-											</layoutData>
-										</GenericTile>
-										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Yet To Visit" press="YetToVisitPress" id="idYettovisit"
-											headerImage="sap-icon://pull-down">
-											<layoutData>
-												<l:GridData span="XL3 L3 M6 S12"/>
-											</layoutData>
-										</GenericTile>
-									</l:content>
-								</l:Grid>
-							</l:VerticalLayout>
+							<l:Grid>
+								<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
+									<TileContent>
+										<NumericContent value="{=${oHostModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="idCheckout" header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
+									<TileContent>
+										<NumericContent value="{=${oHostModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+								<GenericTile id="idYettovisit" header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
+									<TileContent>
+										<NumericContent value="{=${oHostModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
+									</TileContent>
+								</GenericTile>
+							</l:Grid>
 							<Table id="idCheckInTable" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
 								items="{oHostModel>/CheckInDetails}">
 								<headerToolbar class="sapUiLargeMarginTop">
@@ -168,12 +161,12 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorName}"/>
-											<Text text="{oHostModel>email}"/>
-											<Text text="{oHostModel>contactNo}"/>
+											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
+											<Text text="{oHostModel>visitorEmail}"/>
+											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>organisation}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<Text text="{oHostModel>organization}"/>
+											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -215,12 +208,12 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorName}"/>
-											<Text text="{oHostModel>email}"/>
-											<Text text="{oHostModel>contactNo}"/>
+											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
+											<Text text="{oHostModel>visitorEmail}"/>
+											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>organisation}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<Text text="{oHostModel>organization}"/>
+											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 											<Button text="Add To BlackList" type="Critical" press="onAddToBlackListPress"/>
 										</cells>
 									</ColumnListItem>
@@ -260,12 +253,12 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorName}"/>
-											<Text text="{oHostModel>email}"/>
-											<Text text="{oHostModel>contactNo}"/>
+											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
+											<Text text="{oHostModel>visitorEmail}"/>
+											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>organisation}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<Text text="{oHostModel>organization}"/>
+											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
