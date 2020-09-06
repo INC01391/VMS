@@ -46,23 +46,23 @@
 							<l:Grid>
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Good" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" valueColor="Good" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Error" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckOutDetails}.length}" valueColor="Error" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Critical" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails}.length}" valueColor="Critical" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
-									<TileContent>
-										<NumericContent value="12" withMargin="false"/>
-									</TileContent>
+									<!--<TileContent>-->
+									<!--	<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" withMargin="false"/>-->
+									<!--</TileContent>-->
 								</GenericTile>
 							</l:Grid>
 							<Table id="dashboardtable" items="{oAdminModel>/Details/data}" alternateRowColors="true" class="sapUiSizeCompact">
@@ -103,6 +103,7 @@
 											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organization}"/>
+											<Text text="{oAdminModel>visitorStatus}"></Text>
 											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
 										</cells>
 									</ColumnListItem>
@@ -117,23 +118,23 @@
 							<l:Grid>
 								<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Good" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" valueColor="Good" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idCheckout" header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Error" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckOutDetails}.length}" valueColor="Error" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idYettovisit" header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Critical" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails}.length}" valueColor="Critical" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idFrequentVisits" header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
-									<TileContent>
-										<NumericContent value="12" withMargin="false"/>
-									</TileContent>
+									<!--<TileContent>-->
+									<!--	<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" withMargin="false"/>-->
+									<!--</TileContent>-->
 								</GenericTile>
 							</l:Grid>
 							<Table id="idCheckInTable" items="{oAdminModel>/CheckInDetails}" alternateRowColors="true" class="sapUiSizeCompact">
@@ -226,7 +227,7 @@
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="idYetToVisitTable" items="{oAdminModel>/ExpectedVisitorDetails}" alternateRowColors="true" class="sapUiSizeCompact"
+							<Table id="idYetToVisitTable" items="{oAdminModel>/ExpectedVisitorDetails/data}" alternateRowColors="true" class="sapUiSizeCompact"
 								visible="false">
 								<headerToolbar>
 									<OverflowToolbar>

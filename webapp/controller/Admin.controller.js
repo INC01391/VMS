@@ -3,12 +3,13 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
-	"sap/ui/core/Fragment"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment) {
+	"sap/ui/core/Fragment",
+	"../utility/formatter"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Admin", {
-
+		formatter: formatter,
 		onInit: function () {
 			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
@@ -17,11 +18,11 @@ sap.ui.define([
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oAdminModel.setProperty("/date", newdate);
-			var sUrl1 = "/VMS/admin/getCheckedInVisitors?date=" + newdate;
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eId=5&Date=" + newdate;
 			this.fndoajax(sUrl1, "/CheckInDetails");
-			var sUrl2 = "/VMS/admin/getCheckedOutVisitors?date=" + newdate;
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eId=5&Date=" + newdate;
 			this.fndoajax(sUrl2, "/CheckOutDetails");
-			var sUrl3 = "/VMS/admin/getExpectedVisitors?date=" + newdate;
+			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + newdate;
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
 			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + newdate;
 			this.fndoajax(sUrl4, "/Details");
@@ -30,12 +31,23 @@ sap.ui.define([
 			console.log(oAdminModel);
 		},
 		onDate: function () {
+			var oDialog = new sap.m.BusyDialog();
+			oDialog.open();
+			setTimeout(function () {
+				oDialog.close();
+			}, 3000);
 			var that = this;
 			var date = that.getView().byId("date").getValue();
 			console.log(date);
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
 			oAdminModel.setProperty("/date", date);
-			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + date;
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eId=5&Date=" + date;
+			this.fndoajax(sUrl1, "/CheckInDetails");
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eId=5&Date=" + date;
+			this.fndoajax(sUrl2, "/CheckOutDetails");
+			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + date;
+			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
+			var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
 			this.fndoajax(sUrl4, "/Details");
 			console.log(oAdminModel);
 		},
@@ -147,6 +159,7 @@ sap.ui.define([
 				},
 				error: function (err) {
 					sap.m.MessageToast.show("Destination Failed");
+					$( ".sapMMessageToast" ).addClass( "sapMMessageToastSuccess " );
 				},
 				success: function (data) {
 					// sap.m.MessageToast.show("Data Successfully Loaded");
