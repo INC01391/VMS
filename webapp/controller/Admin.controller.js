@@ -12,21 +12,31 @@ sap.ui.define([
 		onInit: function () {
 			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-				pattern: "MMM dd, yyyy"
+				pattern: "yyyy-MM-dd"
 			});
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oAdminModel.setProperty("/date", newdate);
-			// var sUrl1 = "/VMS_Service/admin/getCheckedInVisitors?date=" + newdate;
-			// this.fndoajax(sUrl1, "/CheckInDetails");
-			// var sUrl2 = "/VMS_Service/admin/getCheckedOutVisitors?date=" + newdate;
-			// this.fndoajax(sUrl2, "/CheckOutDetails");
-			// var sUrl3 = "/VMS_Service/admin/getExpectedVisitors?date=" + newdate;
-			// this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
-			var sUrl4 = "/VMS_Service/rest/visitorController/selectAllVisitor";
+			var sUrl1 = "/VMS/admin/getCheckedInVisitors?date=" + newdate;
+			this.fndoajax(sUrl1, "/CheckInDetails");
+			var sUrl2 = "/VMS/admin/getCheckedOutVisitors?date=" + newdate;
+			this.fndoajax(sUrl2, "/CheckOutDetails");
+			var sUrl3 = "/VMS/admin/getExpectedVisitors?date=" + newdate;
+			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
+			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + newdate;
 			this.fndoajax(sUrl4, "/Details");
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
+			console.log(oAdminModel);
+		},
+		onDate: function () {
+			var that = this;
+			var date = that.getView().byId("date").getValue();
+			console.log(date);
+			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
+			oAdminModel.setProperty("/date", date);
+			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + date;
+			this.fndoajax(sUrl4, "/Details");
 			console.log(oAdminModel);
 		},
 		onItemSelect: function (oEvent) {

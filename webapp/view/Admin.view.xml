@@ -41,7 +41,7 @@
 						<ScrollContainer id="dashboard" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>
 								<Label text="Date" class="sapUiTinyMargin"></Label>
-								<DatePicker id="date" valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+								<DatePicker id="date" valueFormat="yyyy-MM-dd" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
 							<l:Grid>
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
@@ -65,7 +65,7 @@
 									</TileContent>
 								</GenericTile>
 							</l:Grid>
-							<Table id="dashboardtable" items="{oAdminModel>/Details}" alternateRowColors="true" class="sapUiSizeCompact">
+							<Table id="dashboardtable" items="{oAdminModel>/Details/data}" alternateRowColors="true" class="sapUiSizeCompact">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>

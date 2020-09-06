@@ -33,7 +33,7 @@
 		},
 		"description": "SAPUI5 Test Resources"
 	}, {
-		"path": "/VMS_Service",
+		"path": "/VMS",
 		"target": {
 			"type": "destination",
 			"name": "VMS"
