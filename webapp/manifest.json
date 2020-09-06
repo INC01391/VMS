@@ -71,11 +71,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -87,29 +85,31 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [
-				{
-					"name": "RouteHome",
-					"pattern": "RouteHome",
-					"target": [
-						"TargetHome"
-					]
-				},
-				{
-					"name": "AdminDetails",
-					"pattern": "AdminDetails",
-					"target": [
-						"Admin"
-					]
-				},
-				{
-					"name": "SecurityDetails",
-					"pattern": "SecurityDetails",
-					"target": [
-						"Security"
-					]
-				}
-			],
+			"routes": [{
+				"name": "RouteHome",
+				"pattern": "RouteHome",
+				"target": [
+					"TargetHome"
+				]
+			}, {
+				"name": "AdminDetails",
+				"pattern": "AdminDetails",
+				"target": [
+					"Admin"
+				]
+			}, {
+				"name": "SecurityDetails",
+				"pattern": "SecurityDetails",
+				"target": [
+					"Security"
+				]
+			}, {
+				"name": "HostDetails",
+				"pattern": "HostDetails",
+				"target": [
+					"Host"
+				]
+			}],
 			"targets": {
 				"TargetHome": {
 					"viewType": "XML",
@@ -125,6 +125,10 @@
 				"Security": {
 					"viewType": "XML",
 					"viewName": "Security"
+				},
+				"Host": {
+					"viewType": "XML",
+					"viewName": "Host"
 				}
 			}
 		}

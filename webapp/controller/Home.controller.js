@@ -16,6 +16,10 @@ sap.ui.define([
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("SecurityDetails");
 		},
+		onHostPress:function (oEvent) {
+			// MessageToast.show("Host is Pressed");
+			this.getRouter().navTo("HostDetails");
+		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		}
