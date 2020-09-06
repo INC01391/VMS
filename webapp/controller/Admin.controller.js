@@ -18,9 +18,11 @@ sap.ui.define([
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oAdminModel.setProperty("/date", newdate);
-			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eId=5&Date=" + newdate;
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=5&Date=" + newdate;
+			console.log(sUrl1);
 			this.fndoajax(sUrl1, "/CheckInDetails");
-			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eId=5&Date=" + newdate;
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + newdate;
+			console.log(sUrl2);
 			this.fndoajax(sUrl2, "/CheckOutDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + newdate;
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
@@ -41,9 +43,11 @@ sap.ui.define([
 			console.log(date);
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
 			oAdminModel.setProperty("/date", date);
-			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eId=5&Date=" + date;
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=5&Date=" + date;
+			console.log(sUrl1);
 			this.fndoajax(sUrl1, "/CheckInDetails");
-			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eId=5&Date=" + date;
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + date;
+			console.log(sUrl2);
 			this.fndoajax(sUrl2, "/CheckOutDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + date;
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
@@ -159,7 +163,7 @@ sap.ui.define([
 				},
 				error: function (err) {
 					sap.m.MessageToast.show("Destination Failed");
-					$( ".sapMMessageToast" ).addClass( "sapMMessageToastSuccess " );
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 				},
 				success: function (data) {
 					// sap.m.MessageToast.show("Data Successfully Loaded");

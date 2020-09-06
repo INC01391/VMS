@@ -46,17 +46,17 @@
 							<l:Grid>
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" valueColor="Good" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/CheckOutDetails}.length}" valueColor="Error" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails}.length}" valueColor="Critical" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
@@ -103,8 +103,8 @@
 											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organization}"/>
-											<Text text="{oAdminModel>visitorStatus}"></Text>
-											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -118,17 +118,17 @@
 							<l:Grid>
 								<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" valueColor="Good" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idCheckout" header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/CheckOutDetails}.length}" valueColor="Error" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idYettovisit" header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
 									<TileContent>
-										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails}.length}" valueColor="Critical" withMargin="false"/>
+										<NumericContent value="{=${oAdminModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idFrequentVisits" header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
@@ -137,7 +137,7 @@
 									<!--</TileContent>-->
 								</GenericTile>
 							</l:Grid>
-							<Table id="idCheckInTable" items="{oAdminModel>/CheckInDetails}" alternateRowColors="true" class="sapUiSizeCompact">
+							<Table id="idCheckInTable" items="{oAdminModel>/CheckInDetails/data}" alternateRowColors="true" class="sapUiSizeCompact">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -170,17 +170,18 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oAdminModel>visitorName}"/>
-											<Text text="{oAdminModel>email}"/>
-											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
-											<Text text="{oAdminModel>organisation}"/>
-											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+											<Text text="{oAdminModel>organization}"/>
+											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="idCheckOutTable" items="{oAdminModel>/Details}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="idCheckOutTable" items="{oAdminModel>/CheckOutDetails/data}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -216,12 +217,13 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oAdminModel>visitorName}"/>
-											<Text text="{oAdminModel>email}"/>
-											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
-											<Text text="{oAdminModel>organisation}"/>
-											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+											<Text text="{oAdminModel>organization}"/>
+											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 											<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"></Button>
 										</cells>
 									</ColumnListItem>
@@ -266,7 +268,8 @@
 											<Text text="{oAdminModel>contactNo}"/>
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organisation}"/>
-											<!--<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>-->
+											<!--<Text text="{oAdminModel>status}"/>-->
+											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>

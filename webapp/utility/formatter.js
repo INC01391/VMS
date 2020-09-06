@@ -3,9 +3,9 @@ com.incture.VMS.utility.formatter = {
 	//Function to display change color of button based on status of task
 	changeColor: function (sValue) {
 		this.removeStyleClass("textGreen textRed textlightBlue");
-		if (sValue === "Checked In") {
+		if (sValue === "checked-in") {
 			this.addStyleClass("textGreen");
-		} else if (sValue === "Checked Out") {
+		} else if (sValue === "checked-out") {
 			this.addStyleClass("textRed");
 		} else {
 			this.addStyleClass("textlightBlue");
