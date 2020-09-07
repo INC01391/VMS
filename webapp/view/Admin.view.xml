@@ -43,7 +43,7 @@
 								<Label text="Date" class="sapUiTinyMargin"></Label>
 								<DatePicker id="date" valueFormat="yyyy-MM-dd" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
-							<l:Grid>
+							<l:Grid class="sapUiTinyMarginTop">
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
 										<NumericContent value="{=${oAdminModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
@@ -115,7 +115,7 @@
 								<Label text="Date" class="sapUiTinyMargin"></Label>
 								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
-							<l:Grid>
+							<l:Grid class="sapUiTinyMarginTop">
 								<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
 										<NumericContent value="{=${oAdminModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
@@ -318,8 +318,151 @@
 						<ScrollContainer id="preregistration" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>
 								<Label text="Date" class="sapUiTinyMargin"></Label>
-								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+								<DatePicker valueFormat="yyyy-MM-dd" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
+							<l:Grid class="sapUiTinyMarginTop">
+								<GenericTile header="Upcoming Meetings" headerImage="sap-icon://customer-history" press="onUpcomingPress" class="styleTile"></GenericTile>
+								<GenericTile header="Pre-Registration" headerImage="sap-icon://employee-approvals" press="onPreregistrationPress" class="styleTile"></GenericTile>
+							</l:Grid>
+							<Table id="idAdminVisitorTable" items="{oAdminModel>/AdminVisitors}" alternateRowColors="true" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organization}"/>
+											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+						<ScrollContainer id="idUpcomingMeetings" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<l:Grid class="sapUiTinyMarginTop">
+								<GenericTile id="idUpcoming" header="Upcoming Meetings" headerImage="sap-icon://customer-history" press="onUpcomingPress" class="styleTile"></GenericTile>
+								<GenericTile id="idPreRegistration" header="Pre-Registration" headerImage="sap-icon://employee-approvals" press="onPreregistrationPress"
+									class="styleTile"></GenericTile>
+							</l:Grid>
+							<Table id="idUpcomingMeetingsTable" items="{oAdminModel>/UpcomingMeetings}" alternateRowColors="true" class="sapUiSizeCompact"
+								visible="true">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>Begin Time}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>End Time}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>RoomName}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+									<Column>
+										<Text text="{i18n>Action}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>title}"/>
+											<Text text="{oAdminModel>beginTime}"/>
+											<Text text="{oAdminModel>endTime}"/>
+											<Text text="{oAdminModel>roomName}"/>
+											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColorUpcomingMeetings'}"/>
+											<Link text="Show Visitors" press="onShowUpcomingVisitorsPress"></Link>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organization}"/>
+											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="blacklisted" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>

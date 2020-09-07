@@ -46,15 +46,15 @@ sap.ui.define([
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
 			oAdminModel.setProperty("/date", date);
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=5&Date=" + date;
-			console.log(sUrl1);
 			this.fndoajax(sUrl1, "/CheckInDetails");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + date;
-			console.log(sUrl2);
 			this.fndoajax(sUrl2, "/CheckOutDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + date;
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
 			var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
 			this.fndoajax(sUrl4, "/Details");
+			var sUrl5 = "/VMS/rest/visitorController/getVisitorHistory?eid=5&Date=" + date;
+			this.fndoajax(sUrl5, "/AdminVisitors");
 			console.log(oAdminModel);
 		},
 		onItemSelect: function (oEvent) {
@@ -151,6 +151,26 @@ sap.ui.define([
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;
+		},
+		onUpcomingPress: function () {
+			this.getView().byId("idUpcomingMeetingsTable").setVisible(true);
+			this.getView().byId("preregisteredtable").setVisible(false);
+			this.byId("pageContainer").to(this.getView().createId("idUpcomingMeetings"));
+			this.getView().byId("idPreRegistration").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idUpcoming").addStyleClass("HomeStyleTile");
+			var oAdminModel = this.getView().getModel("oAdminModel");
+			var sUrl1 = "";
+			this.fndoajax(sUrl1, "/UpcomingMeetings");
+		},
+		onPreregistrationPress: function () {
+			this.getView().byId("idUpcomingMeetingsTable").setVisible(false);
+			this.getView().byId("preregisteredtable").setVisible(true);
+			this.byId("pageContainer").to(this.getView().createId("idUpcomingMeetings"));
+			this.getView().byId("idUpcoming").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idPreRegistration").addStyleClass("HomeStyleTile");
+			var oAdminModel = this.getView().getModel("oAdminModel");
+			var sUrl1 = "";
+			this.fndoajax(sUrl1, "/PreRegistration");
 		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
