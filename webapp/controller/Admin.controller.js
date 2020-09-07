@@ -28,15 +28,17 @@ sap.ui.define([
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
 			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + newdate;
 			this.fndoajax(sUrl4, "/Details");
+			var sUrl5 = "/VMS/rest/visitorController/getFrequentVisitors";
+			this.fndoajax(sUrl5, "/FrequentVisits");
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
 			console.log(oAdminModel);
 		},
 		onDate: function () {
-			var oDialog = new sap.m.BusyDialog();
-			oDialog.open();
+			var oDialogb = new sap.m.BusyDialog();
+			oDialogb.open();
 			setTimeout(function () {
-				oDialog.close();
+				oDialogb.close();
 			}, 3000);
 			var that = this;
 			var date = that.getView().byId("date").getValue();
@@ -143,6 +145,7 @@ sap.ui.define([
 					this); // Instantiating the Fragment
 			}
 			that.getView().addDependent(that._oDialog);
+			that._oDialog.open();
 		},
 		onCancel: function () {
 			this._oDialog.close();

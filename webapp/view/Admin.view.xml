@@ -60,9 +60,9 @@
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
-									<!--<TileContent>-->
-									<!--	<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" withMargin="false"/>-->
-									<!--</TileContent>-->
+									<TileContent>
+										<NumericContent value="{=${oAdminModel>/FrequentVisits/data}.length}" withMargin="false"/>
+									</TileContent>
 								</GenericTile>
 							</l:Grid>
 							<Table id="dashboardtable" items="{oAdminModel>/Details/data}" alternateRowColors="true" class="sapUiSizeCompact">
@@ -132,9 +132,9 @@
 									</TileContent>
 								</GenericTile>
 								<GenericTile id="idFrequentVisits" header="Frequent Visits" headerImage="sap-icon://visits" class="styleTile" press="onFrequentVisitsPress">
-									<!--<TileContent>-->
-									<!--	<NumericContent value="{=${oAdminModel>/CheckInDetails}.length}" withMargin="false"/>-->
-									<!--</TileContent>-->
+									<TileContent>
+										<NumericContent value="{=${oAdminModel>/FrequentVisits/data}.length}" withMargin="false"/>
+									</TileContent>
 								</GenericTile>
 							</l:Grid>
 							<Table id="idCheckInTable" items="{oAdminModel>/CheckInDetails/data}" alternateRowColors="true" class="sapUiSizeCompact">
@@ -274,7 +274,8 @@
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="idFrequentVisitsTable" items="{oAdminModel>/FrequentVisits}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="idFrequentVisitsTable" items="{oAdminModel>/FrequentVisits/data}" alternateRowColors="true" class="sapUiSizeCompact"
+								visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -295,7 +296,7 @@
 										<Text text="{i18n>Mobile}" class="styleColumn"/>
 									</Column>
 									<Column minScreenWidth="Desktop" demandPopin="true">
-										<Text text="{i18n>Purpose}" class="styleColumn"/>
+										<Text text="{i18n>Role}" class="styleColumn"/>
 									</Column>
 									<Column minScreenWidth="phone" demandPopin="true">
 										<Text text="{i18n>Action}" class="styleColumn"/>
@@ -304,10 +305,10 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>hostName}"/>
 											<Text text="{oAdminModel>email}"/>
 											<Text text="{oAdminModel>contactNo}"/>
-											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>post}"/>
 											<Link text="Show Visitors" press="onShowFrequentVisitorsPress"></Link>
 										</cells>
 									</ColumnListItem>

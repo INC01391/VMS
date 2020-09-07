@@ -41,7 +41,7 @@
 						<ScrollContainer id="detail1" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>
 								<Label text="Date" class="sapUiTinyMargin"></Label>
-								<DatePicker id="date" valueFormat="MMM dd, yyyy" change="onDate" value="{oHostModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+								<DatePicker id="date" valueFormat="yyyy-MM-dd" change="onDate" value="{oHostModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 							</HBox>
 							<l:Grid>
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
@@ -99,7 +99,7 @@
 											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
 											<Text text="{oHostModel>organization}"/>
-											<Text text="{path: 'oHostModel>visitorStatus',  formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -128,7 +128,7 @@
 								</GenericTile>
 							</l:Grid>
 							<Table id="idCheckInTable" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
-								items="{oHostModel>/CheckInDetails}">
+								items="{oHostModel>/CheckInDetails/data}">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>
@@ -172,7 +172,7 @@
 								</items>
 							</Table>
 							<Table id="idCheckOutTable" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
-								items="{oHostModel>/CheckOutDetails}" visible="false">
+								items="{oHostModel>/CheckOutDetails/data}" visible="false">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>
@@ -220,7 +220,7 @@
 								</items>
 							</Table>
 							<Table id="idYetToVisitTable" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
-								items="{oHostModel>/ExpectedVisitorDetails}" visible="false">
+								items="{oHostModel>/ExpectedVisitorDetails/data}" visible="false">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>

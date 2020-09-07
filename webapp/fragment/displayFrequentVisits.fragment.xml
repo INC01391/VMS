@@ -25,9 +25,9 @@
 			<items>
 				<ColumnListItem>
 					<cells>
-						<Text text="{oAdminModel>visitorName}"/>
-						<Text text="{oAdminModel>email}"/>
-						<Text text="{oAdminModel>contactNo}"/>
+						<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+						<Text text="{oAdminModel>visitorEmail}"/>
+						<Text text="{oAdminModel>visitorPhoneNumber}"/>
 					</cells>
 				</ColumnListItem>
 			</items>
