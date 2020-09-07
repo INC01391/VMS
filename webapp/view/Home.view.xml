@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout">
 	<App id="app">
 		<pages>
-			<Page id="page" title="{i18n>title}">
+			<Page id="page" class="stylePage">
 				<customHeader>
 					<Bar class="styleBar">
 						<contentLeft>

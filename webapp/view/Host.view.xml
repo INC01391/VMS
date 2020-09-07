@@ -3,7 +3,7 @@
 	<App>
 		<tnt:ToolPage id="toolPage">
 			<tnt:header>
-				<tnt:ToolHeader class="sapUiResponsive">
+				<tnt:ToolHeader class="sapUiResponsive styleHeader">
 					<Bar>
 						<contentLeft>
 							<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onMenuPress">
@@ -67,7 +67,11 @@
 										<content>
 											<Title text="Visitors" level="H3"/>
 											<ToolbarSpacer></ToolbarSpacer>
-											<SearchField width="20%" liveChange="onSearch"></SearchField>
+											<Label text="Sort By:"></Label>
+											<ComboBox width="8%">
+												<core:Item text="{}"></core:Item>
+											</ComboBox>
+											<SearchField width="15%" liveChange="onSearch"></SearchField>
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>

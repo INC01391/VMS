@@ -3,7 +3,7 @@
 	xmlns:chart="sap.suite.ui.microchart" xmlns:smartchart="sap.ui.comp.smartchart" xmlns:f="sap.f">
 	<tnt:ToolPage id="toolPage">
 		<tnt:header>
-			<tnt:ToolHeader class="sapUiResponsiveLayout">
+			<tnt:ToolHeader class="sapUiResponsiveLayout styleHeader">
 				<Bar>
 					<contentLeft>
 						<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onMenuPress">
@@ -35,127 +35,126 @@
 			<NavContainer id="pageContainer" initialPage="dashboard">
 				<pages>
 					<ScrollContainer id="dashboard" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-								<l:HorizontalLayout class="date">
-									<Label class="datelabel" text="Date:"/>
-									<DatePicker class="date" dateValue="{/date}"/>
-								</l:HorizontalLayout>
-								<l:VerticalLayout width="100%" >
-									<l:Grid>
-										<l:content>
-											<GenericTile id="idCheckin"  class="styleTile" header="Checked In" press="onCheckedIn">
-												<TileContent>
-													<core:Icon src="sap-icon://trend-down"></core:Icon>
-												</TileContent>
-												<layoutData>
-													<l:GridData span="XL3 L3 M6 S12"/>
-												</layoutData>
-											</GenericTile>
-											<GenericTile id="idCheckout" class="styleTile" header="Checked Out" press="onCheckedOut">
-												<TileContent >
-													<core:Icon src="sap-icon://trend-up"></core:Icon>
-												</TileContent>
-												<layoutData>
-													<l:GridData span="XL3 L3 M6 S12"/>
-												</layoutData>
-											</GenericTile>
-											
-										</l:content>
-									</l:Grid>
-								</l:VerticalLayout>
-								<Table id="idSecurityCheckedIn" inset="true" items="{path: 'oGlobalModel>/Details'}" visible="{oViewModel>/CheckedInVisibility}">
-									<headerToolbar>
-										<OverflowToolbar>
-											<content>
-												<Title text="CheckedIn" level="H3"/>
-												<ToolbarSpacer></ToolbarSpacer>
-												<Label text="Sort By:"></Label>
-												<ComboBox width="8%">
-													<core:Item text="{}"></core:Item>
-												</ComboBox>
-												<Input placeholder="Search" width="15%"></Input>
-											</content>
-										</OverflowToolbar>
-									</headerToolbar>
-									<columns>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>name}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>Contact}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>Time}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>vehicle}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>vehicleNum}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>slotNum}"/>
-										</Column>
-									</columns>
-									<items>
-										<ColumnListItem >
-											<cells>
-												<Text text="{oGlobalModel>Name}"/>
-												<Text text="{oGlobalModel>Contact Number}"/>
-												<Text text="{oGlobalModel>Time}"/>
-												<Text></Text>
-												<Text></Text>
-												<Text></Text>
-											</cells>
-										</ColumnListItem>
-									</items>
-								</Table>
-								<Table id="idSecurityCheckedOut" inset="true" items="{path: 'oGlobalModel>/Details'}" visible="{oViewModel>/CheckedOutVisibility}">
-									<headerToolbar>
-										<OverflowToolbar>
-											<content>
-												<Title text="CheckedOut" level="H3"/>
-												<ToolbarSpacer></ToolbarSpacer>
-												<Label text="Sort By:"></Label>
-												<ComboBox width="8%">
-													<core:Item text="{}"></core:Item>
-												</ComboBox>
-												<Input placeholder="Search" width="15%"></Input>
-											</content>
-										</OverflowToolbar>
-									</headerToolbar>
-									<columns>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>name}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>Contact}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>Time}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>vehicle}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>vehicleNum}"/>
-										</Column>
-										<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
-											<Text text="{i18n>slotNum}"/>
-										</Column>
-									</columns>
-									<items>
-										<ColumnListItem >
-											<cells>
-												<Text text="{oGlobalModel>Name}"/>
-												<Text text="{oGlobalModel>Contact Number}"/>
-												<Text text="{oGlobalModel>Time}"/>
-												<Text></Text>
-												<Text></Text>
-												<Text></Text>
-											</cells>
-										</ColumnListItem>
-									</items>
-								</Table>
+						<l:HorizontalLayout class="date">
+							<Label class="datelabel" text="Date:"/>
+							<DatePicker class="date" dateValue="{/date}"/>
+						</l:HorizontalLayout>
+						<l:VerticalLayout width="100%">
+							<l:Grid>
+								<l:content>
+									<GenericTile id="idCheckin" class="styleTile" header="Checked In" press="onCheckedIn">
+										<TileContent>
+											<core:Icon src="sap-icon://trend-down"></core:Icon>
+										</TileContent>
+										<layoutData>
+											<l:GridData span="XL3 L3 M6 S12"/>
+										</layoutData>
+									</GenericTile>
+									<GenericTile id="idCheckout" class="styleTile" header="Checked Out" press="onCheckedOut">
+										<TileContent >
+											<core:Icon src="sap-icon://trend-up"></core:Icon>
+										</TileContent>
+										<layoutData>
+											<l:GridData span="XL3 L3 M6 S12"/>
+										</layoutData>
+									</GenericTile>
+								</l:content>
+							</l:Grid>
+						</l:VerticalLayout>
+						<Table id="idSecurityCheckedIn" inset="true" items="{path: 'oGlobalModel>/Details'}" visible="{oViewModel>/CheckedInVisibility}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="CheckedIn" level="H3"/>
+										<ToolbarSpacer></ToolbarSpacer>
+										<Label text="Sort By:"></Label>
+										<ComboBox width="8%">
+											<core:Item text="{}"></core:Item>
+										</ComboBox>
+										<Input placeholder="Search" width="15%"></Input>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>name}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Contact}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Time}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicle}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicleNum}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>slotNum}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem >
+									<cells>
+										<Text text="{oGlobalModel>Name}"/>
+										<Text text="{oGlobalModel>Contact Number}"/>
+										<Text text="{oGlobalModel>Time}"/>
+										<Text></Text>
+										<Text></Text>
+										<Text></Text>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table id="idSecurityCheckedOut" inset="true" items="{path: 'oGlobalModel>/Details'}" visible="{oViewModel>/CheckedOutVisibility}">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="CheckedOut" level="H3"/>
+										<ToolbarSpacer></ToolbarSpacer>
+										<Label text="Sort By:"></Label>
+										<ComboBox width="8%">
+											<core:Item text="{}"></core:Item>
+										</ComboBox>
+										<Input placeholder="Search" width="15%"></Input>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>name}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Contact}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Time}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicle}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicleNum}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>slotNum}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem >
+									<cells>
+										<Text text="{oGlobalModel>Name}"/>
+										<Text text="{oGlobalModel>Contact Number}"/>
+										<Text text="{oGlobalModel>Time}"/>
+										<Text></Text>
+										<Text></Text>
+										<Text></Text>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
 					</ScrollContainer>
 				</pages>
 			</NavContainer>
