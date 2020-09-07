@@ -429,6 +429,7 @@
 										<content>
 											<Title text="Visitors" level="H3"/>
 											<ToolbarSpacer></ToolbarSpacer>
+											<Button icon="sap-icon://add" text="Add" press="onAddNewPress" type="Emphasized"></Button>
 											<SearchField width="20%" liveChange="onSearch"></SearchField>
 										</content>
 									</OverflowToolbar>
@@ -469,16 +470,95 @@
 							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="blacklisted" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<HBox>
-								<Label text="Date" class="sapUiTinyMargin"></Label>
-								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
-							</HBox>
+							<Table id="blacklistedtable" items="{oAdminModel>/BlackListed}" alternateRowColors="true">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="BlackListedVisitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>HostName}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Date}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Remarks}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Action}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorName}"/>
+											<Text text="{oAdminModel>hostName}"/>
+											<Text text="{oAdminModel>date}"/>
+											<Text text="{oAdminModel>remarks}"/>
+											<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="evacuation" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<HBox>
-								<Label text="Date" class="sapUiTinyMargin"></Label>
-								<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oAdminModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
-							</HBox>
+							<Toolbar>
+								<ToolbarSpacer/>
+								<Button text="Send Alert" type="Critical" press="onSendAlertPress" class="styleRejectBtn"></Button>
+							</Toolbar>
+							<Table id="idAdminEvacuationtable" items="{oAdminModel>/CheckInDetails/data}" alternateRowColors="true" mode="MultiSelect"
+								class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Visitors" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>MailId}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Mobile}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Purpose}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Organisation}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Status}" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>visitorFirstName} {oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
+											<Text text="{oAdminModel>purpose}"/>
+											<Text text="{oAdminModel>organization}"/>
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
 						</ScrollContainer>
 					</pages>
 				</NavContainer>
