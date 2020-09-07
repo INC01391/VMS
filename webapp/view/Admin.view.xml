@@ -379,7 +379,7 @@
 								<GenericTile id="idPreRegistration" header="Pre-Registration" headerImage="sap-icon://employee-approvals" press="onPreregistrationPress"
 									class="styleTile"></GenericTile>
 							</l:Grid>
-							<Table id="idUpcomingMeetingsTable" items="{oAdminModel>/UpcomingMeetings}" alternateRowColors="true" class="sapUiSizeCompact"
+							<Table id="idUpcomingMeetingsTable" items="{oAdminModel>/UpcomingMeetings/data}" alternateRowColors="true" class="sapUiSizeCompact"
 								visible="true">
 								<headerToolbar>
 									<OverflowToolbar>
@@ -470,7 +470,7 @@
 							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="blacklisted" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<Table id="blacklistedtable" items="{oAdminModel>/BlackListed}" alternateRowColors="true">
+							<Table id="blacklistedtable" items="{oAdminModel>/BlackListed/data}" alternateRowColors="true">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -503,7 +503,7 @@
 											<Text text="{oAdminModel>visitorName}"/>
 											<Text text="{oAdminModel>hostName}"/>
 											<Text text="{oAdminModel>date}"/>
-											<Text text="{oAdminModel>remarks}"/>
+											<Text text="{oAdminModel>reason}"/>
 											<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
 										</cells>
 									</ColumnListItem>

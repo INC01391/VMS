@@ -30,6 +30,8 @@ sap.ui.define([
 			this.fndoajax(sUrl4, "/Details");
 			var sUrl5 = "/VMS/rest/visitorController/getFrequentVisitors";
 			this.fndoajax(sUrl5, "/FrequentVisits");
+			var sUrl6 = "/VMS/rest/blackListController/selectAllBlackList";
+			this.fndoajax(sUrl6, "/BlackListed");
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
 			console.log(oAdminModel);
@@ -159,8 +161,9 @@ sap.ui.define([
 			this.getView().byId("idPreRegistration").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idUpcoming").addStyleClass("HomeStyleTile");
 			var oAdminModel = this.getView().getModel("oAdminModel");
-			var sUrl1 = "";
+			var sUrl1 = "/VMS/rest/meetingController/getAllUpcomingMeeting?eid=5";
 			this.fndoajax(sUrl1, "/UpcomingMeetings");
+			console.log(oAdminModel);
 		},
 		onPreregistrationPress: function () {
 			this.getView().byId("idUpcomingMeetingsTable").setVisible(false);
