@@ -26,7 +26,7 @@ sap.ui.define([
 			this.fndoajax(sUrl2, "/CheckOutDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + newdate;
 			this.fndoajax(sUrl3, "/ExpectedVisitorDetails");
-			var sUrl4 = "/VMS/rest/visitorController/selectAllVisitor?date=" + newdate;
+			var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + newdate;
 			this.fndoajax(sUrl4, "/Details");
 			var sUrl5 = "/VMS/rest/visitorController/getFrequentVisitors";
 			this.fndoajax(sUrl5, "/FrequentVisits");
@@ -149,7 +149,7 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog);
 			that._oDialog.open();
 		},
-		onShowUpcomingVisitorsPress:function (oEvent) {
+		onShowUpcomingVisitorsPress: function (oEvent) {
 			var that = this;
 			var oAdminModel = that.getView().getModel("oAdminModel");
 			var spath = oEvent.getSource().getParent().getBindingContextPath();
@@ -191,7 +191,7 @@ sap.ui.define([
 			this.getView().byId("idUpcoming").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idPreRegistration").addStyleClass("HomeStyleTile");
 			var oAdminModel = this.getView().getModel("oAdminModel");
-			var sUrl1 = "";
+			var sUrl1 = "/VMS/rest/visitorController/getPreregistredVisitors?eid=5";
 			this.fndoajax(sUrl1, "/PreRegistration");
 		},
 		fndoajax: function (sUrl, sProperty) {
