@@ -46,17 +46,17 @@
 							<l:Grid>
 								<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Good" withMargin="false"/>
+										<NumericContent value="{=${oHostModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Error" withMargin="false"/>
+										<NumericContent value="{=${oHostModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 								<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
 									<TileContent>
-										<NumericContent value="12" valueColor="Critical" withMargin="false"/>
+										<NumericContent value="{=${oHostModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
 									</TileContent>
 								</GenericTile>
 							</l:Grid>
@@ -274,7 +274,7 @@
 							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile" header="Pre-Registered"
 								press="onPreregistrationPress" headerImage="sap-icon://employee-approvals"></GenericTile>
 							<Table id="idVisitorsTable1" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
-								items="{oHostModel>/Details}" visible="true">
+								items="{oHostModel>/Details/data}" visible="true">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>
@@ -310,13 +310,11 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorName}"/>
-											<Text text="{oHostModel>email}"/>
-											<Text text="{oHostModel>contactNo}"/>
+											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
+											<Text text="{oHostModel>visitorEmail}"/>
+											<Text text="{oHostModel>visitorPhoneNumber}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>date}"/>
-											<Text text="{oHostModel>organisation}"/>
-											<!--<Button type="Accept" text="Add" class="styleAcceptBtn"/>-->
+											<Text text="{oHostModel>organization}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -327,7 +325,7 @@
 								header="Upcoming Meetings" press="onUpcomingPress" headerImage="sap-icon://customer-history"></GenericTile>
 							<GenericTile id="idPreRegistration" class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile"
 								header="Pre-Registration" press="onPreregistrationPress" headerImage="sap-icon://employee-approvals"></GenericTile>
-							<Table id="idUpcomingMeetingsTable" items="{oHostModel>/UpcomingMeetings}" alternateRowColors="true" class="sapUiSizeCompact"
+							<Table id="idUpcomingMeetingsTable" items="{oHostModel>/UpcomingMeetings/data}" alternateRowColors="true" class="sapUiSizeCompact"
 								visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
@@ -368,17 +366,17 @@
 											<Text text="{oHostModel>beginTime}"/>
 											<Text text="{oHostModel>endTime}"/>
 											<Text text="{oHostModel>roomName}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColorUpcomingMeetings'}"/>
-											<Link text="Show Visitors" press="onShowUpcomingVisitorsPress"></Link>
+											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorUpcomingMeetings'}"/>
+											<Button icon="sap-icon://feeder-arrow" press="onShowUpcomingVisitorsPress"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="preregisteredtable" items="{oHostModel>/PreRegistration}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="preregisteredtable" items="{oHostModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
-											<Title text="Visitors" level="H3"/>
+											<Title text="Pre-Registered Visitors" level="H3"/>
 											<ToolbarSpacer></ToolbarSpacer>
 											<Button text="Add New" icon="sap-icon://add-employee" press="onAddNewPress" type="Emphasized" class="sapUiTinyMargin"></Button>
 											<SearchField width="20%" liveChange="onSearch"></SearchField>
@@ -413,14 +411,14 @@
 											<Text text="{oHostModel>contactNo}"/>
 											<Text text="{oHostModel>purpose}"/>
 											<Text text="{oHostModel>organisation}"/>
-											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColor'}"/>
+											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="detail3" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<Table id="idBlacklistedVisitors" inset="false" alternateRowColors="true" items="{oHostModel>/BlackListed}" class="sapUiSizeCompact">
+							<Table id="idBlacklistedVisitors" inset="false" alternateRowColors="true" items="{oHostModel>/BlackListed/data}" class="sapUiSizeCompact">
 								<headerToolbar class="sapUiLargeMarginTop">
 									<OverflowToolbar>
 										<content>
@@ -459,10 +457,6 @@
 									</ColumnListItem>
 								</items>
 							</Table>
-							<!--<Toolbar>-->
-							<!--	<ToolbarSpacer/>-->
-							<!--	<Button icon="sap-icon://add" text="Add" type="Emphasized" press="onAddBlackListPress"></Button>-->
-							<!--</Toolbar>-->
 						</ScrollContainer>
 					</pages>
 				</NavContainer>

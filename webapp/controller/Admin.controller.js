@@ -149,6 +149,25 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog);
 			that._oDialog.open();
 		},
+		onShowUpcomingVisitorsPress:function (oEvent) {
+			var that = this;
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var spath = oEvent.getSource().getParent().getBindingContextPath();
+			var aVisitorList = oAdminModel.getProperty(spath).visitors;
+			oAdminModel.setProperty("/UpcomingVisitors", aVisitorList);
+			// console.log(aVisitorList);
+			if (!that._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog = sap.ui.xmlfragment("idFrequentVisitsFragAdmin",
+					"com.incture.VMS.fragment.displayFrequentVisits",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
+			Fragment.byId("idFrequentVisitsFragAdmin", "idFrequentVisitors").setVisible(false);
+			Fragment.byId("idFrequentVisitsFragAdmin", "idUpcomingVisitorsAdmin").setVisible(true);
+			Fragment.byId("idFrequentVisitsFragAdmin", "idUpcomingVisitorsHost").setVisible(false);
+			that._oDialog.open();
+		},
 		onCancel: function () {
 			this._oDialog.close();
 			this._oDialog.destroy();

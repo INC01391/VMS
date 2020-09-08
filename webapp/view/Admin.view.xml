@@ -313,7 +313,8 @@
 											<Text text="{oAdminModel>email}"/>
 											<Text text="{oAdminModel>contactNo}"/>
 											<Text text="{oAdminModel>post}"/>
-											<Link text="Show Visitors" press="onShowFrequentVisitorsPress"></Link>
+											<Button icon="sap-icon://feeder-arrow" press="onShowFrequentVisitorsPress"/>
+											<!--<Link text="Show Visitors" press="onShowFrequentVisitorsPress"></Link>-->
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -418,18 +419,18 @@
 											<Text text="{oAdminModel>endTime}"/>
 											<Text text="{oAdminModel>roomName}"/>
 											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColorUpcomingMeetings'}"/>
-											<Link text="Show Visitors" press="onShowUpcomingVisitorsPress"></Link>
+											<Button icon="sap-icon://feeder-arrow" press="onShowUpcomingVisitorsPress"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
 											<Title text="Visitors" level="H3"/>
 											<ToolbarSpacer></ToolbarSpacer>
-											<Button icon="sap-icon://add" text="Add" press="onAddNewPress" type="Emphasized"></Button>
+											<Button icon="sap-icon://add-employee" text="Add New" press="onAddNewPress" type="Emphasized"></Button>
 											<SearchField width="20%" liveChange="onSearch"></SearchField>
 										</content>
 									</OverflowToolbar>
@@ -503,7 +504,7 @@
 											<Text text="{oAdminModel>visitorName}"/>
 											<Text text="{oAdminModel>hostName}"/>
 											<Text text="{oAdminModel>date}"/>
-											<Text text="{oAdminModel>reason}"/>
+											<Text text="{oAdminModel>remarks}"/>
 											<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
 										</cells>
 									</ColumnListItem>

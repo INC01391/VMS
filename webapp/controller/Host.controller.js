@@ -20,13 +20,17 @@ sap.ui.define([
 			oHostModel.setProperty("/date", newdate);
 			var eId = 4;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + newdate;
-			console.log(sUrl1);
 			this.fnGetData(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl2, "/CheckInDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl3, "/CheckOutDetails");
+			// var sUrl4 ="";
+			// this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
+			// var sUrl5 ="";
+			// this.fnGetData(sUrl5, "/BlackListed");
 			console.log(oHostModel);
+
 		},
 		onDate: function () {
 			var oDialog = new sap.m.BusyDialog();
@@ -46,6 +50,8 @@ sap.ui.define([
 			this.fnGetData(sUrl2, "/CheckInDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
 			this.fnGetData(sUrl3, "/CheckOutDetails");
+			// var sUrl4 ="";
+			// this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			console.log(oHostModel);
 		},
 		onImagePress: function () {
@@ -76,9 +82,6 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
-		getRouter: function () {
-			return UIComponent.getRouterFor(this);
-		},
 		onCheckInPress: function () {
 			var that = this;
 			this.getView().byId("idCheckInTable").setVisible(true);
@@ -108,6 +111,56 @@ sap.ui.define([
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckout").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
+		},
+		onUpcomingPress: function () {
+			this.getView().byId("idUpcomingMeetingsTable").setVisible(true);
+			this.getView().byId("preregisteredtable").setVisible(false);
+			this.byId("pageContainer").to(this.getView().createId("idUpcomingMeetings"));
+			this.getView().byId("idPreRegistration").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idUpcoming").addStyleClass("HomeStyleTile");
+			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			var eId = 4;
+			// var eId = oHostModel.getProperty("/userDetails").eId;
+			var date = oHostModel.getProperty("/date");
+			var sUrl = "/VMS/rest/meetingController/getAllUpcomingMeeting?eid=" + eId;
+			this.fnGetData(sUrl, "/UpcomingMeetings");
+			console.log(oHostModel);
+		},
+		onPreregistrationPress: function () {
+			this.getView().byId("idUpcomingMeetingsTable").setVisible(false);
+			this.getView().byId("preregisteredtable").setVisible(true);
+			this.byId("pageContainer").to(this.getView().createId("idUpcomingMeetings"));
+			this.getView().byId("idUpcoming").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idPreRegistration").addStyleClass("HomeStyleTile");
+			// var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			// var eId = oHostModel.getProperty("/userDetails").eId;
+			var eId = 4;
+			var sUrl = "/VMS_Service/employee/getPreregistredVisitors?eId=" + eId;
+			this.fnGetData(sUrl, "/PreRegistration");
+		},
+		onShowUpcomingVisitorsPress: function (oEvent) {
+			var that = this;
+			var oHostModel = that.getView().getModel("oHostModel");
+			var spath = oEvent.getSource().getParent().getBindingContextPath();
+			var aVisitorList = oHostModel.getProperty(spath).visitors;
+			oHostModel.setProperty("/UpcomingVisitors", aVisitorList);
+			// console.log(aVisitorList);
+			if (!that._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog = sap.ui.xmlfragment("idFrequentVisitsFrag",
+					"com.incture.VMS.fragment.displayFrequentVisits",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
+			Fragment.byId("idFrequentVisitsFrag", "idFrequentVisitors").setVisible(false);
+			Fragment.byId("idFrequentVisitsFrag", "idUpcomingVisitorsAdmin").setVisible(false);
+			Fragment.byId("idFrequentVisitsFrag", "idUpcomingVisitorsHost").setVisible(true);
+			that._oDialog.open();
+		},
+		onCancel: function () {
+			this._oDialog.close();
+			this._oDialog.destroy();
+			this._oDialog = null;
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
