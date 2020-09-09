@@ -30,6 +30,7 @@
 					<tnt:NavigationListItem icon="sap-icon://bbyd-dashboard" text="Dashboard" key="dashboard"/>
 					<tnt:NavigationListItem icon="sap-icon://employee-rejections" text="BlackListed Visitors" key="blacklisted"/>
 					<tnt:NavigationListItem icon="sap-icon://cart-5" text="Delivery" key="delivery"/>
+					<tnt:NavigationListItem icon="sap-icon://alert" text="Evacuation" key="evacuation"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
@@ -44,22 +45,26 @@
 						<l:VerticalLayout width="100%">
 							<l:Grid>
 								<l:content>
-									<GenericTile id="idCheckin" class="styleTile" header="Checked In" press="onCheckedIn">
+									<GenericTile id="idCheckin"  headerImage="sap-icon://trend-down"  class="styleTile" header="Checked In" press="onCheckedIn">
 										<TileContent>
-											<core:Icon src="sap-icon://trend-down"></core:Icon>
+											<NumericContent value="{=${oSecurityModel>/CheckedinDetails/data}.length}" valueColor="Critical" withMargin="false"/>
 										</TileContent>
 										<layoutData>
 											<l:GridData span="XL3 L3 M6 S12"/>
 										</layoutData>
 									</GenericTile>
-									<GenericTile id="idCheckout" class="styleTile" header="Checked Out" press="onCheckedOut">
+									<GenericTile id="idCheckout"  headerImage="sap-icon://trend-up"  class="styleTile" header="Checked Out" press="onCheckedOut">
 										<TileContent >
-											<core:Icon src="sap-icon://trend-up"></core:Icon>
+										<NumericContent value="{=${oSecurityModel>/CheckedoutDetails/data}.length}" valueColor="Critical" withMargin="false"/>	
 										</TileContent>
 										<layoutData>
 											<l:GridData span="XL3 L3 M6 S12"/>
 										</layoutData>
 									</GenericTile>
+										<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
+									<TileContent>
+										<NumericContent value="{=${oSecurityModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
+									</TileContent>
 								</l:content>
 							</l:Grid>
 						</l:VerticalLayout>
