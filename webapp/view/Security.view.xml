@@ -28,9 +28,9 @@
 			<tnt:SideNavigation expanded="true" itemSelect=".onItemSelect" class="masterPage">
 				<tnt:NavigationList>
 					<tnt:NavigationListItem icon="sap-icon://bbyd-dashboard" text="Dashboard" key="dashboard"/>
-					<tnt:NavigationListItem icon="sap-icon://employee-rejections" text="BlackListed Visitors" key="blacklisted"/>
+					<tnt:NavigationListItem icon="sap-icon://employee-rejections" text="Blacklisted Visitors" key="blacklisted"/>
 					<tnt:NavigationListItem icon="sap-icon://cart-5" text="Delivery" key="delivery"/>
-					<tnt:NavigationListItem icon="sap-icon://alert" text="Evacuation" key="evacuation"/>
+					<tnt:NavigationListItem icon="sap-icon://alert" text="Evacuation" key="evcuation"/>
 				</tnt:NavigationList>
 			</tnt:SideNavigation>
 		</tnt:sideContent>
@@ -45,26 +45,30 @@
 						<l:VerticalLayout width="100%">
 							<l:Grid>
 								<l:content>
-									<GenericTile id="idCheckin"  headerImage="sap-icon://trend-down"  class="styleTile" header="Checked In" press="onCheckedIn">
+									<GenericTile id="idCheckin" class="styleTile" header="Checked In" press="onCheckedIn">
 										<TileContent>
-											<NumericContent value="{=${oSecurityModel>/CheckedinDetails/data}.length}" valueColor="Critical" withMargin="false"/>
+											<core:Icon src="sap-icon://trend-down"></core:Icon>
 										</TileContent>
 										<layoutData>
 											<l:GridData span="XL3 L3 M6 S12"/>
 										</layoutData>
 									</GenericTile>
-									<GenericTile id="idCheckout"  headerImage="sap-icon://trend-up"  class="styleTile" header="Checked Out" press="onCheckedOut">
+									<GenericTile id="idCheckout" class="styleTile" header="Checked Out" press="onCheckedOut">
 										<TileContent >
-										<NumericContent value="{=${oSecurityModel>/CheckedoutDetails/data}.length}" valueColor="Critical" withMargin="false"/>	
+											<core:Icon src="sap-icon://trend-up"></core:Icon>
 										</TileContent>
 										<layoutData>
 											<l:GridData span="XL3 L3 M6 S12"/>
 										</layoutData>
 									</GenericTile>
-										<GenericTile header="Yet to Visit" headerImage="sap-icon://pull-down" class="styleTile" press="onYetToVisitPress">
-									<TileContent>
-										<NumericContent value="{=${oSecurityModel>/ExpectedVisitorDetails/data}.length}" valueColor="Critical" withMargin="false"/>
-									</TileContent>
+									<GenericTile id="idyettovisit" class="styleTile" header="Yet To Visit" press="onYettovisit">
+										<TileContent >
+											<core:Icon src="sap-icon://trend-up"></core:Icon>
+										</TileContent>
+										<layoutData>
+											<l:GridData span="XL3 L3 M6 S12"/>
+										</layoutData>
+									</GenericTile>
 								</l:content>
 							</l:Grid>
 						</l:VerticalLayout>
@@ -158,7 +162,53 @@
 										<Text></Text>
 										<Text></Text>
 										<Text></Text>
-										<!--<Button></Button>-->
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table id="idSecurityYettovisit" inset="true" items="{path: 'oGlobalModel>/Details'}" visible="{oViewModel>/YetToVisitVisibility}"
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Yet To Visit" level="H3"/>
+										<ToolbarSpacer></ToolbarSpacer>
+										<Label text="Sort By:"></Label>
+										<ComboBox width="8%">
+											<core:Item text="{}"></core:Item>
+										</ComboBox>
+										<Input placeholder="Search" width="15%"></Input>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>name}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Contact}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>Time}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicle}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>vehicleNum}"/>
+								</Column>
+								<Column minScreenWidth="Medium" demandPopin="true" hAlign="Center">
+									<Text text="{i18n>slotNum}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem >
+									<cells>
+										<Text text="{oGlobalModel>Name}"/>
+										<Text text="{oGlobalModel>Contact Number}"/>
+										<Text text="{oGlobalModel>Time}"/>
+										<Text></Text>
+										<Text></Text>
+										<Text></Text>
 									</cells>
 								</ColumnListItem>
 							</items>
