@@ -15,7 +15,8 @@ sap.ui.define([
 				var comboData = {
 				"sSelect": "",
 				"CheckedInVisibility": true,
-				"CheckedOutVisibility": false
+				"CheckedOutVisibility": false,
+				"YetToVisitVisibility":false
 			};
 			var oModel1 = new JSONModel(comboData);
 			this.getView().setModel(oModel1, "oViewModel");
