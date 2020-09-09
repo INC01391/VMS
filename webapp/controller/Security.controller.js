@@ -1,26 +1,25 @@
 sap.ui.define([
-		"sap/ui/core/mvc/Controller",
+	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageToast",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
 	"sap/ui/core/Fragment",
-		"sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment,JSONModel) {
+	"sap/ui/model/json/JSONModel"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, JSONModel) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Security", {
 
-	
 		onInit: function () {
-				var comboData = {
+			var comboData = {
 				"sSelect": "",
 				"CheckedInVisibility": true,
 				"CheckedOutVisibility": false,
-				"YetToVisitVisibility":false
+				"YetToVisitVisibility": false
 			};
 			var oModel1 = new JSONModel(comboData);
 			this.getView().setModel(oModel1, "oViewModel");
-					var oSecurityModel = this.getOwnerComponent().getModel("oSecurityModel");
+			var oSecurityModel = this.getOwnerComponent().getModel("oSecurityModel");
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "MMM dd, yyyy"
 			});
@@ -56,20 +55,39 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
-		onCheckedIn: function () {
-			this.getView().getModel("oViewModel").setProperty("/CheckedInVisibility", true);
-			this.getView().getModel("oViewModel").setProperty("/CheckedOutVisibility", false);
-				this.getView().byId("idCheckout").removeStyleClass("HomeStyleTile");
-			this.getView().byId("idCheckin").addStyleClass("HomeStyleTile");
-		},
-		onCheckedOut: function () {
-			this.getView().getModel("oViewModel").setProperty("/CheckedInVisibility", false);
-			this.getView().getModel("oViewModel").setProperty("/CheckedOutVisibility", true);
-				this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
-			this.getView().byId("idCheckout").addStyleClass("HomeStyleTile");
-		}
+		onCheckInPress: function () {
+			var that = this;
+			this.getView().byId("idCheckInTable").setVisible(true);
+			this.getView().byId("idCheckOutTable").setVisible(false);
+			this.getView().byId("idYetToVisitTable").setVisible(false);
 
-		
+			this.byId("pageContainer").to(this.getView().createId("idFilters"));
+			this.getView().byId("idCheckout").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idYettovisit").removeStyleClass("HomeStyleTile");
+            this.getView().byId("idCheckin").addStyleClass("HomeStyleTile");
+		},
+		onCheckOutPress: function () {
+			var that = this;
+			this.getView().byId("idCheckInTable").setVisible(false);
+			this.getView().byId("idCheckOutTable").setVisible(true);
+			this.getView().byId("idYetToVisitTable").setVisible(false);
+
+			this.byId("pageContainer").to(this.getView().createId("idFilters"));
+			this.getView().byId("idCheckout").addStyleClass("HomeStyleTile");
+			this.getView().byId("idYettovisit").removeStyleClass("HomeStyleTile");
+         	this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
+		},
+		onYetToVisitPress: function () {
+			var that = this;
+			this.getView().byId("idCheckInTable").setVisible(false);
+			this.getView().byId("idCheckOutTable").setVisible(false);
+			this.getView().byId("idYetToVisitTable").setVisible(true);
+
+			this.byId("pageContainer").to(this.getView().createId("idFilters"));
+			this.getView().byId("idCheckout").removeStyleClass("HomeStyleTile");
+			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
+            this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
+		}
 
 	});
 
