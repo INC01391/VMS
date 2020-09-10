@@ -27,8 +27,8 @@ sap.ui.define([
 			this.fnGetData(sUrl3, "/CheckOutDetails");
 			// var sUrl4 ="";
 			// this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
-			// var sUrl5 ="";
-			// this.fnGetData(sUrl5, "/BlackListed");
+			var sUrl5 ="/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			this.fnGetData(sUrl5, "/BlackListed");
 			console.log(oHostModel);
 
 		},
@@ -135,7 +135,7 @@ sap.ui.define([
 			// var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
 			var eId = 4;
-			var sUrl = "/VMS_Service/employee/getPreregistredVisitors?eId=" + eId;
+			var sUrl = "/VMS/rest/visitorController/getPreregistredVisitors?eid=" + eId;
 			this.fnGetData(sUrl, "/PreRegistration");
 		},
 		onShowUpcomingVisitorsPress: function (oEvent) {
