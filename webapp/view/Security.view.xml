@@ -285,17 +285,18 @@
 									<Text text="{i18n>Visitor Name}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Tablet" demandPopin="true">
-									<Text text="{i18n>HostName}" class="styleColumn"/>
+									<Text text="{i18n>Mail Id}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="{i18n>Date}" class="styleColumn"/>
+									<Text text="{i18n>Mobile}" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="{i18n>Unique Id}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Desktop" demandPopin="true">
 									<Text text="{i18n>Remarks}" class="styleColumn"/>
 								</Column>
-								<Column minScreenWidth="phone" demandPopin="true">
-									<Text text="{i18n>Action}" class="styleColumn"/>
-								</Column>
+								
 							</columns>
 							<items>
 								<ColumnListItem>
@@ -331,7 +332,7 @@
 									<Text text="{i18n>Visitor Name}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Tablet" demandPopin="true">
-									<Text text="{i18n>MailId}" class="styleColumn"/>
+									<Text text="{i18n>Mail Id}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Desktop" demandPopin="true">
 									<Text text="{i18n>Mobile}" class="styleColumn"/>
@@ -363,7 +364,7 @@
 					<ScrollContainer id="delivery" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 						<Toolbar>
 							<ToolbarSpacer/>
-							<Button text="Notify" type="Accept" press="onSendAlertPress" class="styleRejectBtn"></Button>
+							<Button text="Notify" type="Emphasized" press="onNotifyPress" class="styleEmphasizedBtn" ></Button>
 						</Toolbar>
 						<Table id="idSecurityDeliverytable" items="{oSecurityModel>/DeliveryDetails/data}" alternateRowColors="true" class="sapUiSizeCompact">
 							<headerToolbar>
@@ -380,7 +381,7 @@
 									<Text text="{i18n>Host Name}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Tablet" demandPopin="true">
-									<Text text="{i18n>MailId}" class="styleColumn"/>
+									<Text text="{i18n>Mail Id}" class="styleColumn"/>
 								</Column>
 								<Column minScreenWidth="Desktop" demandPopin="true">
 									<Text text="{i18n>Mobile}" class="styleColumn"/>
@@ -403,7 +404,7 @@
 										<Text text="{oSecurityModel>HostPhoneNumber}"/>
 										<Text text="{oSecurityModel>Delivery Type}"/>
 										<Text text="{oSecurityModel>Delivery Time}"/>
-										<Text text="{oSecurityModel>Delivery Company}"/>
+										<Text text="{oSecurityModel>Status}"/>
 										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
 									</cells>
 								</ColumnListItem>
