@@ -194,6 +194,121 @@ sap.ui.define([
 			var sUrl1 = "/VMS/rest/visitorController/getPreregistredVisitors?eid=5";
 			this.fndoajax(sUrl1, "/PreRegistration");
 		},
+		onAddToBlacklist: function (oEvent) {
+			var that = this;
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var oSource = oEvent.getSource();
+			oAdminModel.setProperty("/BlackListedSource", oSource);
+			var spath = oSource.getParent().getBindingContextPath();
+			oAdminModel.setProperty("/BlackListedPath", spath);
+			if (!that._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog = sap.ui.xmlfragment("idaddBlackListVisitorFrag", "com.incture.VMS.fragment.addBlackListVisitor", this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog);
+			that._oDialog.open();
+		},
+		onConfirmBlackList: function () {
+			var that = this;
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var date = oAdminModel.getProperty("/date");
+			var sUrl1 = "/VMS/rest/blackListController/selectAllBlackList";
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + date;
+			var sUrl3 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			var spath = oAdminModel.getProperty("/BlackListedPath");
+			console.log(spath);
+			var obj = oAdminModel.getProperty(spath);
+			console.log(obj);
+			var sRemarks = Fragment.byId("idaddBlackListVisitorFrag", "idTarea").getValue();
+			// var payload={
+			// 	"eId": obj.eId
+			// };
+			$.ajax({
+				url: "/VMS_Service/employee/addBlacklistedVisitor",
+				type: "POST",
+				data: {
+					"eId": obj.eId,
+					"vId": obj.vId,
+					"remarks": sRemarks,
+					"vhId": obj.vhId
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully BlackListed");
+
+					console.log(response);
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					var oDialogb = new sap.m.BusyDialog();
+					oDialogb.open();
+					setTimeout(function () {
+						oDialogb.close();
+					}, 3000);
+					that.fndoajax(sUrl2, "/CheckOutDetails");
+					that.fndoajax(sUrl1, "/BlackListed");
+					that.fndoajax(sUrl3, "/Details");
+					// oSource.setEnabled(false);
+					if (data.status === 300) {
+						MessageBox.warning("Already Blacklisted");
+					}
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+		},
+		onPressUnblock: function (oEvent) {
+			var sUrl = "/VMS/rest/blackListController/selectAllBlackList";
+			var that = this;
+			// var token = "72063d69217c16b7-w5C-zqZHSREgWqD9tZ_V5ktcDTc";
+			// var oTokenModel = that.getView().getModel("oTokenModel");
+			// var oToken = oTokenModel.getData();
+			// var token = oToken.csrftoken;
+			// console.log(oTokenModel);
+			// var oToken = that.getView().getModel("oToken").getProperty("csrftoken");
+			// console.log(oToken);
+			// console.log(token);
+			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
+			var date = oAdminModel.getProperty("/date");
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + date;
+			var sUrl3 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			var oTableModel = this.getView().byId("idCheckOutTable").getModel("oAdminModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getBindingContextPath();
+			var obj = oAdminModel.getProperty(spath);
+			var bId = obj.bId;
+			$.ajax({
+				url: "/VMS_Service/admin/removeBlackListedVisitor",
+				type: "POST",
+				data: {
+					"bId": bId
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				dataType: 'json',
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Unblocked");
+					that.fndoajax(sUrl, "/BlackListed");
+					that.fndoajax(sUrl2, "/CheckOutDetails");
+					that.fndoajax(sUrl3, "/Details");
+					oTableModel.refresh();
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+
+		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
