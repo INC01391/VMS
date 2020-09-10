@@ -267,14 +267,6 @@ sap.ui.define([
 		onPressUnblock: function (oEvent) {
 			var sUrl = "/VMS/rest/blackListController/selectAllBlackList";
 			var that = this;
-			// var token = "72063d69217c16b7-w5C-zqZHSREgWqD9tZ_V5ktcDTc";
-			// var oTokenModel = that.getView().getModel("oTokenModel");
-			// var oToken = oTokenModel.getData();
-			// var token = oToken.csrftoken;
-			// console.log(oTokenModel);
-			// var oToken = that.getView().getModel("oToken").getProperty("csrftoken");
-			// console.log(oToken);
-			// console.log(token);
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
 			var date = oAdminModel.getProperty("/date");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=5&Date=" + date;
@@ -285,18 +277,14 @@ sap.ui.define([
 			var obj = oAdminModel.getProperty(spath);
 			var bId = obj.bId;
 			$.ajax({
-				url: "/VMS_Service/admin/removeBlackListedVisitor",
+				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
 				type: "POST",
-				data: {
-					"bId": bId
-				},
-				// headers: {
-				// 	"X-CSRF-Token": token
-				// },
-
+				data: null,
 				dataType: 'json',
 				success: function (data, status, response) {
+					console.log(data);
 					sap.m.MessageToast.show("Successfully Unblocked");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 					that.fndoajax(sUrl, "/BlackListed");
 					that.fndoajax(sUrl2, "/CheckOutDetails");
 					that.fndoajax(sUrl3, "/Details");
@@ -304,6 +292,7 @@ sap.ui.define([
 				},
 				error: function (e) {
 					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 
 				}
 			});
