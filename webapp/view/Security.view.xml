@@ -43,12 +43,12 @@
 							<DatePicker id="date" valueFormat="yyyy-MM-dd" change="onDate" value="{oSecurityModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 						</HBox>
 						<l:Grid class="sapUiTinyMarginTop">
-							<GenericTile header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
+							<GenericTile header="Checked In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 								<TileContent>
 									<NumericContent value="{=${oSecurityModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
 								</TileContent>
 							</GenericTile>
-							<GenericTile header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
+							<GenericTile header="Checked Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 								<TileContent>
 									<NumericContent value="{=${oSecurityModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
 								</TileContent>
@@ -111,15 +111,15 @@
 					<ScrollContainer id="idFilters" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 						<HBox>
 							<Label text="Date" class="sapUiTinyMargin"></Label>
-							<DatePicker valueFormat="MMM dd, yyyy" change="onDate" value="{oSecurityModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							<DatePicker  valueFormat="yyyy-MM-dd" change="onDate" value="{oSecurityModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 						</HBox>
 						<l:Grid class="sapUiTinyMarginTop">
-							<GenericTile id="idCheckin" header="Check In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
+							<GenericTile id="idCheckin" header="Checked In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
 								<TileContent>
 									<NumericContent value="{=${oSecurityModel>/CheckInDetails/data}.length}" valueColor="Good" withMargin="false"/>
 								</TileContent>
 							</GenericTile>
-							<GenericTile id="idCheckout" header="Check Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
+							<GenericTile id="idCheckout" header="Checked Out" headerImage="sap-icon://trend-up" class="styleTile" press="onCheckOutPress">
 								<TileContent>
 									<NumericContent value="{=${oSecurityModel>/CheckOutDetails/data}.length}" valueColor="Error" withMargin="false"/>
 								</TileContent>
@@ -281,23 +281,22 @@
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
-								<Column width="12em" minScreenWidth="phone" demandPopin="true">
-									<Text text="{i18n>Visitor Name}" class="styleColumn"/>
-								</Column>
-								<Column minScreenWidth="Tablet" demandPopin="true">
-									<Text text="{i18n>Mail Id}" class="styleColumn"/>
-								</Column>
-								<Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="{i18n>Mobile}" class="styleColumn"/>
-								</Column>
-								<Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="{i18n>Unique Id}" class="styleColumn"/>
-								</Column>
-								<Column minScreenWidth="Desktop" demandPopin="true">
-									<Text text="{i18n>Remarks}" class="styleColumn"/>
-								</Column>
-								
-							</columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="{i18n>HostName}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Date}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="{i18n>Remarks}" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="{i18n>Action}" class="styleColumn"/>
+									</Column>
+								</columns>
 							<items>
 								<ColumnListItem>
 									<cells>
