@@ -276,11 +276,12 @@ sap.ui.define([
 			var spath = oSource.getParent().getBindingContextPath();
 			var obj = oAdminModel.getProperty(spath);
 			var bId = obj.bId;
+			console.log(bId);
 			$.ajax({
-				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
+				url: "/VMS/rest/blackListController/removeFromBlackList?id="+bId,
 				type: "POST",
 				data: null,
-				dataType: 'json',
+				// dataType: 'json',
 				success: function (data, status, response) {
 					console.log(data);
 					sap.m.MessageToast.show("Successfully Unblocked");

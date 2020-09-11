@@ -27,7 +27,7 @@ sap.ui.define([
 			this.fnGetData(sUrl3, "/CheckOutDetails");
 			// var sUrl4 ="";
 			// this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
-			var sUrl5 ="/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
 			this.fnGetData(sUrl5, "/BlackListed");
 			console.log(oHostModel);
 
@@ -161,6 +161,46 @@ sap.ui.define([
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;
+		},
+		onPressUnblock: function (oEvent) {
+			var that = this;
+			var oHostModel = that.getOwnerComponent().getModel("oHostModel");
+			// var eId = oHostModel.getProperty("/userDetails").eId;
+			var eId =4;
+			var date = oHostModel.getProperty("/date");
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
+			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			var bId = obj.bId;
+			$.ajax({
+				url: "/VMS_Service/admin/removeBlackListedVisitor",
+				type: "POST",
+				data: {
+					"bId": bId
+				},
+
+				dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Unblocked");
+					var oDialog = new sap.m.BusyDialog();
+					oDialog.open();
+					setTimeout(function () {
+						oDialog.close();
+					}, 3000);
+					that.fnGetData(sUrl3, "/BlackListed");
+					that.fnGetData(sUrl2, "/CheckOutDetails");
+					that.fnGetData(sUrl1, "/Details");
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
