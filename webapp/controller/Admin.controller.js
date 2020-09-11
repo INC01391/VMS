@@ -224,7 +224,7 @@ sap.ui.define([
 			// 	"eId": obj.eId
 			// };
 			$.ajax({
-				url: "/VMS_Service/employee/addBlacklistedVisitor",
+				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
 					"eId": obj.eId,
