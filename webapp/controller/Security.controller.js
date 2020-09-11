@@ -154,7 +154,7 @@ sap.ui.define([
 		// 	// var payload={
 		// 	// 	"eId": obj.eId
 		// 	// };
-		// 	$.ajax({
+		 	// $.ajax({
 		// 		url: "/VMS/rest/blackListController/addBlackList",
 		// 		type: "POST",
 		// 		data: {
