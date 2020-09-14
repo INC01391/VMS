@@ -7,7 +7,7 @@
 				<f:content>
 					<Title text="PERSONAL DETAILS"/>
 					<Label text=" Name"/><Input id="VisitorName"/>
-					<Label text="Organization"/><Input id="Organization" type="Text"/>
+					<Label text="Organization"/><Input id="VisitorOrganization" type="Text"/>
 					<Label text=" Email Id"/><Input id="VisitorMailId" type="Text"/>
 					<Label text="Mobile"/><Input id="VisitorMobile" type="Number"/>
 					<Label text="Unique Id "/><Input id="VisitorUniqueId" type="Text"/>
