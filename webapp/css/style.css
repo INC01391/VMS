@@ -62,6 +62,14 @@
      background-color: #0087d5!important;
  }
  
+ .sapMDialog>header.sapMDialogTitle .sapMTitle {
+     color: white;
+ }
+ 
+ .sapMDialog.sapMPopup-CTX>header .sapMHeader-CTX {
+     background-color: #00909d;
+ }
+ 
  .textRed {
      color: red!important;
  }
