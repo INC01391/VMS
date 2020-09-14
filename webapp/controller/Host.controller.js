@@ -189,7 +189,7 @@ sap.ui.define([
 			// var oSource = oHostModel.getProperty("/BlackListedSource");
 			var spath = oHostModel.getProperty("/BlackListedPath");
 			var obj = oHostModel.getProperty(spath);
-			console.log(obj);
+			// console.log(obj);
 			var sRemarks = Fragment.byId("idaddBlackListVisitorFrag", "idTarea").getValue();
 			var payload = {
 				"meetingId": obj.mid,
