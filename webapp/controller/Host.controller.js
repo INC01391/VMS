@@ -25,8 +25,8 @@ sap.ui.define([
 			this.fnGetData(sUrl2, "/CheckInDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl3, "/CheckOutDetails");
-			// var sUrl4 ="";
-			// this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
+			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitorsforhost?eid=" + eId + "&Date=" + newdate;
+			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
 			this.fnGetData(sUrl5, "/BlackListed");
 			console.log(oHostModel);
@@ -162,11 +162,86 @@ sap.ui.define([
 			this._oDialog.destroy();
 			this._oDialog = null;
 		},
+		onAddToBlackListPress: function (oEvent) {
+			var that = this;
+			var oHostModel = that.getView().getModel("oHostModel");
+			var oSource = oEvent.getSource();
+			oHostModel.setProperty("/BlackListedSource", oSource);
+			var spath = oEvent.getSource().getParent().getBindingContextPath();
+			oHostModel.setProperty("/BlackListedPath", spath);
+			if (!that._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog = sap.ui.xmlfragment("idaddBlackListVisitorFrag", "com.incture.VMS.fragment.addBlackListVisitor",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
+			that._oDialog.open();
+		},
+		onConfirmBlackList: function () {
+			var that = this;
+			var oHostModel = that.getView().getModel("oHostModel");
+			var date = oHostModel.getProperty("/date");
+			// var eId = oHostModel.getProperty("/userDetails").eId;
+			var eId = 4;
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
+			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			// var oSource = oHostModel.getProperty("/BlackListedSource");
+			var spath = oHostModel.getProperty("/BlackListedPath");
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			var sRemarks = Fragment.byId("idaddBlackListVisitorFrag", "idTarea").getValue();
+			var payload = {
+				"meetingId": obj.mid,
+				"visitorId": obj.visitorId,
+				"employeeId": eId,
+				"reason": sRemarks
+			};
+			console.log(payload);
+			$.ajax({
+				url: "/VMS/rest/blackListController/addBlackList",
+				type: "POST",
+				data: {
+					"meetingId": 8,
+					"visitorId":3,
+					"employeeId": 2,
+					"reason": "rude"
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully BlackListed");
+					console.log(response);
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					that.fnGetData(sUrl3, "/BlackListed");
+					that.fnGetData(sUrl2, "/CheckOutDetails");
+					that.fnGetData(sUrl1, "/Details");
+					var oDialog = new sap.m.BusyDialog();
+					oDialog.open();
+					setTimeout(function () {
+						oDialog.close();
+					}, 3000);
+					// oSource.setEnabled(false);
+					// if (data.status === 300) {
+					// 	MessageBox.warning("Already Blaacklisted");
+					// }
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+		},
 		onPressUnblock: function (oEvent) {
 			var that = this;
 			var oHostModel = that.getOwnerComponent().getModel("oHostModel");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
-			var eId =4;
+			var eId = 4;
 			var date = oHostModel.getProperty("/date");
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
@@ -177,12 +252,9 @@ sap.ui.define([
 			console.log(obj);
 			var bId = obj.bId;
 			$.ajax({
-				url: "/VMS_Service/admin/removeBlackListedVisitor",
+				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
 				type: "POST",
-				data: {
-					"bId": bId
-				},
-
+				data: null,
 				dataType: "json",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully Unblocked");
