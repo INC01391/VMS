@@ -183,6 +183,7 @@ sap.ui.define([
 			var date = oHostModel.getProperty("/date");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
 			var eId = 4;
+			var eid = 2;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
 			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
@@ -194,7 +195,7 @@ sap.ui.define([
 			var payload = {
 				"meetingId": obj.mid,
 				"visitorId": obj.visitorId,
-				"employeeId": eId,
+				"employeeId": eid,
 				"reason": sRemarks
 			};
 			console.log(payload);
@@ -202,11 +203,17 @@ sap.ui.define([
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
-					"meetingId": 8,
-					"visitorId":3,
-					"employeeId": 2,
-					"reason": "rude"
+					"meetingId": obj.mid,
+					"visitorId": obj.visitorId,
+					"employeeId": eid,
+					"reason": sRemarks
 				},
+				// data: {
+				// 	"meetingId": 8,
+				// 	"visitorId":3,
+				// 	"employeeId": 2,
+				// 	"reason": "rude"
+				// },
 				// headers: {
 				// 	"X-CSRF-Token": token
 				// },
@@ -273,6 +280,17 @@ sap.ui.define([
 				}
 			});
 
+		},
+		onAddNewPress: function () {
+			var that = this;
+			if (!that._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog = sap.ui.xmlfragment("idPreRegistrationFrag",
+					"com.incture.VMS.fragment.addPreregistration",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
+			that._oDialog.open();
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
