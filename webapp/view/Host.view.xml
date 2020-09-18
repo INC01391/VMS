@@ -257,12 +257,12 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oHostModel>visitorFirstName} {oHostModel>visitorLastName}"/>
-											<Text text="{oHostModel>visitorEmail}"/>
-											<Text text="{oHostModel>visitorPhoneNumber}"/>
+											<Text text="{oHostModel>visitorName}"/>
+											<Text text="{oHostModel>email}"/>
+											<Text text="{oHostModel>contactNo}"/>
 											<Text text="{oHostModel>purpose}"/>
-											<Text text="{oHostModel>organization}"/>
-											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+											<Text text="{oHostModel>organisation}"/>
+											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
