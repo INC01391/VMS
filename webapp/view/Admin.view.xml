@@ -418,7 +418,7 @@
 											<Text text="{oAdminModel>beginTime}"/>
 											<Text text="{oAdminModel>endTime}"/>
 											<Text text="{oAdminModel>roomName}"/>
-											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColorUpcomingMeetings'}"/>
+											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorUpcomingMeetings'}"/>
 											<Button icon="sap-icon://feeder-arrow" press="onShowUpcomingVisitorsPress"/>
 										</cells>
 									</ColumnListItem>

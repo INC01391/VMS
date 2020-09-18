@@ -45,7 +45,7 @@ com.incture.VMS.utility.formatter = {
 	},
 	changeColorUpcomingMeetings: function (sValue) {
 			this.removeStyleClass("textGreen textRed textlightBlue");
-			if (sValue === "Upcoming") {
+			if (sValue === "accepted") {
 				this.addStyleClass("textGreen");
 			} else if (sValue === "Rejected") {
 				this.addStyleClass("textRed");
