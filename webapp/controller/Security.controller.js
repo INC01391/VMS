@@ -235,6 +235,15 @@ sap.ui.define([
 			});
 
 		},
+		onSendAlertPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idsendAlertFragAdmin", "com.incture.VMS.fragment.sendAlert", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oSecurityModel = that.getOwnerComponent().getModel("oSecurityModel");

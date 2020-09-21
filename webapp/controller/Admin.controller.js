@@ -278,7 +278,7 @@ sap.ui.define([
 			var bId = obj.bId;
 			console.log(bId);
 			$.ajax({
-				url: "/VMS/rest/blackListController/removeFromBlackList?id="+bId,
+				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
 				type: "POST",
 				data: null,
 				// dataType: 'json',
@@ -299,7 +299,7 @@ sap.ui.define([
 			});
 
 		},
-			onAddNewPress: function () {
+		onAddNewPress: function () {
 			var that = this;
 			if (!that._oDialog) {
 				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
@@ -310,19 +310,28 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
 		},
-	// 	onAddVisitors: function() 
-	// 	{
-	// 		var that = this;
-	// 		if (!that._oDialog) {
-	// 			//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
-	// 			that._oDialog = sap.ui.xmlfragment("idAddVisitorsFrag",
-	// 				"com.incture.VMS.fragment.Addvisitors",
-	// 				this); // Instantiating the Fragment
-	// }
-	// 					that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
-	// 		that._oDialog.open();
-	// 	},
-		
+		// 	onAddVisitors: function() 
+		// 	{
+		// 		var that = this;
+		// 		if (!that._oDialog) {
+		// 			//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+		// 			that._oDialog = sap.ui.xmlfragment("idAddVisitorsFrag",
+		// 				"com.incture.VMS.fragment.Addvisitors",
+		// 				this); // Instantiating the Fragment
+		// }
+		// 					that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
+		// 		that._oDialog.open();
+		// 	},
+		onSendAlertPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idsendAlertFragAdmin", "com.incture.VMS.fragment.sendAlert", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");
