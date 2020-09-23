@@ -44,8 +44,8 @@
 						<Label text=" Type Of Vehicle"/>
 						<Select id="Vehicletype" selectedKey="{Vehicletype}">
 							<items>
-								<core:Item text="2-Wheeler" key="2wheeler"/>
-								<core:Item text="4-Wheeler" key="4wheeler"/>
+								<core:Item text="2-Wheeler" key="2-wheeler"/>
+								<core:Item text="4-Wheeler" key="4-wheeler"/>
 							</items>
 						</Select>
 						<Label text="Vehicle Number"/><Input id="VehicleNumber" type="Text"/>
