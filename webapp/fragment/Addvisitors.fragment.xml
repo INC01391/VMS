@@ -32,4 +32,9 @@
 				</f:content>
 			</f:SimpleForm>
 		</content>
+		<Toolbar>
+			<ToolbarSpacer></ToolbarSpacer>
+			<Button text="Cancel" press="onCanceladd" type="Negative"/>
+		</Toolbar>
 	</Dialog>
+</core:FragmentDefinition>

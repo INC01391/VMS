@@ -310,18 +310,22 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
 		},
-		// 	onAddVisitors: function() 
-		// 	{
-		// 		var that = this;
-		// 		if (!that._oDialog) {
-		// 			//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
-		// 			that._oDialog = sap.ui.xmlfragment("idAddVisitorsFrag",
-		// 				"com.incture.VMS.fragment.Addvisitors",
-		// 				this); // Instantiating the Fragment
-		// }
-		// 					that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
-		// 		that._oDialog.open();
-		// 	},
+		onAddVisitors: function () {
+			var that = this;
+			if (!that._oDialog1) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog1 = sap.ui.xmlfragment("idAddVisitorsFrag",
+					"com.incture.VMS.fragment.Addvisitors",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog1); // Adding the fragment to your current view
+			that._oDialog1.open();
+		},
+		onCanceladd: function () {
+			this._oDialog1.close();
+			this._oDialog1.destroy();
+			this._oDialog1 = null;
+		},
 		onSendAlertPress: function () {
 			this.bFlag = true;
 			if (!this._oDialog) {

@@ -269,10 +269,10 @@
 							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="detail2" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile" header="Upcoming Meetings"
-								press="onUpcomingPress" headerImage="sap-icon://customer-history"></GenericTile>
-							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile" header="Pre-Registered"
-								press="onPreregistrationPress" headerImage="sap-icon://employee-approvals"></GenericTile>
+							<l:Grid class="sapUiTinyMarginTop">
+								<GenericTile class="styleTile" header="Upcoming Meetings" press="onUpcomingPress" headerImage="sap-icon://customer-history"></GenericTile>
+								<GenericTile class="styleTile" header="Pre-Registered" press="onPreregistrationPress" headerImage="sap-icon://employee-approvals"></GenericTile>
+							</l:Grid>
 							<Table id="idVisitorsTable1" inset="false" alternateRowColors="true" class="sapUiTinyMarginTop sapUiSizeCompact"
 								items="{oHostModel>/Details/data}" visible="true">
 								<headerToolbar class="sapUiLargeMarginTop">
@@ -321,10 +321,11 @@
 							</Table>
 						</ScrollContainer>
 						<ScrollContainer id="idUpcomingMeetings" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
-							<GenericTile id="idUpcoming" class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile"
-								header="Upcoming Meetings" press="onUpcomingPress" headerImage="sap-icon://customer-history"></GenericTile>
-							<GenericTile id="idPreRegistration" class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom tileLayout styleTile"
-								header="Pre-Registration" press="onPreregistrationPress" headerImage="sap-icon://employee-approvals"></GenericTile>
+							<l:Grid class="sapUiTinyMarginTop">
+								<GenericTile id="idUpcoming" class="styleTile" header="Upcoming Meetings" press="onUpcomingPress" headerImage="sap-icon://customer-history"></GenericTile>
+								<GenericTile id="idPreRegistration" class="styleTile" header="Pre-Registration" press="onPreregistrationPress"
+									headerImage="sap-icon://employee-approvals"></GenericTile>
+							</l:Grid>
 							<Table id="idUpcomingMeetingsTable" items="{oHostModel>/UpcomingMeetings/data}" alternateRowColors="true" class="sapUiSizeCompact"
 								visible="false">
 								<headerToolbar>
