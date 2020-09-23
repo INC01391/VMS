@@ -9,29 +9,28 @@
 					<Label text=" Name 1"/><Input id="Name1"/>
 					<Label text=" Email Id"/><Input id="MailId1" type="Text"/>
 					<Label text="Mobile"/><Input id="Mobile1" type="Number"/>
-					<Label text="Unique Id "/><Input id="UniqueId1" type="Text"/>
+					<Label text=" Id Type "/>
+						<Select id="VisitorIDType" selectedKey="{VisitorID}">
+							<items>
+								<core:Item text="Adhaar Id" key="Adhaar"/>
+								<core:Item text="PAN ID" key="PAN"/>
+								<core:Item text="Driving License" key="DrivingLicense"/>
+							</items>
+						</Select>
+						<Label text="ID No"/><Input id="VisitorID" type="Text"/>
+							<Label text=" Type Of Vehicle"/>
+						<Select id="Vehicletype" selectedKey="{Vehicletype}">
+							<items>
+								<core:Item text="2-Wheeler" key="2wheeler"/>
+								<core:Item text="4-Wheeler" key="4wheeler"/>
+							</items>
+						</Select>
+						<Label text="Vehicle Number"/><Input id="VehicleNumber" type="Text"/>
+						<Label text="Parking Slot"/><Input id="Parkingslot" type="Text"/>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
-				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
-				<f:content>
-					<Label text=" Name 2"/><Input id="Visitor2"/>
-					<Label text=" Email Id"/><Input id="MailId2" type="Text"/>
-					<Label text="Mobile"/><Input id="Mobile2" type="Number"/>
-					<Label text="Unique Id "/><Input id="UniqueId2" type="Text"/>
-				</f:content>
-			</f:SimpleForm>
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
-				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
-				<f:content>
-					<Label text=" Name 2"/><Input id="Name3"/>
-					<Label text=" Email Id"/><Input id="MailId3" type="Text"/>
-					<Label text="Mobile"/><Input id="Mobile3" type="Number"/>
-					<Label text="Unique Id "/><Input id="UniqueId3" type="Text"/>
-					<Button icon="sap-icon://add" text="Add Visitors" press="onAddVisitors" type="Emphasized"></Button>
-				</f:content>
-			</f:SimpleForm>
-		</content>
+			</content>
+		
 		<Toolbar>
 			<ToolbarSpacer></ToolbarSpacer>
 			<Button text="Cancel" press="onCanceladd" type="Negative"/>
