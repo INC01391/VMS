@@ -34,6 +34,7 @@
 						<Label text="Meeting End Time"/>
 						<TimePicker id="Endtime" valueFormat="HH-mm-ss"></TimePicker>
 						<Label text="Meeting Room Capacity"/><Input id="Room" type="Number"/>
+						<Button icon="sap-icon://show" text="Check Availability" press="onCheckavailability" type="Emphasized"></Button>
 					</f:content>
 				</f:SimpleForm>
 				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
