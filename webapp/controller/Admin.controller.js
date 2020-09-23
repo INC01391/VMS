@@ -122,6 +122,7 @@ sap.ui.define([
 			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
 			this.getView().byId("idFrequentVisits").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
+			// console.log();
 		},
 		onFrequentVisitsPress: function () {
 			this.getView().byId("idCheckInTable").setVisible(false);
