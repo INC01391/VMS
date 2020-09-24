@@ -32,6 +32,8 @@ sap.ui.define([
 			this.fndoajax(sUrl5, "/FrequentVisits");
 			var sUrl6 = "/VMS/rest/blackListController/selectAllBlackList";
 			this.fndoajax(sUrl6, "/BlackListed");
+			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
+			this.fndoajax(sUrl7, "/EmployeesList");
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
 			console.log(oAdminModel);
@@ -335,6 +337,87 @@ sap.ui.define([
 			}
 			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
 			this._oDialog.open();
+		},
+		onSendEvacuation: function () {
+			var that = this;
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var aSelectedPaths = that.getView().byId("idAdminEvacuationtable").getSelectedContextPaths();
+			var aSelectedPathsHosts = that.getView().byId("idEmoloyeestable").getSelectedContextPaths();
+			var sType = Fragment.byId("idsendAlertFragAdmin", "idRadio").getSelectedButton().getText();
+			var sMessage = Fragment.byId("idsendAlertFragAdmin", "idtarea").getValue();
+			if (sType === "All Hosts and Visitors") {
+				sType = 0;
+			} else {
+				sType = 1;
+			}
+
+			var aEmailList = [];
+			var aEmailListHost = [];
+			var item;
+			var item2;
+			var item3;
+			for (var i = 0; i < aSelectedPaths.length; i++) {
+				item = aSelectedPaths[i];
+				var obj = oAdminModel.getProperty(item);
+				aEmailList.push(obj.visitorEmail);
+				console.log(obj.visitorEmail);
+
+			}
+			for (var j = 0; j < aSelectedPathsHosts.length; j++) {
+				item2 = aSelectedPathsHosts[j];
+				var obj2 = oAdminModel.getProperty(item2);
+				aEmailListHost.push(obj2.employeeEmail);
+				console.log(obj2.employeeEmail);
+
+			}
+			console.log(aEmailListHost);
+			for (var k = 0; k < aEmailListHost.length; k++) {
+				item3 = aEmailListHost[k];
+				aEmailList.push(item3);
+			}
+			// aEmailList.push(aEmailListHost);
+			console.log(aEmailList);
+			var payload = {
+				"emailList": aEmailList,
+				"message": sMessage,
+				"alertType": sType
+			};
+			console.log(JSON.stringify(payload));
+			// var oTokenModel = that.getView().getModel("oTokenModel");
+			// var oToken = oTokenModel.getData();
+			// var token = oToken.csrftoken;
+			$.ajax({
+				url: "/VMS/rest/visitorController/emergencyMessage",
+				type: "POST",
+				data: {
+					"data": JSON.stringify(payload)
+				},
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				// dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Sent Alert");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					console.log(response);
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					// that.fnGetData();
+
+				},
+				error: function (response) {
+					console.log(response);
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+			that._oDialog.close();
+			that._oDialog.destroy();
+			that._oDialog = null;
 		},
 
 		fndoajax: function (sUrl, sProperty) {

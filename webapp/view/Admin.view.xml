@@ -424,7 +424,8 @@
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact"
+								visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -556,6 +557,41 @@
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organization}"/>
 											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="idEmoloyeestable" items="{oAdminModel>/EmployeesList/data}" alternateRowColors="true" mode="MultiSelect" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Employees" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="Host Name" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="Email" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="Mobile" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="Role" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>employeeFirstName} {oAdminModel>employeeLastName}"/>
+											<Text text="{oAdminModel>employeeEmail}"/>
+											<Text text="{oAdminModel>employeePhoneNumber}"/>
+											<Text text="{oAdminModel>department}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
