@@ -4,12 +4,13 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
 	"sap/ui/core/Fragment",
-	"sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"../utility/formatter"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, JSONModel, formatter) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Security", {
-
+		formatter: formatter,
 		onInit: function () {
 			var comboData = {
 				"sSelect": "",
@@ -20,6 +21,13 @@ sap.ui.define([
 			var oModel1 = new JSONModel(comboData);
 			this.getView().setModel(oModel1, "oViewModel");
 			var oSecurityModel = this.getOwnerComponent().getModel("oSecurityModel");
+			var oDeliveryData = {
+				"date": "",
+				"deliveryType": "",
+				"mobileNo": ""
+
+			};
+			oSecurityModel.setProperty("/oDeliveryData", oDeliveryData);
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
@@ -39,6 +47,8 @@ sap.ui.define([
 
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackList";
 			this.fndoajax(sUrl5, "/BlackListed");
+			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
+			this.fndoajax(sUrl7, "/EmployeesList");
 			console.log(oSecurityModel);
 
 		},
@@ -84,7 +94,7 @@ sap.ui.define([
 
 			oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
 		},
-		
+
 		_setToggleButtonTooltip: function (bLarge) {
 			var oToggleButton = this.byId("sideNavigationToggleButton");
 			if (bLarge) {
@@ -126,7 +136,7 @@ sap.ui.define([
 			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
 		},
-			onAddToBlacklist: function (oEvent) {
+		onAddToBlacklist: function (oEvent) {
 			var that = this;
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var oSource = oEvent.getSource();
@@ -139,13 +149,13 @@ sap.ui.define([
 			}
 			that.getView().addDependent(that._oDialog);
 			that._oDialog.open();
-	},
+		},
 		onCancel: function () {
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;
 		},
-			onConfirmBlackList: function () {
+		onConfirmBlackList: function () {
 			var that = this;
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var date = oSecurityModel.getProperty("/date");
@@ -160,7 +170,7 @@ sap.ui.define([
 			// var payload={
 			// 	"eId": obj.eId
 			// };
-		 	$.ajax({
+			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
@@ -240,6 +250,15 @@ sap.ui.define([
 			if (!this._oDialog) {
 				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
 				this._oDialog = sap.ui.xmlfragment("idsendAlertFragAdmin", "com.incture.VMS.fragment.sendAlert", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+		onNotifyPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idaddDeliveryFrag", "com.incture.VMS.fragment.addDelivery", this); // Instantiating the Fragment
 			}
 			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
 			this._oDialog.open();

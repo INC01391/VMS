@@ -89,6 +89,9 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
+		oViewReportsPress:function(){
+			this.byId("pageContainer").to(this.getView().createId("idReports"));
+		},
 		onCheckInPress: function () {
 			var that = this;
 			this.getView().byId("idCheckInTable").setVisible(true);
@@ -223,23 +226,22 @@ sap.ui.define([
 			var obj = oAdminModel.getProperty(spath);
 			console.log(obj);
 			var sRemarks = Fragment.byId("idaddBlackListVisitorFrag", "idTarea").getValue();
-			// var payload={
-			// 	"eId": obj.eId
-			// };
+			var payload = {
+				"meetingId": obj.mid,
+				"visitorId": obj.visitorId,
+				"employeeId": 5,
+				"reason": sRemarks
+			};
+			console.log(JSON.stringify(payload));
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
-					"eId": obj.eId,
-					"vId": obj.vId,
-					"remarks": sRemarks,
-					"vhId": obj.vhId
+					"data": JSON.stringify(payload)
 				},
-				// headers: {
-				// 	"X-CSRF-Token": token
-				// },
 
 				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully BlackListed");
 
