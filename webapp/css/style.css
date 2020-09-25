@@ -1,90 +1,103 @@
- .masterPage.sapTntSideNavigation {
-     background: #00909d;
- }
- 
- .sapMIBar.sapMHeader-CTX.styleBar {
-     background-color: #00909d !important;
-     color: white!important;
- }
- 
- .sapMIBar-CTX .sapMLabel {
-     color: #f5faff !important;
- }
- 
- .stylePage {
-     background-image: url('../Images/incture.jpg');
-     background-size: cover;
-     /*zz*/
- }
- 
- .sapTntToolHeader.sapMTB.styleHeader {
-     background-color: #3a7a7f;
- }
- 
- .sapMTableTH {
-     background: #68b8ed;
-     border-bottom: 1px solid #e5e5e5;
-     vertical-align: middle;
- }
- 
- .sapMGT.OneByOne.styleTile {
-     /*height: 5rem;*/
-     /*width: 13rem;*/
-     background-color: #68b8ed;
- }
- 
- .styleTile .sapMGTHdrTxt>.sapMText {
-     color: #fafafa;
-     font-family: "72", "72full", Arial, Helvetica, sans-serif;
- }
- 
- .styleTile .sapUiIcon::before {
-     color: whitesmoke;
- }
- 
- html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImage) {
-     background: lightblue;
- }
- 
- .sapTntNavLIItem {
-     background-color: #00909d !important;
- }
- 
- .sapTntNavLIItem .sapMText {
-     color: white !important;
- }
- 
- .sapTntNavLIItem .sapUiIcon {
-     color: white !important;
- }
- 
- .sapMGT.OneByOne.HomeStyleTile {
-     background-color: #0087d5!important;
- }
- 
- .sapMDialog>header.sapMDialogTitle .sapMTitle {
-     color: white;
- }
- 
- .sapMDialog.sapMPopup-CTX>header .sapMHeader-CTX {
-     background-color: #00909d;
- }
- 
- .textRed {
-     color: red!important;
- }
- 
- .textGreen {
-     color: green!important;
- }
- 
- .textlightBlue {
-     color: lightblue!important;
- }
- 
- .sapMMessageToastSuccess {
-     color: white !important;
-     background-color: #354a5f !important;
-     /*border: 1px solid #4F8A10 !important;*/
-     /*border-left: 7px solid #4F8A10 !important;*/
- }
+/*.loginpage {*/
+/*    background-image: url("company.jpeg");*/
+/*}*/
+
+.VMSlogin {
+    width: 21%;
+    Height: 21%;
+    Margin-left: 40%;
+    Margin-right: 10%;
+    Margin-top: 5%;
+    background-image: url("company.jpeg");
+}
+
+.masterPage.sapTntSideNavigation {
+    background: #00909d;
+}
+
+.sapMIBar.sapMHeader-CTX.styleBar {
+    background-color: #00909d !important;
+    color: white!important;
+}
+
+.sapMIBar-CTX .sapMLabel {
+    color: #f5faff !important;
+}
+
+.stylePage {
+    background-image: url('../Images/company.jpeg');
+    background-size: cover;
+    
+}
+
+.sapTntToolHeader.sapMTB.styleHeader {
+    background-color: #3a7a7f;
+}
+
+.sapMTableTH {
+    background: #68b8ed;
+    border-bottom: 1px solid #e5e5e5;
+    vertical-align: middle;
+}
+
+.sapMGT.OneByOne.styleTile {
+    /*height: 5rem;*/
+    /*width: 13rem;*/
+    background-color: #68b8ed;
+}
+
+.styleTile .sapMGTHdrTxt>.sapMText {
+    color: #fafafa;
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+}
+
+.styleTile .sapUiIcon::before {
+    color: whitesmoke;
+}
+
+html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImage) {
+    background: lightblue;
+}
+
+.sapTntNavLIItem {
+    background-color: #00909d !important;
+}
+
+.sapTntNavLIItem .sapMText {
+    color: white !important;
+}
+
+.sapTntNavLIItem .sapUiIcon {
+    color: white !important;
+}
+
+.sapMGT.OneByOne.HomeStyleTile {
+    background-color: #0087d5!important;
+}
+
+.sapMDialog>header.sapMDialogTitle .sapMTitle {
+    color: white;
+}
+
+.sapMDialog.sapMPopup-CTX>header .sapMHeader-CTX {
+    background-color: #00909d;
+}
+
+.textRed {
+    color: red!important;
+}
+
+.textGreen {
+    color: green!important;
+}
+
+.textlightBlue {
+    color: lightblue!important;
+}
+
+.sapMMessageToastSuccess {
+    color: white !important;
+    background-color: #354a5f !important;
+    /*border: 1px solid #4F8A10 !important;*/
+    /*border-left: 7px solid #4F8A10 !important;*/
+}
