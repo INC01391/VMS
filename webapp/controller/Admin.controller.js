@@ -89,6 +89,13 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
+		onUserPress: function (oEvent) {
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("idUser", "com.incture.VMS.fragment.user", this);
+				this.getView().addDependent(this._oPopover);
+			}
+			this._oPopover.openBy(oEvent.getSource());
+		},
 		oViewReportsPress:function(){
 			this.byId("pageContainer").to(this.getView().createId("idReports"));
 		},
@@ -381,8 +388,8 @@ sap.ui.define([
 			console.log(aEmailList);
 			var payload = {
 				"emailList": aEmailList,
-				"message": sMessage,
-				"alertType": sType
+				"message": sMessage
+				// "alertType": sType
 			};
 			console.log(JSON.stringify(payload));
 			// var oTokenModel = that.getView().getModel("oTokenModel");

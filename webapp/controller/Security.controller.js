@@ -103,6 +103,13 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
+		onUserPress: function (oEvent) {
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("idUser", "com.incture.VMS.fragment.user", this);
+				this.getView().addDependent(this._oPopover);
+			}
+			this._oPopover.openBy(oEvent.getSource());
+		},
 		onCheckInPress: function () {
 			var that = this;
 			this.getView().byId("idCheckInTable").setVisible(true);
