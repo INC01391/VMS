@@ -1,14 +1,32 @@
 /*.loginpage {*/
+
+
 /*    background-image: url("company.jpeg");*/
+
+
 /*}*/
 
+.stylePage {
+    background-image: url('../Images/company.jpg');
+    background-size: cover;
+}
+
 .VMSlogin {
-    width: 21%;
+    width: 25%;
     Height: 21%;
     Margin-left: 40%;
     Margin-right: 10%;
-    Margin-top: 10%;
-    background-image: url("company.jpeg");
+    Margin-top: 8%;
+    /*background-image: url("company.jpeg");*/
+    background-color: white;
+}
+
+.link {
+    margin-left: 34%;
+}
+
+.inputclass {
+    border-radius: 5px;
 }
 
 .masterPage.sapTntSideNavigation {
@@ -27,7 +45,6 @@
 .stylePage {
     background-image: url('../Images/company.jpeg');
     background-size: cover;
-    
 }
 
 .sapTntToolHeader.sapMTB.styleHeader {
