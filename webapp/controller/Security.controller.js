@@ -305,7 +305,7 @@ sap.ui.define([
 				// headers: {
 				// 	"X-CSRF-Token": token
 				// },
-				dataType: "json,"
+				dataType: "json",
 				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					if (data.status === 200) {
