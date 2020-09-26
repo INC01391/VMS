@@ -34,6 +34,11 @@ sap.ui.define([
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oSecurityModel.setProperty("/date", newdate);
+			var signature = {
+				"sSelectedKey": "",
+			};
+			var oModel = new JSONModel(signature);
+			this.getView().setModel(oModel, "oSignatureModel");
 			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + newdate;
 			this.fndoajax(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=6&Date=" + newdate;
@@ -47,6 +52,8 @@ sap.ui.define([
 
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackList";
 			this.fndoajax(sUrl5, "/BlackListed");
+			var sUrl6 = "/VMS/rest/parcelController/getRecentDelivery?date=" + newdate;
+			this.fndoajax(sUrl6, "/DeliveryDetails");
 			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
 			this.fndoajax(sUrl7, "/EmployeesList");
 			console.log(oSecurityModel);
@@ -269,6 +276,63 @@ sap.ui.define([
 			}
 			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
 			this._oDialog.open();
+		},
+		onSendDelivery: function () {
+			var that = this;
+			var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var date = oSecurityModel.getProperty("/date");
+			var sSignature = this.getView().getModel("oSignatureModel").getProperty("/sSelectedKey");
+			if (sSignature === "Signature") {
+				sSignature = "required";
+			} else {
+				sSignature = "not required";
+			}
+			var sUrl = "/VMS/rest/parcelController/getRecentDelivery?date=" + date;
+			var obj = oSecurityModel.getProperty("/oDeliveryData");
+			// console.log(obj);
+			var payload = {
+				"mobileNumber": obj.mobileNo,
+				"signatureType": sSignature
+			};
+			console.log(JSON.stringify(payload));
+			$.ajax({
+				url: "/VMS/rest/parcelController/addParcel",
+				type: "POST",
+				data: {
+					"mobileNumber": obj.mobileNo,
+					"signatureType": sSignature
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+				dataType: "json,"
+				contentType: "application/json; charset=utf-8",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						sap.m.MessageToast.show("Success");
+						console.log(status);
+						console.log(response);
+						that.fndoajax(sUrl, "/DeliveryDetails");
+
+					} else if (data.status === 300) {
+						sap.m.MessageToast.show("Enter The Correct Mobile Number");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					}
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					oSecurityModel.setProperty("/oDeliveryData", {});
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+
 		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;

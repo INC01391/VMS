@@ -14,25 +14,25 @@
 					</Bar>
 				</customHeader>
 				<content>
-						<Image src= "/Vmslogin/webapp/images" width="50px" height="50px" ></Image>
-						
-						<IconTabBar class="VMSlogin">
-							<items>
-								<IconTabFilter text="Login" key="login">
-									<VBox class="Login">
-										<Label text=" Employee ID/Email :"/>
-										<Input placeholder="Enter ID/Email " width="15rem" id="EmployeeId" type="Text"/>
-										<Label text="Password :"/>
-										<Input width="15rem" placeholder="Enter Password" id="EmployeePassword" type="Password"/>
-										<Button width="15rem" text="Login" press="onLogin" type="Emphasized"></Button>
-										<Button width="15rem" text="Register" press="onRegister" type="Emphasized"></Button>
-										<Link textAlign="Center" width="225px" text="Forgot Password?" href=""/>
-									</VBox>
-								</IconTabFilter>
-								<IconTabFilter text="Parking" key="parking"></IconTabFilter>
-							</items>
-						</IconTabBar>
-					</content>
+					<IconTabBar class="VMSlogin">
+						<!--<Image src="./Images/incture.jpg" width="50px" height="50px"></Image>-->
+						<!--<Title text="VISITOR MANAGEMENT SYSTEM"></Title>-->
+						<items>
+							<IconTabFilter text="Login" key="login">
+								<VBox class="Login">
+									<Label text="Username" design="Bold"/>
+									<Input placeholder="Enter Username" value="{oLoginModel>/oLoginFormData/username}" id="EmployeeId" type="Text"/>
+									<Label text="Password" design="Bold"/>
+									<Input placeholder="Enter Password" value="{oLoginModel>/oLoginFormData/password}" id="EmployeePassword" type="Password"/>
+									<Button width="100%" text="Login" press="onLogin" type="Emphasized"></Button>
+									<Button width="100%" text="Register" press="onRegister" type="Emphasized"></Button>
+									<Link textAlign="Center" width="225px" text="Forgot Password?" href=""/>
+								</VBox>
+							</IconTabFilter>
+							<IconTabFilter text="Parking" key="parking"></IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
 				<!--<content>-->
 				<!--	<l:Grid defaultSpan="L2 M6 S12" class="sapUiLargeMarginTop">-->
 				<!--		<GenericTile header="HOST" subheader="Employee in the Organisation" press="onHostPress">-->

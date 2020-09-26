@@ -401,7 +401,7 @@
 							<ToolbarSpacer/>
 							<Button text="Notify" type="Emphasized" press="onNotifyPress" class="styleEmphasizedBtn"></Button>
 						</Toolbar>
-						<Table id="idSecurityDeliverytable" items="{oSecurityModel>/DeliveryDetails/data}" alternateRowColors="true" class="sapUiSizeCompact">
+						<Table id="idSecurityDeliverytable" items="{oSecurityModel>/DeliveryDetails}" alternateRowColors="true" class="sapUiSizeCompact">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
@@ -434,13 +434,13 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Text text="{oSecurityModel>HostFirstName} {oSecurityModel>HostLastName}"/>
-										<Text text="{oSecurityModel>HostEmail}"/>
-										<Text text="{oSecurityModel>HostPhoneNumber}"/>
-										<Text text="{oSecurityModel>Delivery Type}"/>
-										<Text text="{oSecurityModel>Delivery Time}"/>
-										<Text text="{oSecurityModel>Status}"/>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<Text text="{oSecurityModel>hostName}"/>
+										<Text text="{oSecurityModel>email}"/>
+										<Text text="{oSecurityModel>contactNo}"/>
+										<Text text="{oSecurityModel>deliveryType}"/>
+										<Text text="{oSecurityModel>date}"/>
+										<!--<Text text="{oSecurityModel>status}"/>-->
+										<Text text="{path: 'oSecurityModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorDelivery'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
