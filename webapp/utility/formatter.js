@@ -44,14 +44,19 @@ com.incture.VMS.utility.formatter = {
 		return sValue;
 	},
 	changeColorUpcomingMeetings: function (sValue) {
-			this.removeStyleClass("textGreen textRed textlightBlue");
-			if (sValue === "accepted") {
-				this.addStyleClass("textGreen");
-			} else if (sValue === "Rejected") {
-				this.addStyleClass("textRed");
-			} else {
-				this.addStyleClass("textlightBlue");
-			}
+		this.removeStyleClass("textGreen textRed textlightBlue");
+		if (sValue === "accepted") {
+			this.addStyleClass("textGreen");
+		} else if (sValue === "Rejected") {
+			this.addStyleClass("textRed");
+		} else {
+			this.addStyleClass("textlightBlue");
+		}
+		return sValue;
+	},
+	displayDateFormat: function (sValue) {
+			var date = new Date(sValue);
+			sValue = date.toString();
 			return sValue;
 		}
 		//Function to display colour based on the status of delivery

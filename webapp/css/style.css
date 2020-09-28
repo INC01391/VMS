@@ -99,7 +99,10 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
 .sapMDialog.sapMPopup-CTX>header .sapMHeader-CTX {
     background-color: #00909d;
 }
-
+.sapMDialog>header.sapMDialogTitle .sapMDialogIcon.sapUiIcon {
+    font-size: 1rem;
+    color: white;
+}
 .textRed {
     color: red!important;
 }

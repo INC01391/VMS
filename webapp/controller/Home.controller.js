@@ -32,6 +32,14 @@ sap.ui.define([
 				this.getRouter().navTo("SecurityDetails");
 			}
 		},
+		onParkingCheckInPress:function(){
+			this.getView().byId("idParking").setVisible(false);
+			this.getView().byId("idRegister").setVisible(true);
+		},
+		onParkingCheckOutPress:function(){
+			this.getView().byId("idParking").setVisible(false);
+			this.getView().byId("idCheckOut").setVisible(true);
+		},
 		/*onAdminPress: function (oEvent) {
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("AdminDetails");

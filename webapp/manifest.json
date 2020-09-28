@@ -80,6 +80,12 @@
 				"settings": {
 					"defaultBindingMode": "TwoWay"
 				}
+			},
+			"oFormModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"resources": {

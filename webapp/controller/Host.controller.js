@@ -12,6 +12,7 @@ sap.ui.define([
 
 		onInit: function () {
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			var oFormModel = this.getOwnerComponent().getModel("oFormModel");
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
@@ -30,6 +31,29 @@ sap.ui.define([
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
 			this.fnGetData(sUrl5, "/BlackListed");
 			console.log(oHostModel);
+			var oFormData = {
+				"firstName": "",
+				"lastName": "",
+				"email": "",
+				"contactNo": " ",
+				"proofType": "",
+				"proofNo": "",
+				"locality": "",
+				"organization": "",
+				"parkingType": "",
+				"pId": ""
+			};
+			oFormModel.setProperty("/oFormData", oFormData);
+			var oMeetingData = {
+				"purpose": "",
+				"date": "",
+				"beginTime": "",
+				"endTime": "",
+				"capacity": "",
+				"rId": "",
+				"facility": ""
+			};
+			oFormModel.setProperty("/oMeetingData", oMeetingData);
 
 		},
 		onDate: function () {
@@ -223,7 +247,7 @@ sap.ui.define([
 				// },
 				headers: {
 					// "X-CSRF-Token": token
-					"content-type":"application/json"
+					"content-type": "application/json"
 				},
 
 				dataType: "json",
