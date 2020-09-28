@@ -202,10 +202,6 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
-				dataType: "json",
-				headers: {
-					"Content-Type": "application/json"
-				},
 				data: {
 					"meetingId": obj.mid,
 					"visitorId": obj.visitorId,
@@ -222,6 +218,7 @@ sap.ui.define([
 				// 	"X-CSRF-Token": token
 				// },
 
+				dataType: "json",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully BlackListed");
 					console.log(response);
