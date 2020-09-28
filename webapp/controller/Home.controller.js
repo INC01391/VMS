@@ -6,9 +6,33 @@ sap.ui.define([
 
 	return Controller.extend("com.incture.VMS.controller.Home", {
 		onInit: function () {
-
+			var oLoginFormData = {
+				"username": "",
+				"password": ""
+			};
+			var oLoginModel = this.getOwnerComponent().getModel("oLoginModel");
+			oLoginModel.setProperty("/oLoginFormData", oLoginFormData);
 		},
-		onAdminPress: function (oEvent) {
+		onLogin: function () {
+			var oDialog = new sap.m.BusyDialog();
+			oDialog.open();
+			setTimeout(function () {
+				oDialog.close();
+			}, 3000);
+			var that = this;
+			var oLoginModel = that.getView().getModel("oLoginModel");
+			var obj = oLoginModel.getProperty("/oLoginFormData");
+			if(obj.username === "admin"){
+				this.getRouter().navTo("AdminDetails");
+			}
+			if(obj.username === "host"){
+				this.getRouter().navTo("HostDetails");
+			}
+			if(obj.username === "security"){
+				this.getRouter().navTo("SecurityDetails");
+			}
+		},
+		/*onAdminPress: function (oEvent) {
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("AdminDetails");
 		},
@@ -16,10 +40,10 @@ sap.ui.define([
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("SecurityDetails");
 		},
-		onHostPress:function (oEvent) {
+		onHostPress: function (oEvent) {
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("HostDetails");
-		},
+		},*/
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		}

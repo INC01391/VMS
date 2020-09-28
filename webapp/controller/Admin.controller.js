@@ -32,6 +32,8 @@ sap.ui.define([
 			this.fndoajax(sUrl5, "/FrequentVisits");
 			var sUrl6 = "/VMS/rest/blackListController/selectAllBlackList";
 			this.fndoajax(sUrl6, "/BlackListed");
+			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
+			this.fndoajax(sUrl7, "/EmployeesList");
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
 			console.log(oAdminModel);
@@ -87,6 +89,16 @@ sap.ui.define([
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
 		},
+		onUserPress: function (oEvent) {
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("idUser", "com.incture.VMS.fragment.user", this);
+				this.getView().addDependent(this._oPopover);
+			}
+			this._oPopover.openBy(oEvent.getSource());
+		},
+		oViewReportsPress:function(){
+			this.byId("pageContainer").to(this.getView().createId("idReports"));
+		},
 		onCheckInPress: function () {
 			var that = this;
 			this.getView().byId("idCheckInTable").setVisible(true);
@@ -122,6 +134,7 @@ sap.ui.define([
 			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
 			this.getView().byId("idFrequentVisits").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
+			// console.log();
 		},
 		onFrequentVisitsPress: function () {
 			this.getView().byId("idCheckInTable").setVisible(false);
@@ -220,23 +233,22 @@ sap.ui.define([
 			var obj = oAdminModel.getProperty(spath);
 			console.log(obj);
 			var sRemarks = Fragment.byId("idaddBlackListVisitorFrag", "idTarea").getValue();
-			// var payload={
-			// 	"eId": obj.eId
-			// };
+			var payload = {
+				"meetingId": obj.mid,
+				"visitorId": obj.visitorId,
+				"employeeId": 5,
+				"reason": sRemarks
+			};
+			console.log(JSON.stringify(payload));
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
-					"eId": obj.eId,
-					"vId": obj.vId,
-					"remarks": sRemarks,
-					"vhId": obj.vhId
+					"data": JSON.stringify(payload)
 				},
-				// headers: {
-				// 	"X-CSRF-Token": token
-				// },
 
 				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully BlackListed");
 
@@ -278,7 +290,7 @@ sap.ui.define([
 			var bId = obj.bId;
 			console.log(bId);
 			$.ajax({
-				url: "/VMS/rest/blackListController/removeFromBlackList?id="+bId,
+				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
 				type: "POST",
 				data: null,
 				// dataType: 'json',
@@ -299,7 +311,7 @@ sap.ui.define([
 			});
 
 		},
-			onAddNewPress: function () {
+		onAddNewPress: function () {
 			var that = this;
 			if (!that._oDialog) {
 				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
@@ -310,19 +322,113 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
 		},
-	// 	onAddVisitors: function() 
-	// 	{
-	// 		var that = this;
-	// 		if (!that._oDialog) {
-	// 			//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
-	// 			that._oDialog = sap.ui.xmlfragment("idAddVisitorsFrag",
-	// 				"com.incture.VMS.fragment.Addvisitors",
-	// 				this); // Instantiating the Fragment
-	// }
-	// 					that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
-	// 		that._oDialog.open();
-	// 	},
-		
+		onAddVisitors: function () {
+			var that = this;
+			if (!that._oDialog1) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				that._oDialog1 = sap.ui.xmlfragment("idAddVisitorsFrag",
+					"com.incture.VMS.fragment.Addvisitors",
+					this); // Instantiating the Fragment
+			}
+			that.getView().addDependent(that._oDialog1); // Adding the fragment to your current view
+			that._oDialog1.open();
+		},
+		onCanceladd: function () {
+			this._oDialog1.close();
+			this._oDialog1.destroy();
+			this._oDialog1 = null;
+		},
+		onSendAlertPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idsendAlertFragAdmin", "com.incture.VMS.fragment.sendAlert", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+		onSendEvacuation: function () {
+			var that = this;
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var aSelectedPaths = that.getView().byId("idAdminEvacuationtable").getSelectedContextPaths();
+			var aSelectedPathsHosts = that.getView().byId("idEmoloyeestable").getSelectedContextPaths();
+			var sType = Fragment.byId("idsendAlertFragAdmin", "idRadio").getSelectedButton().getText();
+			var sMessage = Fragment.byId("idsendAlertFragAdmin", "idtarea").getValue();
+			if (sType === "All Hosts and Visitors") {
+				sType = 0;
+			} else {
+				sType = 1;
+			}
+
+			var aEmailList = [];
+			var aEmailListHost = [];
+			var item;
+			var item2;
+			var item3;
+			for (var i = 0; i < aSelectedPaths.length; i++) {
+				item = aSelectedPaths[i];
+				var obj = oAdminModel.getProperty(item);
+				aEmailList.push(obj.visitorEmail);
+				console.log(obj.visitorEmail);
+
+			}
+			for (var j = 0; j < aSelectedPathsHosts.length; j++) {
+				item2 = aSelectedPathsHosts[j];
+				var obj2 = oAdminModel.getProperty(item2);
+				aEmailListHost.push(obj2.employeeEmail);
+				console.log(obj2.employeeEmail);
+
+			}
+			console.log(aEmailListHost);
+			for (var k = 0; k < aEmailListHost.length; k++) {
+				item3 = aEmailListHost[k];
+				aEmailList.push(item3);
+			}
+			// aEmailList.push(aEmailListHost);
+			console.log(aEmailList);
+			var payload = {
+				"emailList": aEmailList,
+				"message": sMessage
+				// "alertType": sType
+			};
+			console.log(JSON.stringify(payload));
+			// var oTokenModel = that.getView().getModel("oTokenModel");
+			// var oToken = oTokenModel.getData();
+			// var token = oToken.csrftoken;
+			$.ajax({
+				url: "/VMS/rest/visitorController/emergencyMessage",
+				type: "POST",
+				data: {
+					"data": JSON.stringify(payload)
+				},
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				// dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Sent Alert");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					console.log(response);
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					// that.fnGetData();
+
+				},
+				error: function (response) {
+					console.log(response);
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+			that._oDialog.close();
+			that._oDialog.destroy();
+			that._oDialog = null;
+		},
+
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oAdminModel = that.getOwnerComponent().getModel("oAdminModel");

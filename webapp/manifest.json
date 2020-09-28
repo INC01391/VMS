@@ -74,6 +74,12 @@
 				"settings": {
 					"defaultBindingMode": "TwoWay"
 				}
+			},
+			"oLoginModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"resources": {

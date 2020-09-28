@@ -101,8 +101,8 @@
 										<Text text="{oSecurityModel>visitorPhoneNumber}"/>
 										<Text text="{oSecurityModel>purpose}"/>
 										<Text text="{oSecurityModel>organization}"/>
-										<Text text="{oSecurityModel>visitorStatus}"></Text>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
+										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -111,7 +111,7 @@
 					<ScrollContainer id="idFilters" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 						<HBox>
 							<Label text="Date" class="sapUiTinyMargin"></Label>
-							<DatePicker  valueFormat="yyyy-MM-dd" change="onDate" value="{oSecurityModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
+							<DatePicker valueFormat="yyyy-MM-dd" change="onDate" value="{oSecurityModel>/date}" displayFormat="MMM dd, yyyy"></DatePicker>
 						</HBox>
 						<l:Grid class="sapUiTinyMarginTop">
 							<GenericTile id="idCheckin" header="Checked In" headerImage="sap-icon://trend-down" class="styleTile" press="onCheckInPress">
@@ -168,8 +168,8 @@
 										<Text text="{oSecurityModel>visitorPhoneNumber}"/>
 										<Text text="{oSecurityModel>purpose}"/>
 										<Text text="{oSecurityModel>organization}"/>
-										<Text text="{oSecurityModel>visitorStatus}"></Text>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
+										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -216,8 +216,8 @@
 										<Text text="{oSecurityModel>visitorPhoneNumber}"/>
 										<Text text="{oSecurityModel>purpose}"/>
 										<Text text="{oSecurityModel>organization}"/>
-										<Text text="{oSecurityModel>visitorStatus}"></Text>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
+										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"></Button>
 									</cells>
 								</ColumnListItem>
@@ -262,8 +262,8 @@
 										<Text text="{oSecurityModel>contactNo}"/>
 										<Text text="{oSecurityModel>purpose}"/>
 										<Text text="{oSecurityModel>organisation}"/>
-										<Text text="{oSecurityModel>status}"/>
-										<!--<Text text="{path: 'oSecurityModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<!--<Text text="{oSecurityModel>status}"/>-->
+										<Text text="{path: 'oSecurityModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -281,22 +281,22 @@
 								</OverflowToolbar>
 							</headerToolbar>
 							<columns>
-									<Column width="12em" minScreenWidth="phone" demandPopin="true">
-										<Text text="{i18n>Visitor Name}" class="styleColumn"/>
-									</Column>
-									<Column minScreenWidth="Tablet" demandPopin="true">
-										<Text text="{i18n>HostName}" class="styleColumn"/>
-									</Column>
-									<Column minScreenWidth="Desktop" demandPopin="true">
-										<Text text="{i18n>Date}" class="styleColumn"/>
-									</Column>
-									<Column minScreenWidth="Desktop" demandPopin="true">
-										<Text text="{i18n>Remarks}" class="styleColumn"/>
-									</Column>
-									<Column minScreenWidth="phone" demandPopin="true">
-										<Text text="{i18n>Action}" class="styleColumn"/>
-									</Column>
-								</columns>
+								<Column width="12em" minScreenWidth="phone" demandPopin="true">
+									<Text text="{i18n>Visitor Name}" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Tablet" demandPopin="true">
+									<Text text="{i18n>HostName}" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="{i18n>Date}" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="{i18n>Remarks}" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="phone" demandPopin="true">
+									<Text text="{i18n>Action}" class="styleColumn"/>
+								</Column>
+							</columns>
 							<items>
 								<ColumnListItem>
 									<cells>
@@ -315,7 +315,7 @@
 							<ToolbarSpacer/>
 							<Button text="Send Alert" type="Critical" press="onSendAlertPress" class="styleRejectBtn"></Button>
 						</Toolbar>
-						<Table id="idSecurityEvacuationtable" items="{oSecurityModel>/EvacuationDetails/data}" alternateRowColors="true" mode="MultiSelect"
+						<Table id="idSecurityEvacuationtable" items="{oSecurityModel>/CheckInDetails/data}" alternateRowColors="true" mode="MultiSelect"
 							class="sapUiSizeCompact">
 							<headerToolbar>
 								<OverflowToolbar>
@@ -354,7 +354,43 @@
 										<Text text="{oSecurityModel>visitorPhoneNumber}"/>
 										<Text text="{oSecurityModel>purpose}"/>
 										<Text text="{oSecurityModel>organization}"/>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
+										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<Table id="idEmoloyeestable" items="{oSecurityModel>/EmployeesList/data}" alternateRowColors="true" mode="MultiSelect" class="sapUiSizeCompact">
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Employees" level="H3"/>
+										<ToolbarSpacer></ToolbarSpacer>
+										<SearchField width="20%" liveChange="onSearch"></SearchField>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column width="12em" minScreenWidth="phone" demandPopin="true">
+									<Text text="Host Name" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="phone" demandPopin="true">
+									<Text text="Email" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="Mobile" class="styleColumn"/>
+								</Column>
+								<Column minScreenWidth="Desktop" demandPopin="true">
+									<Text text="Role" class="styleColumn"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{oSecurityModel>employeeFirstName} {oSecurityModel>employeeLastName}"/>
+										<Text text="{oSecurityModel>employeeEmail}"/>
+										<Text text="{oSecurityModel>employeePhoneNumber}"/>
+										<Text text="{oSecurityModel>department}"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -363,9 +399,9 @@
 					<ScrollContainer id="delivery" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 						<Toolbar>
 							<ToolbarSpacer/>
-							<Button text="Notify" type="Emphasized" press="onNotifyPress" class="styleEmphasizedBtn" ></Button>
+							<Button text="Notify" type="Emphasized" press="onNotifyPress" class="styleEmphasizedBtn"></Button>
 						</Toolbar>
-						<Table id="idSecurityDeliverytable" items="{oSecurityModel>/DeliveryDetails/data}" alternateRowColors="true" class="sapUiSizeCompact">
+						<Table id="idSecurityDeliverytable" items="{oSecurityModel>/DeliveryDetails}" alternateRowColors="true" class="sapUiSizeCompact">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
@@ -398,13 +434,13 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Text text="{oSecurityModel>HostFirstName} {oSecurityModel>HostLastName}"/>
-										<Text text="{oSecurityModel>HostEmail}"/>
-										<Text text="{oSecurityModel>HostPhoneNumber}"/>
-										<Text text="{oSecurityModel>Delivery Type}"/>
-										<Text text="{oSecurityModel>Delivery Time}"/>
-										<Text text="{oSecurityModel>Status}"/>
-										<!--<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>-->
+										<Text text="{oSecurityModel>hostName}"/>
+										<Text text="{oSecurityModel>email}"/>
+										<Text text="{oSecurityModel>contactNo}"/>
+										<Text text="{oSecurityModel>deliveryType}"/>
+										<Text text="{oSecurityModel>date}"/>
+										<!--<Text text="{oSecurityModel>status}"/>-->
+										<Text text="{path: 'oSecurityModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorDelivery'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

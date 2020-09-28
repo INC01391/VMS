@@ -25,7 +25,7 @@ sap.ui.define([
 			this.fnGetData(sUrl2, "/CheckInDetails");
 			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl3, "/CheckOutDetails");
-			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitorsforhost?eid=" + eId + "&Date=" + newdate;
+			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitorsforhost?eid=" + eId + "&date=" + newdate;
 			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
 			this.fnGetData(sUrl5, "/BlackListed");
@@ -81,6 +81,13 @@ sap.ui.define([
 			} else {
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
+		},
+		onUserPress: function (oEvent) {
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("idUser", "com.incture.VMS.fragment.user", this);
+				this.getView().addDependent(this._oPopover);
+			}
+			this._oPopover.openBy(oEvent.getSource());
 		},
 		onCheckInPress: function () {
 			var that = this;

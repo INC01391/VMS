@@ -4,12 +4,13 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
 	"sap/ui/core/Fragment",
-	"sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"../utility/formatter"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, JSONModel, formatter) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Security", {
-
+		formatter: formatter,
 		onInit: function () {
 			var comboData = {
 				"sSelect": "",
@@ -20,12 +21,24 @@ sap.ui.define([
 			var oModel1 = new JSONModel(comboData);
 			this.getView().setModel(oModel1, "oViewModel");
 			var oSecurityModel = this.getOwnerComponent().getModel("oSecurityModel");
+			var oDeliveryData = {
+				"date": "",
+				"deliveryType": "",
+				"mobileNo": ""
+
+			};
+			oSecurityModel.setProperty("/oDeliveryData", oDeliveryData);
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oSecurityModel.setProperty("/date", newdate);
+			var signature = {
+				"sSelectedKey": "",
+			};
+			var oModel = new JSONModel(signature);
+			this.getView().setModel(oModel, "oSignatureModel");
 			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + newdate;
 			this.fndoajax(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=6&Date=" + newdate;
@@ -39,6 +52,10 @@ sap.ui.define([
 
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackList";
 			this.fndoajax(sUrl5, "/BlackListed");
+			var sUrl6 = "/VMS/rest/parcelController/getRecentDelivery?date=" + newdate;
+			this.fndoajax(sUrl6, "/DeliveryDetails");
+			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
+			this.fndoajax(sUrl7, "/EmployeesList");
 			console.log(oSecurityModel);
 
 		},
@@ -84,7 +101,7 @@ sap.ui.define([
 
 			oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
 		},
-		
+
 		_setToggleButtonTooltip: function (bLarge) {
 			var oToggleButton = this.byId("sideNavigationToggleButton");
 			if (bLarge) {
@@ -92,6 +109,13 @@ sap.ui.define([
 			} else {
 				oToggleButton.setTooltip("Small Size Navigation");
 			}
+		},
+		onUserPress: function (oEvent) {
+			if (!this._oPopover) {
+				this._oPopover = sap.ui.xmlfragment("idUser", "com.incture.VMS.fragment.user", this);
+				this.getView().addDependent(this._oPopover);
+			}
+			this._oPopover.openBy(oEvent.getSource());
 		},
 		onCheckInPress: function () {
 			var that = this;
@@ -126,7 +150,7 @@ sap.ui.define([
 			this.getView().byId("idYettovisit").addStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
 		},
-			onAddToBlacklist: function (oEvent) {
+		onAddToBlacklist: function (oEvent) {
 			var that = this;
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var oSource = oEvent.getSource();
@@ -139,13 +163,13 @@ sap.ui.define([
 			}
 			that.getView().addDependent(that._oDialog);
 			that._oDialog.open();
-	},
+		},
 		onCancel: function () {
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;
 		},
-			onConfirmBlackList: function () {
+		onConfirmBlackList: function () {
 			var that = this;
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var date = oSecurityModel.getProperty("/date");
@@ -160,7 +184,7 @@ sap.ui.define([
 			// var payload={
 			// 	"eId": obj.eId
 			// };
-		 	$.ajax({
+			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
 				data: {
@@ -226,6 +250,81 @@ sap.ui.define([
 					that.fndoajax(sUrl2, "/CheckOutDetails");
 					that.fndoajax(sUrl3, "/Details");
 					oTableModel.refresh();
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+
+		},
+		onSendAlertPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idsendAlertFragAdmin", "com.incture.VMS.fragment.sendAlert", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+		onNotifyPress: function () {
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idaddDeliveryFrag", "com.incture.VMS.fragment.addDelivery", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+		onSendDelivery: function () {
+			var that = this;
+			var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var date = oSecurityModel.getProperty("/date");
+			var sSignature = this.getView().getModel("oSignatureModel").getProperty("/sSelectedKey");
+			if (sSignature === "Signature") {
+				sSignature = "required";
+			} else {
+				sSignature = "not required";
+			}
+			var sUrl = "/VMS/rest/parcelController/getRecentDelivery?date=" + date;
+			var obj = oSecurityModel.getProperty("/oDeliveryData");
+			// console.log(obj);
+			var payload = {
+				"mobileNumber": obj.mobileNo,
+				"signatureType": sSignature
+			};
+			console.log(JSON.stringify(payload));
+			$.ajax({
+				url: "/VMS/rest/parcelController/addParcel",
+				type: "POST",
+				data: {
+					"mobileNumber": obj.mobileNo,
+					"signatureType": sSignature
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						sap.m.MessageToast.show("Success");
+						console.log(status);
+						console.log(response);
+						that.fndoajax(sUrl, "/DeliveryDetails");
+
+					} else if (data.status === 300) {
+						sap.m.MessageToast.show("Enter The Correct Mobile Number");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					}
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					oSecurityModel.setProperty("/oDeliveryData", {});
 				},
 				error: function (e) {
 					sap.m.MessageToast.show("fail");

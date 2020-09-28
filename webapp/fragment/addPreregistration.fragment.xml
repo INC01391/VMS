@@ -1,46 +1,62 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog title="REGISTRATION" draggable="true" contentWidth="25rem" resizable="true" icon="sap-icon://activity-individual"
+	<Dialog title="REGISTRATION" draggable="true" contentWidth="40rem" resizable="true" icon="sap-icon://activity-individual"
 		class="sapUiSizeCompact" verticalScrolling="true">
 		<content>
 			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
 				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
 				<f:content>
-					<Title text="PERSONAL DETAILS"/>
+					<core:Title text="PERSONAL DETAILS"></core:Title>
 					<Label text=" Name"/><Input id="VisitorName"/>
 					<Label text="Organization"/><Input id="VisitorOrganization" type="Text"/>
 					<Label text=" Email Id"/><Input id="VisitorMailId" type="Text"/>
 					<Label text="Mobile"/><Input id="VisitorMobile" type="Number"/>
-					<Label text="Unique Id "/><Input id="VisitorUniqueId" type="Text"/>
-					<Label text="No of Visitors "/><Input type="Number"/>
-					<Button icon="sap-icon://add" text="Add Visitors" press="onAddVisitors" type="Emphasized"></Button>
-				</f:content>
-			</f:SimpleForm>
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
-				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
-				<f:content>
-					<Title text="MEETING DETAILS"/>
-					<Label text=" Purpose Of Visit"/><Input id="VisitorPurpose" type="Text"/>
-					<Label text="Host Name"/><Input id="Hostname" type="Text"/>
-					<Label text="Meeting Date-Time"/>
-					<DatePicker id="date" valueFormat="yyyy-MM-dd" displayFormat="MMM dd, yyyy"></DatePicker>
-					<Label text="Meeting Duration"/><Input type="Text"/>
-				</f:content>
-			</f:SimpleForm>
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
-				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
-				<f:content>
-					<Title text="PARKING DETAILS "/>
-					<Label text=" Type Of Vehicle"/><Input id="Vehicletype" type="Text"/>
-					<Label text="No of Vehicles"/><Input type="Number"/>
-					<Label text="Vehicle Number"/><Input id="VehicleNumber" type="Text"/>
-					<Label text="Parking Slot"/><Input id="Parkingslot" type="Text"/>
-				</f:content>
-			</f:SimpleForm>
-		</content>
-		<Toolbar>
-			<ToolbarSpacer></ToolbarSpacer>
-			<Button text="Register" press="onRegister" type="Emphasized"/>
-			<Button text="Cancel" press="onCancel" type="Negative"/>
-		</Toolbar>
-	</Dialog>
-</core:FragmentDefinition>
+					<Label text=" Id Type "/>
+						<Select id="VisitorIDType" selectedKey="{VisitorID}">
+							<items>
+								<core:Item text="Adhaar Id" key="Adhaar"/>
+								<core:Item text="PAN ID" key="PAN"/>
+								<core:Item text="Driving License" key="DrivingLicense"/>
+							</items>
+						</Select>
+						<Label text="ID No"/><Input id="VisitorID" type="Text"/>
+						<Button icon="sap-icon://add" text="Add Visitors" press="onAddVisitors" type="Emphasized"></Button>
+					</f:content>
+				</f:SimpleForm>
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
+					columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
+					<f:content>
+						<core:Title text="MEETING DETAILS"></core:Title>
+						<Label text=" Purpose Of Visit"/><Input id="VisitorPurpose" type="Text"/>
+						<Label text="Meeting Date"/>
+						<DatePicker id="date" valueFormat="yyyy-MM-dd" displayFormat="MMM dd, yyyy"></DatePicker>
+						<Label text="Meeting Start Time"/>
+						<TimePicker id="Starttime" valueFormat="HH-mm-ss"></TimePicker>
+						<Label text="Meeting End Time"/>
+						<TimePicker id="Endtime" valueFormat="HH-mm-ss"></TimePicker>
+						<Label text="Meeting Room Capacity"/><Input id="Room" type="Number"/>
+						<Button icon="sap-icon://show" text="Check Availability" press="onCheckavailability" type="Emphasized"></Button>
+					</f:content>
+				</f:SimpleForm>
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="3" columnsM="9" emptySpanM="0" labelSpanL="3" labelSpanXL="4"
+					columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
+					<f:content>
+						<core:Title text="PARKING DETAILS"></core:Title>
+						<Label text=" Type Of Vehicle"/>
+						<Select id="Vehicletype" selectedKey="{Vehicletype}">
+							<items>
+								<core:Item text="2-Wheeler" key="2-wheeler"/>
+								<core:Item text="4-Wheeler" key="4-wheeler"/>
+							</items>
+						</Select>
+						<Label text="Vehicle Number"/><Input id="VehicleNumber" type="Text"/>
+						<Label text="Parking Slot"/><Input id="Parkingslot" type="Text"/>
+					</f:content>
+				</f:SimpleForm>
+			</content>
+			<Toolbar>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button text="Register" press="onRegister" type="Emphasized"/>
+				<Button text="Cancel" press="onCancel" type="Reject"/>
+			</Toolbar>
+		</Dialog>
+	</core:FragmentDefinition>

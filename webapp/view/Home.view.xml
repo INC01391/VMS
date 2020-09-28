@@ -1,9 +1,9 @@
 <mvc:View controllerName="com.incture.VMS.controller.Home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
-	xmlns:l="sap.ui.layout">
+	xmlns:l="sap.ui.layout" xmlns:f="sap.f" xmlns:card="sap.f.cards">
 	<App id="app">
 		<pages>
 			<Page id="page" class="stylePage">
-				<customHeader>
+				<!--<customHeader>
 					<Bar class="styleBar">
 						<contentLeft>
 							<Image src="./Images/logo_old.png" alt="Image not found" height="80%"></Image>
@@ -12,26 +12,55 @@
 							<Label text="VISITOR MANAGEMENT SYSTEM"></Label>
 						</contentMiddle>
 					</Bar>
-				</customHeader>
-				<content>
-					<l:Grid defaultSpan="L2 M6 S12" class="sapUiLargeMarginTop">
-						<GenericTile header="HOST" subheader="Employee in the Organisation" press="onHostPress">
-							<TileContent>
-								<ImageContent src="sap-icon://employee-approvals"/>
-							</TileContent>
-						</GenericTile>
-						<GenericTile header="ADMIN" press="onAdminPress" subheader="Have the complete control of the VMS aapplication">
-							<TileContent>
-								<ImageContent src="sap-icon://key-user-settings"/>
-							</TileContent>
-						</GenericTile>
-						<GenericTile header="SECURITY" press="onSecurityPress" subheader="Have the  control of the VMS Delivery">
-							<TileContent>
-								<ImageContent src="sap-icon://supplier"/>
-							</TileContent>
-						</GenericTile>
-					</l:Grid>
-				</content>
+				</customHeader>-->
+				<!--<content>-->
+				<!--<f:Card class="sapUiMediumMargin" width="300px">-->
+				<!--	<f:content>-->
+				<!--<Image src="./Images/incture_logo.png" width="50px" height="50px"></Image>-->
+				<!--<Title text="VISITOR MANAGEMENT SYSTEM"></Title>-->
+				<VBox class="VMSlogin">
+					<Image src="./Images/incture_logo.png" width="40%" height="70%" class="sapUiSmallMarginTop sapUiSmallMarginBegin"></Image>
+					<!--<Title text="VISITOR MANAGEMENT SYSTEM" class="sapUiSmallMarginBegin sapUiTinyMarginTop" level="H4"></Title>-->
+					<Label text="VISITOR MANAGEMENT SYSTEM" class="sapUiSmallMarginBegin sapUiTinyMarginTop" design="Bold"></Label>
+					<IconTabBar>
+						<items>
+							<IconTabFilter text="Login" key="login">
+								<VBox class="Login">
+									<Label text="Username" design="Bold"/>
+									<Input placeholder="Enter Username" value="{oLoginModel>/oLoginFormData/username}" id="EmployeeId" type="Text"/>
+									<Label text="Password" design="Bold"/>
+									<Input placeholder="Enter Password" value="{oLoginModel>/oLoginFormData/password}" id="EmployeePassword" type="Password"/>
+									<Button width="100%" text="Login" press="onLogin" type="Emphasized"></Button>
+									<Button width="100%" text="Register" press="onRegister" type="Emphasized"></Button>
+									<Link class="sapUiTinyMarginTop link" text="Forgot Password?" press="onForgotPasswordpress"/>
+								</VBox>
+							</IconTabFilter>
+							<IconTabFilter text="Parking" key="parking"></IconTabFilter>
+						</items>
+					</IconTabBar>
+				</VBox>
+				<!--</content>-->
+				<!--	</f:content>-->
+				<!--</f:Card>-->
+				<!--<content>-->
+				<!--	<l:Grid defaultSpan="L2 M6 S12" class="sapUiLargeMarginTop">-->
+				<!--		<GenericTile header="HOST" subheader="Employee in the Organisation" press="onHostPress">-->
+				<!--			<TileContent>-->
+				<!--				<ImageContent src="sap-icon://employee-approvals"/>-->
+				<!--			</TileContent>-->
+				<!--		</GenericTile>-->
+				<!--		<GenericTile header="ADMIN" press="onAdminPress" subheader="Have the complete control of the VMS aapplication">-->
+				<!--			<TileContent>-->
+				<!--				<ImageContent src="sap-icon://key-user-settings"/>-->
+				<!--			</TileContent>-->
+				<!--		</GenericTile>-->
+				<!--		<GenericTile header="SECURITY" press="onSecurityPress" subheader="Have the  control of the VMS Delivery">-->
+				<!--			<TileContent>-->
+				<!--				<ImageContent src="sap-icon://supplier"/>-->
+				<!--			</TileContent>-->
+				<!--		</GenericTile>-->
+				<!--	</l:Grid>-->
+				<!--</content>-->
 			</Page>
 		</pages>
 	</App>

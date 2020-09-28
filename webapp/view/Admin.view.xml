@@ -113,6 +113,78 @@
 									</ColumnListItem>
 								</items>
 							</Table>
+							<Toolbar>
+								<Button icon="sap-icon://documents" press="oViewReportsPress" type="Emphasized" text="View Reports" id="Home"></Button>
+								<ToolbarSpacer/>
+								<Button icon="sap-icon://download" press="onExport" text="Download" type="Emphasized" tooltip="rental" id="rental"></Button>
+								<Button icon="sap-icon://print" text="Print" press="onPrintPress" type="Emphasized" id="grid"></Button>
+							</Toolbar>
+						</ScrollContainer>
+						<ScrollContainer id="idReports" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
+							<l:Grid defaultSpan="L6 M6 S12">
+								<!--<HBox>-->
+								<VBox>
+									<Text text="Purpose of Visit" class="sapUiSmallMargin">
+										<layoutData>
+											<layout:GridData span="XL12 L12 M6 S6"/>
+										</layoutData>
+									</Text>
+									<FlexBox width="20rem" height="10rem" justifyContent="SpaceBetween">
+										<items>
+											<chart:InteractiveDonutChart selectionChanged="onSelectionChanged">
+												<chart:segments>
+													<chart:InteractiveDonutChartSegment label="Client Meeting" value="46" displayedValue="46%"/>
+													<chart:InteractiveDonutChartSegment label="Interview" value="40" displayedValue="40%"/>
+													<chart:InteractiveDonutChartSegment label="Others" value="14" displayedValue="14%"/>
+												</chart:segments>
+											</chart:InteractiveDonutChart>
+										</items>
+									</FlexBox>
+									<FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+										<items>
+											<chart:InteractiveBarChart labelWidth="35%" selectionChanged="selectionChanged" press="press">
+												<chart:bars>
+													<chart:InteractiveBarChartBar label="Client Meeting" value="46"/>
+													<chart:InteractiveBarChartBar label="Interview" value="40"/>
+													<chart:InteractiveBarChartBar label="Others" value="14"/>
+												</chart:bars>
+											</chart:InteractiveBarChart>
+										</items>
+									</FlexBox>
+								</VBox>
+								<VBox>
+									<Text text="Organisation" class="sapUiSmallMargin">
+										<layoutData>
+											<layout:GridData span="XL12 L12 M6 S6"/>
+										</layoutData>
+									</Text>
+									<FlexBox width="20rem" height="10rem" justifyContent="SpaceBetween">
+										<items>
+											<chart:InteractiveDonutChart selectionChanged="onSelectionChanged" displayedSegments="4">
+												<chart:segments>
+													<chart:InteractiveDonutChartSegment label="TCS" value="35" displayedValue="35%"/>
+													<chart:InteractiveDonutChartSegment label="Infosys" value="20" displayedValue="20%"/>
+													<chart:InteractiveDonutChartSegment label="SAP" value="30" displayedValue="30%"/>
+													<chart:InteractiveDonutChartSegment label="Others" value="15" displayedValue="15%"/>
+												</chart:segments>
+											</chart:InteractiveDonutChart>
+										</items>
+									</FlexBox>
+									<FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+										<items>
+											<chart:InteractiveBarChart labelWidth="25%" selectionChanged="selectionChanged" press="press" displayedBars="4">
+												<chart:bars>
+													<chart:InteractiveBarChartBar label="TCS" value="35"/>
+													<chart:InteractiveBarChartBar label="Infosys" value="20"/>
+													<chart:InteractiveBarChartBar label="SAP" value="30"/>
+													<chart:InteractiveBarChartBar label="Others" value="15"/>
+												</chart:bars>
+											</chart:InteractiveBarChart>
+										</items>
+									</FlexBox>
+								</VBox>
+								<!--</HBox>-->
+							</l:Grid>
 						</ScrollContainer>
 						<ScrollContainer id="idFilters" horizontal="false" vertical="true" height="100%" class="sapUiSizeCompact">
 							<HBox>
@@ -418,13 +490,14 @@
 											<Text text="{oAdminModel>beginTime}"/>
 											<Text text="{oAdminModel>endTime}"/>
 											<Text text="{oAdminModel>roomName}"/>
-											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMSApplicationUI5.utility.formatter.changeColorUpcomingMeetings'}"/>
+											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorUpcomingMeetings'}"/>
 											<Button icon="sap-icon://feeder-arrow" press="onShowUpcomingVisitorsPress"/>
 										</cells>
 									</ColumnListItem>
 								</items>
 							</Table>
-							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact" visible="false">
+							<Table id="preregisteredtable" items="{oAdminModel>/PreRegistration/data}" alternateRowColors="true" class="sapUiSizeCompact"
+								visible="false">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -556,6 +629,41 @@
 											<Text text="{oAdminModel>purpose}"/>
 											<Text text="{oAdminModel>organization}"/>
 											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<Table id="idEmoloyeestable" items="{oAdminModel>/EmployeesList/data}" alternateRowColors="true" mode="MultiSelect" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="Employees" level="H3"/>
+											<ToolbarSpacer></ToolbarSpacer>
+											<SearchField width="20%" liveChange="onSearch"></SearchField>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="12em" minScreenWidth="phone" demandPopin="true">
+										<Text text="Host Name" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="phone" demandPopin="true">
+										<Text text="Email" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="Mobile" class="styleColumn"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true">
+										<Text text="Role" class="styleColumn"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Text text="{oAdminModel>employeeFirstName} {oAdminModel>employeeLastName}"/>
+											<Text text="{oAdminModel>employeeEmail}"/>
+											<Text text="{oAdminModel>employeePhoneNumber}"/>
+											<Text text="{oAdminModel>department}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
