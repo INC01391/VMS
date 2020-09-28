@@ -221,9 +221,10 @@ sap.ui.define([
 				// 	"employeeId": 2,
 				// 	"reason": "rude"
 				// },
-				// headers: {
-				// 	"X-CSRF-Token": token
-				// },
+				headers: {
+					// "X-CSRF-Token": token
+					"content-type":"application/json"
+				},
 
 				dataType: "json",
 				success: function (data, status, response) {
