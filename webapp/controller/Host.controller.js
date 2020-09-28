@@ -233,18 +233,7 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
-				data: {
-					"meetingId": obj.mid,
-					"visitorId": obj.visitorId,
-					"employeeId": eid,
-					"reason": sRemarks
-				},
-				// data: {
-				// 	"meetingId": 8,
-				// 	"visitorId":3,
-				// 	"employeeId": 2,
-				// 	"reason": "rude"
-				// },
+				data: JSON.stringify(payload),
 				headers: {
 					// "X-CSRF-Token": token
 					"content-type": "application/json"
@@ -323,6 +312,15 @@ sap.ui.define([
 			}
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
+		},
+		onEditProfilePress: function () {
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idEditProfileFrag", "com.incture.VMS.fragment.editProfile",
+					this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog);
+			this._oDialog.open();
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;

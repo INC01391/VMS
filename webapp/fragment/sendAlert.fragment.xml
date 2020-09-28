@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog title="Send Alert!!" draggable="true" contentWidth="25rem" contentHeight="12rem" resizable="true" class="sapUiSizeCompact"
+	<Dialog title="Send Alert!!" draggable="true" contentWidth="22rem" contentHeight="10rem" resizable="true" class="sapUiSizeCompact"
 		verticalScrolling="true">
 		<content>
 			<f:SimpleForm id="idSimpleForm" editable="true">
@@ -7,12 +7,12 @@
 					<VBox>
 						<Label text="{i18n>Alert}"></Label>
 						<TextArea id="idtarea" width="20rem"></TextArea>
-						<RadioButtonGroup id="idRadio">
-							<!--<HBox>-->
-							<RadioButton groupName="GroupA" text="All Hosts and Visitors"/>
-							<RadioButton groupName="GroupB" text="Only Visitors"/>
-							<!--</HBox>-->
-						</RadioButtonGroup>
+						<!--<RadioButtonGroup id="idRadio">-->
+						<!--<HBox>-->
+						<!--	<RadioButton groupName="GroupA" text="All Hosts and Visitors"/>-->
+						<!--	<RadioButton groupName="GroupB" text="Only Visitors"/>-->
+						<!--</HBox>-->
+						<!--</RadioButtonGroup>-->
 					</VBox>
 				</f:content>
 			</f:SimpleForm>
