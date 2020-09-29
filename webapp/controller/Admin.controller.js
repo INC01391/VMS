@@ -22,7 +22,7 @@ sap.ui.define([
 				"rId": ""
 					// "facility": "wifi,board"
 			};
-			oAdminModel.setProperty("/oMeetingData", oMeetingData);
+			oFormModel.setProperty("/oMeetingData", oMeetingData);
 			var visitorData = {
 				"firstName": "",
 				"lastName": "",
