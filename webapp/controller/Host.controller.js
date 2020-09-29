@@ -35,13 +35,22 @@ sap.ui.define([
 				"firstName": "",
 				"lastName": "",
 				"email": "",
-				"contactNo": " ",
+				"contactNo": "",
+				"organisation": "",
 				"proofType": "",
 				"proofNo": "",
 				"locality": "",
-				"organization": "",
-				"parkingType": "",
 				"pId": ""
+					// "firstName": "",
+					// "lastName": "",
+					// "email": "",
+					// "contactNo": " ",
+					// "proofType": "",
+					// "proofNo": "",
+					// "locality": "",
+					// "organization": "",
+					// "parkingType": "",
+					// "pId": ""
 			};
 			oFormModel.setProperty("/oFormData", oFormData);
 			var oMeetingData = {
@@ -54,7 +63,8 @@ sap.ui.define([
 				"facility": ""
 			};
 			oFormModel.setProperty("/oMeetingData", oMeetingData);
-
+			var visitors = [];
+			oFormModel.setProperty("/Visitors", visitors);
 		},
 		onDate: function () {
 			var oDialog = new sap.m.BusyDialog();
@@ -323,6 +333,206 @@ sap.ui.define([
 			}
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
+		},
+		onAvailabilityPress: function () {
+			var that = this;
+			var oFormModel = that.getView().getModel("oFormModel");
+			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var capacity = oMeetingData.capacity;
+			// var payload = {
+			// 	"date": oMeetingData.date,
+			// 	"beginTime": oMeetingData.beginTime,
+			// 	"endTime": oMeetingData.endTime,
+			// 	"capacity": oMeetingData.capacity
+			// };
+			// console.log(payload);
+			// var checked1 = Fragment.byId("idPreRegistrationFrag", "idwifi").getSelected();
+			// var checked2 = Fragment.byId("idPreRegistrationFrag", "idconference").getSelected();
+			// var checked3 = Fragment.byId("idPreRegistrationFrag", "idboard").getSelected();
+			// var afacilities = [];
+			// if (checked1 === true) {
+			// 	afacilities.push("wifi");
+			// }
+			// if (checked2 === true) {
+			// 	afacilities.push("conferencecalling");
+			// }
+			// if (checked3 === true) {
+			// 	afacilities.push("board");
+			// }
+			// console.log(afacilities);
+			// var facilities = afacilities.toString();
+			// oHostModel.setProperty("/facilities", facilities);
+			// console.log(facilities);
+			$.ajax({
+				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + capacity,
+				type: "GET",
+				data: null,
+
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+				//meetingRoomCapacity: 25
+				// meetingRoomId: 2
+				// meetingRoomName: "room1"
+				// meetingRoomStatus: 1
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					console.log(response);
+					if (response.status === 200) {
+						// sap.m.MessageToast.show("Success");
+						// console.log(data);
+						oFormModel.setProperty("/AvailableRooms", data);
+
+					} else {
+						sap.m.MessageToast.show("Please enter values in the right format");
+					}
+					// that.fnGetData();
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+
+			Fragment.byId("idPreRegistrationFrag", "idRoomAvailability").setVisible(true);
+		},
+		onParkingAvailabilityPress: function () {
+			var that = this;
+			var oFormModel = that.getView().getModel("oFormModel");
+			// var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var oFormData = oFormModel.getProperty("/oFormData");
+			var parkingType = oFormData.parkingType;
+			// var payload = {
+			// 	"date": oMeetingData.date,
+			// 	"beginTime": oMeetingData.beginTime,
+			// 	"endTime": oMeetingData.endTime,
+			// 	"parkingType": visitorData.parkingType
+
+			// };
+			// console.log(payload);
+			$.ajax({
+				url: "/VMS/rest/parkingSlotController/checkAvailableParkingSlot?vehicleType=Two Wheeler",
+				type: "GET",
+				data: null,
+
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					// sap.m.MessageToast.show("Success");
+					console.log(data);
+					oFormModel.setProperty("/AvailableParkingSlots", data);
+					console.log(status);
+					console.log(response);
+
+					// that.fnGetData();
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			Fragment.byId("idPreRegistrationFrag", "idParkingAvailability").setVisible(true);
+
+		},
+		onRegisterMain: function () {
+			var that = this;
+			var oHostModel = that.getView().getModel("oHostModel");
+			var oFormModel = this.getOwnerComponent().getModel("oFormModel");
+			// var eId = oHostModel.getProperty("/userDetails").eId;
+			var eId = 4;
+			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var oFormData = oFormModel.getProperty("/oFormData");
+			// var facilities = oHostModel.getProperty("/facilities");
+			// console.log(visitorData);
+			// console.log(oMeetingData);
+			var visitors = oFormModel.getProperty("/Visitors");
+			visitors.push(oFormData);
+			oFormModel.setProperty("/Visitors", visitors);
+			console.log(visitors);
+			// 			 {
+			//     "purpose": "interview",
+			//     "comments": "developer",
+			//     "beginTime": "14:30:00",
+			//     "endTime":"15:00:00",
+			//     "eId":4,
+			//     "rId":1,
+			//     "date":"sep 29, 2020",
+			//     "visitors":
+			//         [
+			//             {
+			//                 "firstName":"abc",
+			//                 "lastName":"def",
+			//                 "email":"rohithv63@gmail.com",
+			//                 "contactNo":"7025508696",
+			//                 "organisation":"TCS",
+			//                 "proofType":"aadhar",
+			//                 "proofNo":"asdfghhk",
+			//                 "locality":"kerala",
+			//                 "pId":1
+			//             }
+			//         ]
+			// }
+			var payload = {
+				"purpose": oMeetingData.purpose,
+				"comments": "developer",
+				"beginTime": oMeetingData.beginTime,
+				"endTime": oMeetingData.endTime,
+				"eId": eId,
+				"rId": oMeetingData.rId,
+				"date": oMeetingData.date,
+				// "facility": facilities,
+				// "capacity": oMeetingData.capacity,
+				"visitors": visitors
+			};
+			console.log(payload);
+			var oDialog = new sap.m.BusyDialog();
+			oDialog.open();
+			setTimeout(function () {
+				oDialog.close();
+			}, 3000);
+			$.ajax({
+				url: "/VMS/rest/visitorController/preRegister",
+				type: "POST",
+				data: JSON.stringify(payload),
+				dataType: "json",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						sap.m.MessageToast.show("Successfully Pre-Registered");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+						that._oDialog1.close();
+						that._oDialog1.destroy();
+						that._oDialog1 = null;
+						// oHostModel.setProperty("/oMeetingData", {});
+						// oHostModel.setProperty("/visitorData", {});
+						// oHostModel.setProperty("/Visitors", []);
+					} else if (data.status === 300) {
+						MessageBox.warning("Having a Meeting Clash");
+					} else {
+						MessageBox.warning("something went wrong..please try again");
+					}
+					console.log(status);
+					console.log(response);
+					oHostModel.setProperty("/oMeetingData", {});
+					oHostModel.setProperty("/oFormData", {});
+					oHostModel.setProperty("/Visitors", []);
+					// var date = oHostModel.getProperty("/date");
+					// var sUrl1 = "/VMS_Service/employee/getUpcomingMeetings?eId=" + eId + "&date=" + date;
+					// that.fnGetData(sUrl1, "/UpcomingMeetings");
+					var sUrl = "/VMS/rest/visitorController/getPreregistredVisitors?eid=" + eId;
+					this.fnGetData(sUrl, "/PreRegistration");
+
+				},
+				error: function (e) {
+					MessageBox.warning("Registration failed");
+
+				}
+			});
+
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
