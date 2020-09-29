@@ -4,8 +4,9 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
 	"sap/ui/core/Fragment",
-	"../utility/formatter"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter) {
+	"../utility/formatter",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter,JSONModel) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Admin", {
@@ -19,11 +20,11 @@ sap.ui.define([
 				"beginTime": "",
 				"endTime": "",
 				"capacity": "",
-				"rId": ""
-					// "facility": "wifi,board"
+				"rId": "",
+				"facility": ""
 			};
 			oFormModel.setProperty("/oMeetingData", oMeetingData);
-			var visitorData = {
+			var oFormData = {
 				"firstName": "",
 				"lastName": "",
 				"email": "",
@@ -35,7 +36,7 @@ sap.ui.define([
 				"parkingType": "",
 				"pId": ""
 			};
-			oAdminModel.setProperty("/visitorData", visitorData);
+			oFormModel.setProperty("/oFormData", oFormData);
 			var addvisitorData = {
 				"firstName": "",
 				"lastName": "",
@@ -48,9 +49,14 @@ sap.ui.define([
 				"parkingType": "",
 				"pId": ""
 			};
-			oAdminModel.setProperty("/addvisitorData", addvisitorData);
+			oFormModel.setProperty("/addvisitorData", addvisitorData);
 			var visitors = [];
-			oAdminModel.setProperty("/Visitors", visitors);
+			oFormModel.setProperty("/Visitors", visitors);
+			var oViewData = {
+				newdate: new Date()
+			};
+			var oModel = new JSONModel(oViewData);
+			this.getView().setModel(oModel, "oViewModel");
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
@@ -250,15 +256,16 @@ sap.ui.define([
 			var that = this;
 			var oFormModel = that.getView().getModel("oFormModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var capacity = oMeetingData.capacity;
 			var payload = {
 				"date": oMeetingData.date,
 				"beginTime": oMeetingData.beginTime,
 				"endTime": oMeetingData.endTime,
 				"capacity": oMeetingData.capacity
 			};
-			console.log(payload);
+			// console.log(payload);
 			$.ajax({
-				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + oMeetingData.capacity,
+				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + capacity,
 				type: "GET",
 				data: null,
 				// headers: {
@@ -267,9 +274,9 @@ sap.ui.define([
 
 				// dataType: "json",
 				success: function (data, status, response) {
-					// sap.m.MessageToast.show("Success");
+					sap.m.MessageToast.show("Success");
 					console.log(data);
-					oAdminModel.setProperty("/AvailableRooms", data);
+					oFormModel.setProperty("/AvailableRooms", data);
 					console.log(status);
 					console.log(response);
 
@@ -277,7 +284,8 @@ sap.ui.define([
 
 				},
 				error: function (e) {
-					sap.m.MessageToast.show("fail");
+					sap.m.MessageToast.show("Something went wrong.Please try agian");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 
 				}
 			});
@@ -287,30 +295,25 @@ sap.ui.define([
 		onParkingAvailabilityPress: function () {
 			var that = this;
 			var oFormModel = that.getView().getModel("oFormModel");
-			var oMeetingData = oFormModel.getProperty("/oMeetingData");
-			var visitorData = oFormModel.getProperty("/visitorData");
-			var payload = {
-				"date": oMeetingData.date,
-				"beginTime": oMeetingData.beginTime,
-				"endTime": oMeetingData.endTime,
-				"parkingType": visitorData.parkingType
+			// var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var oFormData = oFormModel.getProperty("/oFormData");
+			var parkingType = oFormData.parkingType;
+			// var payload = {
+			// 	"date": oMeetingData.date,
+			// 	"beginTime": oMeetingData.beginTime,
+			// 	"endTime": oMeetingData.endTime,
+			// 	"parkingType": oFormData.parkingType
 
-			};
+			// };
 			$.ajax({
-				url: "/VMS/rest/parkingSlotController/checkAvailableParkingSlot?vehicleType=" + visitorData.parkingType,
+				url: "/VMS/rest/parkingSlotController/checkAvailableParkingSlot?vehicleType=" + parkingType,
 				type: "GET",
-				data: {
-					"data": JSON.stringify(payload)
-				},
-				// headers: {
-				// 	"X-CSRF-Token": token
-				// },
+				data: null,
 
-				// dataType: "json",
 				success: function (data, status, response) {
 					// sap.m.MessageToast.show("Success");
 					console.log(data);
-					oAdminModel.setProperty("/AvailableParkingSlots", data);
+					oFormModel.setProperty("/AvailableParkingSlots", data);
 					console.log(status);
 					console.log(response);
 
@@ -318,7 +321,8 @@ sap.ui.define([
 
 				},
 				error: function (e) {
-					sap.m.MessageToast.show("fail");
+					sap.m.MessageToast.show("Something went wrong.Please try again");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 
 				}
 			});
@@ -331,22 +335,24 @@ sap.ui.define([
 			var oFormModel = that.getView().getModel("oFormModel");
 			var oAdminModel = that.getView().getModel("oAdminModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
-			var visitorData = oFormModel.getProperty("/visitorData");
-			var eId = oAdminModel.getProperty("/userDetails").eId;
-			console.log(visitorData);
+			var oFormData = oFormModel.getProperty("/oFormData");
+			// var eId = oAdminModel.getProperty("/userDetails").eId;
+			console.log(oFormData);
 			console.log(oMeetingData);
-			var visitors = oAdminModel.getProperty("/Visitors");
-			visitors.push(visitorData);
+			var visitors = oFormModel.getProperty("/Visitors");
+			visitors.push(oFormData);
+			oFormModel.setProperty("/Visitors", visitors);
 			console.log(visitors);
 			var payload = {
 				"purpose": oMeetingData.purpose,
+				"comments": "developer",
 				"beginTime": oMeetingData.beginTime,
 				"endTime": oMeetingData.endTime,
-				"eId": eId,
+				"eId": 5,
 				"rId": oMeetingData.rId,
 				"date": oMeetingData.date,
-				"facility": "",
-				"capacity": oMeetingData.capacity,
+				// "facility": facilities,
+				// "capacity": oMeetingData.capacity,
 				"visitors": visitors
 			};
 			console.log(payload);
@@ -364,23 +370,27 @@ sap.ui.define([
 				// 	"X-CSRF-Token": token
 				// },
 
-				// dataType: "json",
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					if (data.status === 200) {
 						sap.m.MessageToast.show("Successfully Pre-Registered");
-						that._oDialog1.close();
-						that._oDialog1.destroy();
-						that._oDialog1 = null;
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+						that._oDialog.close();
+						that._oDialog.destroy();
+						that._oDialog = null;
 					} else if (data.status === 300) {
 						sap.m.MessageToast.show("Having a Meeting Clash");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 					} else {
 						sap.m.MessageToast.show("Something Went Wrong..please try again");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 					}
 					console.log(status);
 					console.log(response);
-					oAdminModel.setProperty("/oMeetingData", {});
-					oAdminModel.setProperty("/visitorData", {});
-					oAdminModel.setProperty("/Visitors", []);
+					oFormModel.setProperty("/oMeetingData", {});
+					oFormModel.setProperty("/oFormData", {});
+					oFormModel.setProperty("/Visitors", []);
 					// that._oDialog1.close();
 					// that._oDialog1.destroy();
 					// that._oDialog1 = null;
@@ -456,7 +466,8 @@ sap.ui.define([
 
 				},
 				error: function (e) {
-					sap.m.MessageToast.show("fail");
+					sap.m.MessageToast.show("Please try Again");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 
 				}
 			});

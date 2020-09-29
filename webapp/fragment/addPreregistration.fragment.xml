@@ -12,15 +12,17 @@
 						<core:Item text="Interview" key="Interview"/>
 						<core:Item text="Others" key="Others"/>
 					</ComboBox>
-					<Label text="Meeting Date"/>
-					<DatePicker id="date" valueFormat="yyyy-MM-dd" displayFormat="MMM dd, yyyy" value="{oFormModel>/oMeetingData/date}"></DatePicker>
-					<Label text="Meeting Start Time"/>
-					<TimePicker id="Starttime" valueFormat="HH-mm-ss" value="{oFormModel>/oMeetingData/beginTime}"></TimePicker>
-					<Label text="Meeting End Time"/>
-					<TimePicker id="Endtime" valueFormat="HH-mm-ss" value="{oFormModel>/oMeetingData/endTime}"></TimePicker>
-					<Label text="Meeting Room Capacity"/><Input id="Room" type="Number" value="{oFormModel>/oMeetingData/capacity}"/>
+					<Label text="Meeting Date" required="true"/>
+					<DatePicker id="date" valueFormat="MMM dd, yyyy" displayFormat="MMM dd, yyyy" value="{oFormModel>/oMeetingData/date}"
+						minDate="{oViewModel>/newdate}"></DatePicker>
+					<Label text="Meeting Start Time" required="true"/>
+					<TimePicker id="Starttime" valueFormat="HH:mm:ss" value="{oFormModel>/oMeetingData/beginTime}"></TimePicker>
+					<Label text="Meeting End Time" required="true"/>
+					<TimePicker id="Endtime" valueFormat="HH:mm:ss" value="{oFormModel>/oMeetingData/endTime}"></TimePicker>
+					<Label text="Meeting Room Capacity" required="true"/>
+					<Input id="Room" type="Number" value="{oFormModel>/oMeetingData/capacity}"/>
 					<Button icon="sap-icon://show" text="Check Availability" press="onAvailabilityPress" type="Emphasized"></Button>
-					<Label text="Available Rooms"/>
+					<Label text="Available Rooms" required="true"/>
 					<ComboBox id="idRoomAvailability" items="{oFormModel>/AvailableRooms/data}" selectedKey="{oFormModel>/oMeetingData/rId}" visible="false"
 						selectionChange="onselectroom">
 						<core:Item text="{oFormModel>meetingRoomName}" key="{oFormModel>meetingRoomId}"/>
@@ -31,10 +33,10 @@
 				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
 				<f:content>
 					<core:Title text="PERSONAL DETAILS"></core:Title>
-					<Label text="First Name"/><Input id="idFirstName" value="{oFormModel>/oFormData/firstName}"/>
-					<Label text="Last Name"/><Input id="idLastName" value="{oFormModel>/oFormData/lastName}"/>
-					<Label text=" Email Id"/><Input id="idMailId" type="Text" value="{oFormModel>/oFormData/email}"/>
-					<Label text="Mobile"/><Input id="idMobile" type="Number" value="{oFormModel>/oFormData/contactNo}"/>
+					<Label required="true" text="First Name"/><Input id="idFirstName" value="{oFormModel>/oFormData/firstName}"/>
+					<Label required="true" text="Last Name"/><Input id="idLastName" value="{oFormModel>/oFormData/lastName}"/>
+					<Label required="true" text=" Email Id"/><Input id="idMailId" type="Text" value="{oFormModel>/oFormData/email}"/>
+					<Label required="true" text="Mobile"/><Input id="idMobile" type="Number" value="{oFormModel>/oFormData/contactNo}"/>
 					<Label text="Organization"/><Input id="idOrganization" type="Text" value="{oFormModel>/oFormData/organisation}"/>
 					<Label text=" Id Type "/>
 					<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}">
@@ -52,19 +54,20 @@
 				columnsL="3" columnsXL="3" emptySpanL="5" emptySpanXL="6">
 				<f:content>
 					<core:Title text="PARKING DETAILS"></core:Title>
-					<Label text=" Type Of Vehicle"/>
+					<Label text=" Type Of Vehicle" required="true"/>
 					<Select id="idVehicletype" selectedKey="{oFormModel>/oFormData/parkingType}">
 						<items>
-							<core:Item text="2-Wheeler" key="Two wheeler"/>
-							<core:Item text="4-Wheeler" key="Four wheeler"/>
+							<core:Item text="2 Wheeler" key="Two wheeler"/>
+							<core:Item text="4 Wheeler" key="Four wheeler"/>
 						</items>
 					</Select>
 					<!--<Label text="Vehicle Number"/><Input id="idVehicleNumber" type="Text" />-->
 					<!--<Label text="Parking Slot"/><Input id="idParkingslot" type="Text"/>-->
 					<Button icon="sap-icon://show" text="Check Availability" press="onParkingAvailabilityPress" type="Emphasized"></Button>
 					<Label text="Available Parking Slots"/>
-					<ComboBox id="idParkingAvailability" visible="false" items="{oFormModel>/AvailableParkingSlots/data}" selectedKey="{oFormModel>/oFormdata/pId}">
-						<core:Item text="{oFormModel>parkingSlot}" key="{oFormModel>pId}"/>
+					<ComboBox id="idParkingAvailability" visible="false" items="{oFormModel>/AvailableParkingSlots/data}"
+						selectedKey="{oFormModel>/oFormdata/pId}">
+						<core:Item text="{oFormModel>parkingSlotId}" key="{oFormModel>parkingSlotId}"/>
 					</ComboBox>
 				</f:content>
 			</f:SimpleForm>

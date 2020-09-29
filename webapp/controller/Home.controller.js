@@ -20,6 +20,9 @@ sap.ui.define([
 				oDialog.close();
 			}, 3000);
 			var that = this;
+			var oSecurityModel = this.getOwnerComponent().getModel("oSecurityModel");
+			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
+			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			var oLoginModel = that.getView().getModel("oLoginModel");
 			var obj = oLoginModel.getProperty("/oLoginFormData");
 			if(obj.username === "admin"){
