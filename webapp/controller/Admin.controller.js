@@ -6,7 +6,7 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"../utility/formatter",
 	"sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter,JSONModel) {
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter, JSONModel) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Admin", {
@@ -28,12 +28,11 @@ sap.ui.define([
 				"firstName": "",
 				"lastName": "",
 				"email": "",
-				"contactNo": " ",
+				"contactNo": "",
+				"organisation": "",
 				"proofType": "",
 				"proofNo": "",
 				"locality": "",
-				"organisation": "",
-				"parkingType": "",
 				"pId": ""
 			};
 			oFormModel.setProperty("/oFormData", oFormData);
@@ -354,6 +353,24 @@ sap.ui.define([
 				// "facility": facilities,
 				// "capacity": oMeetingData.capacity,
 				"visitors": visitors
+					// "purpose": "interview",
+					// "comments": "developer",
+					// "beginTime": "14:30:00",
+					// "endTime": "15:00:00",
+					// "eId": 4,
+					// "rId": 1,
+					// "date": "sep 29, 2020",
+					// "visitors": [{
+					// 	"firstName": "abc",
+					// 	"lastName": "def",
+					// 	"email": "rohithv63@gmail.com",
+					// 	"contactNo": "7025508696",
+					// 	"organisation": "TCS",
+					// 	"proofType": "aadhar",
+					// 	"proofNo": "asdfghhk",
+					// 	"locality": "kerala",
+					// 	"pId": 1
+					// }]
 			};
 			console.log(payload);
 			var oDialog = new sap.m.BusyDialog();
