@@ -489,13 +489,14 @@ sap.ui.define([
 				type: "POST",
 				data: JSON.stringify(payload),
 				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					if (data.status === 200) {
 						sap.m.MessageToast.show("Successfully Pre-Registered");
 						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
-						that._oDialog1.close();
-						that._oDialog1.destroy();
-						that._oDialog1 = null;
+						that._oDialog.close();
+						that._oDialog.destroy();
+						that._oDialog = null;
 						// oHostModel.setProperty("/oMeetingData", {});
 						// oHostModel.setProperty("/visitorData", {});
 						// oHostModel.setProperty("/Visitors", []);

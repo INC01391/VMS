@@ -41,9 +41,10 @@
 					<Label text=" Id Type "/>
 					<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}">
 						<items>
-							<core:Item text="Adhaar Id" key="Adhaar"/>
-							<core:Item text="PAN ID" key="PAN"/>
+							<core:Item text="Adhaar" key="Adhaar"/>
+							<core:Item text="PAN Card" key="PAN"/>
 							<core:Item text="Driving License" key="DrivingLicense"/>
+							<core:Item text="Passport" key="Passport"/>
 						</items>
 					</Select>
 					<Label text="ID No"/><Input id="idIDNo" value="{oFormModel>/oFormData/proofNo}"/>
@@ -66,7 +67,7 @@
 					<Button icon="sap-icon://show" text="Check Availability" press="onParkingAvailabilityPress" type="Emphasized"></Button>
 					<Label text="Available Parking Slots"/>
 					<ComboBox id="idParkingAvailability" visible="false" items="{oFormModel>/AvailableParkingSlots/data}"
-						selectedKey="{oFormModel>/oFormdata/pId}">
+						selectedKey="{oFormModel>/oFormData/pId}">
 						<core:Item text="{oFormModel>parkingSlotId}" key="{oFormModel>parkingSlotId}"/>
 					</ComboBox>
 				</f:content>
