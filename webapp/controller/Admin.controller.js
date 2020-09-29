@@ -12,6 +12,45 @@ sap.ui.define([
 		formatter: formatter,
 		onInit: function () {
 			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
+			var oFormModel = this.getOwnerComponent().getModel("oFormModel");
+			var oMeetingData = {
+				"purpose": "",
+				"date": "",
+				"beginTime": "",
+				"endTime": "",
+				"capacity": "",
+				"rId": ""
+					// "facility": "wifi,board"
+			};
+			oAdminModel.setProperty("/oMeetingData", oMeetingData);
+			var visitorData = {
+				"firstName": "",
+				"lastName": "",
+				"email": "",
+				"contactNo": " ",
+				"proofType": "",
+				"proofNo": "",
+				"locality": "",
+				"organisation": "",
+				"parkingType": "",
+				"pId": ""
+			};
+			oAdminModel.setProperty("/visitorData", visitorData);
+			var addvisitorData = {
+				"firstName": "",
+				"lastName": "",
+				"email": "",
+				"contactNo": " ",
+				"proofType": "",
+				"proofNo": "",
+				"locality": "",
+				"organisation": "",
+				"parkingType": "",
+				"pId": ""
+			};
+			oAdminModel.setProperty("/addvisitorData", addvisitorData);
+			var visitors = [];
+			oAdminModel.setProperty("/Visitors", visitors);
 			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
@@ -206,6 +245,154 @@ sap.ui.define([
 			var oAdminModel = this.getView().getModel("oAdminModel");
 			var sUrl1 = "/VMS/rest/visitorController/getPreregistredVisitors?eid=5";
 			this.fndoajax(sUrl1, "/PreRegistration");
+		},
+		onAvailabilityPress: function () {
+			var that = this;
+			var oFormModel = that.getView().getModel("oFormModel");
+			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var payload = {
+				"date": oMeetingData.date,
+				"beginTime": oMeetingData.beginTime,
+				"endTime": oMeetingData.endTime,
+				"capacity": oMeetingData.capacity
+			};
+			console.log(payload);
+			$.ajax({
+				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + oMeetingData.capacity,
+				type: "GET",
+				data: null,
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					// sap.m.MessageToast.show("Success");
+					console.log(data);
+					oAdminModel.setProperty("/AvailableRooms", data);
+					console.log(status);
+					console.log(response);
+
+					// that.fnGetData();
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+
+			Fragment.byId("idPreRegistrationFrag", "idRoomAvailability").setVisible(true);
+		},
+		onParkingAvailabilityPress: function () {
+			var that = this;
+			var oFormModel = that.getView().getModel("oFormModel");
+			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var visitorData = oFormModel.getProperty("/visitorData");
+			var payload = {
+				"date": oMeetingData.date,
+				"beginTime": oMeetingData.beginTime,
+				"endTime": oMeetingData.endTime,
+				"parkingType": visitorData.parkingType
+
+			};
+			$.ajax({
+				url: "/VMS/rest/parkingSlotController/checkAvailableParkingSlot?vehicleType=" + visitorData.parkingType,
+				type: "GET",
+				data: {
+					"data": JSON.stringify(payload)
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					// sap.m.MessageToast.show("Success");
+					console.log(data);
+					oAdminModel.setProperty("/AvailableParkingSlots", data);
+					console.log(status);
+					console.log(response);
+
+					// that.fnGetData();
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			Fragment.byId("idPreRegistrationFrag", "idParkingAvailability").setVisible(true);
+		},
+		onRegisterMain: function () {
+			var that = this;
+			var sUrl1 = "/VMS/rest/meetingController/getAllUpcomingMeeting?eid=5";
+			var sUrl2 = "/VMS/rest/visitorController/getPreregistredVisitors?eid=5";
+			var oFormModel = that.getView().getModel("oFormModel");
+			var oAdminModel = that.getView().getModel("oAdminModel");
+			var oMeetingData = oFormModel.getProperty("/oMeetingData");
+			var visitorData = oFormModel.getProperty("/visitorData");
+			var eId = oAdminModel.getProperty("/userDetails").eId;
+			console.log(visitorData);
+			console.log(oMeetingData);
+			var visitors = oAdminModel.getProperty("/Visitors");
+			visitors.push(visitorData);
+			console.log(visitors);
+			var payload = {
+				"purpose": oMeetingData.purpose,
+				"beginTime": oMeetingData.beginTime,
+				"endTime": oMeetingData.endTime,
+				"eId": eId,
+				"rId": oMeetingData.rId,
+				"date": oMeetingData.date,
+				"facility": "",
+				"capacity": oMeetingData.capacity,
+				"visitors": visitors
+			};
+			console.log(payload);
+			var oDialog = new sap.m.BusyDialog();
+			oDialog.open();
+			setTimeout(function () {
+				oDialog.close();
+			}, 3000);
+
+			$.ajax({
+				url: "/VMS/rest/visitorController/preRegister",
+				type: "POST",
+				data: JSON.stringify(payload),
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						sap.m.MessageToast.show("Successfully Pre-Registered");
+						that._oDialog1.close();
+						that._oDialog1.destroy();
+						that._oDialog1 = null;
+					} else if (data.status === 300) {
+						sap.m.MessageToast.show("Having a Meeting Clash");
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong..please try again");
+					}
+					console.log(status);
+					console.log(response);
+					oAdminModel.setProperty("/oMeetingData", {});
+					oAdminModel.setProperty("/visitorData", {});
+					oAdminModel.setProperty("/Visitors", []);
+					// that._oDialog1.close();
+					// that._oDialog1.destroy();
+					// that._oDialog1 = null;
+					that.fndoajax(sUrl1, "/UpcomingMeetings");
+					that.fndoajax(sUrl2, "/PreRegistration");
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+
 		},
 		onAddToBlacklist: function (oEvent) {
 			var that = this;
