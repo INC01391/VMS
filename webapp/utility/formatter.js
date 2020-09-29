@@ -55,7 +55,13 @@ com.incture.VMS.utility.formatter = {
 		return sValue;
 	},
 	displayDateFormat: function (sValue) {
+			sValue = sValue - 19800000;
 			var date = new Date(sValue);
+			// var date2= date.toUTCString();
+			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: "MMM dd, yyyy HH:mm"
+			});
+			date = oDateFormat.format(date);
 			sValue = date.toString();
 			return sValue;
 		}
