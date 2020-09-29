@@ -243,18 +243,7 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
-				data: {
-					"meetingId": obj.mid,
-					"visitorId": obj.visitorId,
-					"employeeId": eid,
-					"reason": sRemarks
-				},
-				// data: {
-				// 	"meetingId": 8,
-				// 	"visitorId":3,
-				// 	"employeeId": 2,
-				// 	"reason": "rude"
-				// },
+				data: JSON.stringify(payload),
 				headers: {
 					// "X-CSRF-Token": token
 					"content-type": "application/json"

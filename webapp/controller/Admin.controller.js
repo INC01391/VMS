@@ -96,7 +96,7 @@ sap.ui.define([
 			}
 			this._oPopover.openBy(oEvent.getSource());
 		},
-		oViewReportsPress:function(){
+		oViewReportsPress: function () {
 			this.byId("pageContainer").to(this.getView().createId("idReports"));
 		},
 		onCheckInPress: function () {
@@ -243,9 +243,7 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/blackListController/addBlackList",
 				type: "POST",
-				data: {
-					"data": JSON.stringify(payload)
-				},
+				data: JSON.stringify(payload),
 
 				dataType: "json",
 				contentType: "application/json; charset=utf-8",
@@ -352,13 +350,8 @@ sap.ui.define([
 			var oAdminModel = that.getView().getModel("oAdminModel");
 			var aSelectedPaths = that.getView().byId("idAdminEvacuationtable").getSelectedContextPaths();
 			var aSelectedPathsHosts = that.getView().byId("idEmoloyeestable").getSelectedContextPaths();
-			var sType = Fragment.byId("idsendAlertFragAdmin", "idRadio").getSelectedButton().getText();
+			// var sType = Fragment.byId("idsendAlertFragAdmin", "idRadio").getSelectedButton().getText();
 			var sMessage = Fragment.byId("idsendAlertFragAdmin", "idtarea").getValue();
-			if (sType === "All Hosts and Visitors") {
-				sType = 0;
-			} else {
-				sType = 1;
-			}
 
 			var aEmailList = [];
 			var aEmailListHost = [];
@@ -389,7 +382,6 @@ sap.ui.define([
 			var payload = {
 				"emailList": aEmailList,
 				"message": sMessage
-				// "alertType": sType
 			};
 			console.log(JSON.stringify(payload));
 			// var oTokenModel = that.getView().getModel("oTokenModel");
@@ -398,15 +390,10 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/visitorController/emergencyMessage",
 				type: "POST",
-				data: {
-					"data": JSON.stringify(payload)
-				},
-				headers: {
-					dataType: "json",
-					contentType: "application/json; charset=utf-8"
+				data: JSON.stringify(payload),
 
-				},
-				// dataType: "json",
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully Sent Alert");
 					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
@@ -427,6 +414,15 @@ sap.ui.define([
 			that._oDialog.close();
 			that._oDialog.destroy();
 			that._oDialog = null;
+		},
+		onEditProfilePress: function () {
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idEditProfileFrag", "com.incture.VMS.fragment.editProfile",
+					this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog);
+			this._oDialog.open();
 		},
 
 		fndoajax: function (sUrl, sProperty) {
