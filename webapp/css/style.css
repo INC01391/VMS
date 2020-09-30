@@ -1,7 +1,7 @@
-.stylePage {
-    background-image: url('../Images/company.jpg');
-    background-size: cover;
-}
+/*.stylePage {*/
+/*    background-image: url('../Images/company.jpg');*/
+/*    background-size: cover;*/
+/*}*/
 
 .VMSlogin {
     width: 25%;
@@ -118,6 +118,11 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
 
 .visitor {
     margin-left: 10%;
+}
+
+.visitorBackground {
+    background-image: url('../Images/company.jpeg');
+    background-size: cover;
 }
 
 .visitor .sapMPanelBGTranslucent {
