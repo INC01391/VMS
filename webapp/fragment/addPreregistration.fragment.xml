@@ -37,9 +37,10 @@
 					<Label required="true" text="Last Name"/><Input id="idLastName" value="{oFormModel>/oFormData/lastName}"/>
 					<Label required="true" text=" Email Id"/><Input id="idMailId" type="Text" value="{oFormModel>/oFormData/email}"/>
 					<Label required="true" text="Mobile"/><Input id="idMobile" type="Number" value="{oFormModel>/oFormData/contactNo}"/>
+					<Label text="Locality"/><Input id="idLocality" type="Text" value="{oFormModel>/oFormData/locality}"/>
 					<Label text="Organization"/><Input id="idOrganization" type="Text" value="{oFormModel>/oFormData/organisation}"/>
 					<Label text=" Id Type "/>
-					<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}">
+					<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}" change="onSelectChange">
 						<items>
 							<core:Item text="Adhaar" key="Adhaar"/>
 							<core:Item text="PAN Card" key="PAN"/>

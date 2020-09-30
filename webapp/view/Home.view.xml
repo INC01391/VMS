@@ -35,6 +35,15 @@
 									<Link class="sapUiTinyMarginTop link" text="Forgot Password?" press="onForgotPasswordpress"/>
 								</VBox>
 							</IconTabFilter>
+							<IconTabFilter text="Visitor" key="Visitor">
+								<VBox height="250px" justifyContent="Center" class="sapUiLargeMarginBegin sapUiSmallMarginBegin">
+									<Button text="{i18n>CheckIn}" type="Emphasized" class="sapUiSmallMarginTop" width="70%" press="onScanCodeCheckIn"/>
+									<Button text="{i18n>CheckOut}" type="Emphasized" class="sapUiSmallMarginTop" width="70%" press="onScanCodeCheckOut"/>
+									<HBox>
+										<Text text="Don't Have a QR code??"/><Link text="Register" press="onVisitorRegisterPress"/>
+									</HBox>
+								</VBox>
+							</IconTabFilter>
 							<IconTabFilter text="Parking" key="parking">
 								<VBox justifyContent="Center" id="idParking" visible="true" height="250px">
 									<Button text="{i18n>CheckIn}" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onParkingCheckInPress"/>

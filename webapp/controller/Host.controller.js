@@ -323,6 +323,9 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
 		},
+		onSelectChange:function(){
+			console.log(oFormModel);
+		},
 		onAvailabilityPress: function () {
 			var that = this;
 			var oFormModel = that.getView().getModel("oFormModel");
