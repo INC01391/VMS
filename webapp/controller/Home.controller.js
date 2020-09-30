@@ -29,15 +29,56 @@ sap.ui.define([
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			var oLoginModel = that.getView().getModel("oLoginModel");
 			var obj = oLoginModel.getProperty("/oLoginFormData");
-			if (obj.username === "admin") {
-				this.getRouter().navTo("AdminDetails");
-			}
-			if (obj.username === "host") {
-				this.getRouter().navTo("HostDetails");
-			}
-			if (obj.username === "security") {
-				this.getRouter().navTo("SecurityDetails");
-			}
+			var sUrl = "/VMS/rest/employeeController/login?employeeid=" + obj.username + "&password=" + obj.password;
+			console.log(sUrl);
+			$.ajax({
+				url: sUrl,
+				type: "POST",
+				data: null,
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+				dataType: "json",
+				success: function (data, status, response) {
+					oDialog.close();
+					// sap.m.MessageToast.show("Success");
+					// oLoginModel.setProperty("/userDetails", data);
+					console.log(data);
+					console.log(response);
+					if (response.status === 200 && data.employeeRole === "admin") {
+						sap.m.MessageToast.show("Successfully Logged IN");
+						oLoginModel.setProperty("/loginDetails", data);
+						// oAdminModel.setProperty("/userDetails", data);
+						that.getRouter().navTo("AdminDetails");
+					} else if (response.status === 200 && data.employeeRole === "host") {
+						sap.m.MessageToast.show("Successfully Logged IN");
+							oLoginModel.setProperty("/loginDetails", data);
+						that.getRouter().navTo("HostDetails");
+					} else if (response.status === 200 && data.employeeRole === "security") {
+						sap.m.MessageToast.show("Successfully Logged IN");
+						oLoginModel.setProperty("/loginDetails", data);
+						that.getRouter().navTo("SecurityDetails");
+					} else {
+						MessageBox.warning("Invalid Credentials");
+					}
+
+				},
+				error: function (e) {
+					MessageBox.information("Server Not Responding");
+					oDialog.close();
+					console.log(e);
+					// that.getRouter().navTo("AdminDetails");
+				}
+			});
+			// if (obj.username === "admin") {
+			// 	this.getRouter().navTo("AdminDetails");
+			// }
+			// if (obj.username === "host") {
+			// 	this.getRouter().navTo("HostDetails");
+			// }
+			// if (obj.username === "security") {
+			// 	this.getRouter().navTo("SecurityDetails");
+			// }
 		},
 		onParkingCheckInPress: function () {
 			this.getView().byId("idParking").setVisible(false);
