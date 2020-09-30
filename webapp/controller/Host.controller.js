@@ -328,6 +328,9 @@ sap.ui.define([
 			var oFormModel = that.getView().getModel("oFormModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
 			var capacity = oMeetingData.capacity;
+			var date = oMeetingData.date;
+			var beginTime = oMeetingData.beginTime;
+			var endTime = oMeetingData.endTime;
 			// var payload = {
 			// 	"date": oMeetingData.date,
 			// 	"beginTime": oMeetingData.beginTime,
@@ -352,8 +355,13 @@ sap.ui.define([
 			// var facilities = afacilities.toString();
 			// oHostModel.setProperty("/facilities", facilities);
 			// console.log(facilities);
+			var sUrl = "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?begin=" + date + " " + beginTime + "&end=" + date + " " +
+				endTime + "&capacity=" + capacity;
+			console.log(sUrl);
 			$.ajax({
-				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + capacity,
+				// url:"rest/meetingRoomController/checkMeetingRoomAvailability?begin=30-9-2020 13:30:00&end=30-9-2020 14:30:00&capacity=10",
+				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?begin=" + date + " " + beginTime + "&end=" + date + " " +
+					endTime + "&capacity=" + capacity,
 				type: "GET",
 				data: null,
 
@@ -365,7 +373,7 @@ sap.ui.define([
 				// meetingRoomName: "room1"
 				// meetingRoomStatus: 1
 
-				// dataType: "json",
+				dataType: "json",
 				success: function (data, status, response) {
 					console.log(response);
 					if (response.status === 200) {
@@ -507,14 +515,14 @@ sap.ui.define([
 					}
 					console.log(status);
 					console.log(response);
-					oHostModel.setProperty("/oMeetingData", {});
-					oHostModel.setProperty("/oFormData", {});
-					oHostModel.setProperty("/Visitors", []);
+					oFormModel.setProperty("/oMeetingData", {});
+					oFormModel.setProperty("/oFormData", {});
+					oFormModel.setProperty("/Visitors", []);
 					// var date = oHostModel.getProperty("/date");
 					// var sUrl1 = "/VMS_Service/employee/getUpcomingMeetings?eId=" + eId + "&date=" + date;
 					// that.fnGetData(sUrl1, "/UpcomingMeetings");
 					var sUrl = "/VMS/rest/visitorController/getPreregistredVisitors?eid=" + eId;
-					this.fnGetData(sUrl, "/PreRegistration");
+					that.fnGetData(sUrl, "/PreRegistration");
 
 				},
 				error: function (e) {

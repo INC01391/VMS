@@ -255,16 +255,20 @@ sap.ui.define([
 			var that = this;
 			var oFormModel = that.getView().getModel("oFormModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
-			var capacity = oMeetingData.capacity;
-			var payload = {
-				"date": oMeetingData.date,
-				"beginTime": oMeetingData.beginTime,
-				"endTime": oMeetingData.endTime,
-				"capacity": oMeetingData.capacity
-			};
+	    	var capacity = oMeetingData.capacity;
+			var date = oMeetingData.date;
+			var beginTime = oMeetingData.beginTime;
+			var endTime = oMeetingData.endTime;
+			// var payload = {
+			// 	"date": oMeetingData.date,
+			// 	"beginTime": oMeetingData.beginTime,
+			// 	"endTime": oMeetingData.endTime,
+			// 	"capacity": oMeetingData.capacity
+			// };
 			// console.log(payload);
 			$.ajax({
-				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?capacity=" + capacity,
+				url: "/VMS/rest/meetingRoomController/checkMeetingRoomAvailability?begin=" + date + " " + beginTime + "&end=" + date + " " +
+					endTime + "&capacity=" + capacity,
 				type: "GET",
 				data: null,
 				// headers: {
