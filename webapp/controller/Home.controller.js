@@ -1,7 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/UIComponent"
-], function (Controller, UIComponent) {
+	"sap/ui/core/UIComponent",
+	"sap/ndc/BarcodeScanner",
+	"sap/m/MessageBox",
+	"sap/ui/core/Fragment",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, UIComponent, BarcodeScanner, MessageBox, Fragment, JSONModel) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Home", {
@@ -25,21 +29,21 @@ sap.ui.define([
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			var oLoginModel = that.getView().getModel("oLoginModel");
 			var obj = oLoginModel.getProperty("/oLoginFormData");
-			if(obj.username === "admin"){
+			if (obj.username === "admin") {
 				this.getRouter().navTo("AdminDetails");
 			}
-			if(obj.username === "host"){
+			if (obj.username === "host") {
 				this.getRouter().navTo("HostDetails");
 			}
-			if(obj.username === "security"){
+			if (obj.username === "security") {
 				this.getRouter().navTo("SecurityDetails");
 			}
 		},
-		onParkingCheckInPress:function(){
+		onParkingCheckInPress: function () {
 			this.getView().byId("idParking").setVisible(false);
 			this.getView().byId("idRegister").setVisible(true);
 		},
-		onParkingCheckOutPress:function(){
+		onParkingCheckOutPress: function () {
 			this.getView().byId("idParking").setVisible(false);
 			this.getView().byId("idCheckOut").setVisible(true);
 		},
@@ -55,6 +59,98 @@ sap.ui.define([
 			// MessageToast.show("Host is Pressed");
 			this.getRouter().navTo("HostDetails");
 		},*/
+		onScanCodeCheckIn: function () {
+			var that = this;
+			var oFormModel = that.getOwnerComponent().getModel("oFormModel");
+			var vhId;
+			sap.ndc.BarcodeScanner.scan(
+				function (oResult) {
+					console.log(oResult);
+					vhId = oResult.text;
+					console.log(vhId);
+					var sUrl = "/VMS_Service/visitor/getVisitorDetails?vhId=" + vhId;
+					$.ajax({
+						url: sUrl,
+						data: null,
+						async: true,
+						dataType: "json",
+						contentType: "application/json; charset=utf-8",
+						error: function (err) {
+							sap.m.MessageToast.show("Destination Failed");
+						},
+						success: function (data) {
+							console.log(data);
+							oVisitorModel.setProperty("/userDetails", data);
+						},
+						type: "GET"
+					});
+					if (oResult.cancelled === false) {
+						that.fnOpenDialog();
+					}
+					// / * process scan result * /
+				},
+				function (oError) {
+					MessageBox.warning("Error");
+					// / * handle scan error * /
+				},
+				function (oResult) {
+					// / * handle input dialog change * /
+				});
+		},
+		fnOpenDialog: function () {
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idCheckinDetails", "com.incture.VMS.fragment.visitorCheckinDetails", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+
+		onScanCodeCheckOut: function () {
+			var that = this;
+			// var oVisitorModel = that.getView().getModel("oVisitorModel");
+			var vhId;
+			sap.ndc.BarcodeScanner.scan(
+				function (oResult) {
+					console.log(oResult);
+					vhId = oResult.text;
+
+					$.ajax({
+						url: "/VMS_Service/visitor/checkOut",
+						type: "POST",
+						data: {
+							"vhId": vhId
+
+						},
+						dataType: "json",
+						success: function (data, status, response) {
+							console.log(data);
+							if (data.status === 200) {
+
+								MessageBox.success("Thank You For Visiting!!Please HandOver the Access Card to the Security.");
+
+							} else if (data.status === 300) {
+								MessageBox.information("Already Checked out");
+							} else {
+								MessageToast.show("Something Went Wrong");
+							}
+
+						},
+						error: function (e) {
+							sap.m.MessageToast.show("fail");
+
+						}
+					});
+
+				},
+				function (oError) {
+
+					// / * handle scan error * /
+				}
+
+			);
+
+		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		}
