@@ -151,6 +151,9 @@ sap.ui.define([
 			);
 
 		},
+		onVisitorRegisterPress:function(){
+			this.getRouter().navTo("VisitorDetails");
+		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		}
