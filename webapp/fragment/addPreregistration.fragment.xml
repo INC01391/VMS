@@ -13,7 +13,7 @@
 						<core:Item text="Others" key="Others"/>
 					</ComboBox>
 					<Label text="Meeting Date" required="true"/>
-					<DatePicker id="date" valueFormat="dd-MM-yyyy" displayFormat="MMM dd, yyyy" value="{oFormModel>/oMeetingData/date}"
+					<DatePicker id="date" valueFormat="MMM dd, yyyy" displayFormat="MMM dd, yyyy" value="{oFormModel>/oMeetingData/date}"
 						minDate="{oViewModel>/newdate}"></DatePicker>
 					<Label text="Meeting Start Time" required="true"/>
 					<TimePicker id="Starttime" valueFormat="HH:mm:ss" value="{oFormModel>/oMeetingData/beginTime}"></TimePicker>
