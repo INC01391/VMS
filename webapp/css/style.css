@@ -116,6 +116,10 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
     /*border-left: 7px solid #4F8A10 !important;*/
 }
 
+.visitor {
+    margin-left: 10%;
+}
+
 .visitor .sapMPanelBGTranslucent {
     background-color: #ffffff;
 }
