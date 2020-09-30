@@ -127,6 +127,12 @@
 				"target": [
 					"Host"
 				]
+			}, {
+				"name": "VisitorDetails",
+				"pattern": "VisitorDetails",
+				"target": [
+					"Visitor"
+				]
 			}],
 			"targets": {
 				"TargetHome": {
@@ -147,6 +153,10 @@
 				"Host": {
 					"viewType": "XML",
 					"viewName": "Host"
+				},
+				"Visitor": {
+					"viewType": "XML",
+					"viewName": "Visitor"
 				}
 			}
 		}

@@ -1,15 +1,7 @@
-/*.loginpage {*/
-
-
-/*    background-image: url("company.jpeg");*/
-
-
+/*.stylePage {*/
+/*    background-image: url('../Images/company.jpg');*/
+/*    background-size: cover;*/
 /*}*/
-
-.stylePage {
-    background-image: url('../Images/company.jpg');
-    background-size: cover;
-}
 
 .VMSlogin {
     width: 25%;
@@ -99,10 +91,12 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
 .sapMDialog.sapMPopup-CTX>header .sapMHeader-CTX {
     background-color: #00909d;
 }
+
 .sapMDialog>header.sapMDialogTitle .sapMDialogIcon.sapUiIcon {
     font-size: 1rem;
     color: white;
 }
+
 .textRed {
     color: red!important;
 }
@@ -120,4 +114,56 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
     background-color: #354a5f !important;
     /*border: 1px solid #4F8A10 !important;*/
     /*border-left: 7px solid #4F8A10 !important;*/
+}
+
+.visitor {
+    margin-left: 10%;
+}
+
+.visitorBackground {
+    background-image: url('../Images/company.jpeg');
+    background-size: cover;
+}
+
+.visitor .sapMPanelBGTranslucent {
+    background-color: #ffffff;
+}
+
+.visitor .sapMLabel {
+    color: #030303;
+    font-size: 1rem;
+    font-weight: Bold;
+    font-family: roboto, sans-serif;
+}
+
+.visitor .sapUiForm .sapUiFormTitle {
+    border-width: 1px;
+    border-color: #030303;
+    color: #030303;
+    font-size: 1.3rem;
+    font-weight: Bold;
+    font-family: roboto, sans-serif;
+    height: 2.75rem;
+    line-height: 2.75rem;
+}
+
+.visitor .sapMTitle {
+    color: #ffffff;
+    font-family: roboto, sans-serif;
+    font-weight: bold;
+}
+
+.visitor .sapMTB {
+    height: 2.75rem;
+    padding: 0 0.5rem 0 0.25rem;
+    background: #354a5f00;
+}
+
+.visitor .sapMBtnIcon {
+    color: #f7f7f7;
+}
+
+.visitor .sapMInputBaseInner {
+    background: #e5e5e5;
+    border: none;
 }

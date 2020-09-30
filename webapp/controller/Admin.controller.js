@@ -255,7 +255,7 @@ sap.ui.define([
 			var that = this;
 			var oFormModel = that.getView().getModel("oFormModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
-	    	var capacity = oMeetingData.capacity;
+			var capacity = oMeetingData.capacity;
 			var date = oMeetingData.date;
 			var beginTime = oMeetingData.beginTime;
 			var endTime = oMeetingData.endTime;
@@ -339,6 +339,11 @@ sap.ui.define([
 			var oAdminModel = that.getView().getModel("oAdminModel");
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
 			var oFormData = oFormModel.getProperty("/oFormData");
+			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: "MMM dd, yyyy"
+			});
+			var date = oMeetingData.date;
+			var newdate = oDateFormat.format(date);
 			// var eId = oAdminModel.getProperty("/userDetails").eId;
 			console.log(oFormData);
 			console.log(oMeetingData);
@@ -353,7 +358,7 @@ sap.ui.define([
 				"endTime": oMeetingData.endTime,
 				"eId": 5,
 				"rId": oMeetingData.rId,
-				"date": oMeetingData.date,
+				"date": newdate,
 				// "facility": facilities,
 				// "capacity": oMeetingData.capacity,
 				"visitors": visitors
