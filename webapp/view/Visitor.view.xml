@@ -16,44 +16,57 @@
 				<content class="NewVisitorContent">
 					<Panel width="80%" backgroundDesign="Translucent" class="visitor sapUiSizeCompact">
 						<VBox>
-							<f:SimpleForm layout="ColumnLayout" editable="true" id="idSimpleFormPreReg" title="Enter Personal Details">
+							<f:SimpleForm layout="ColumnLayout" editable="true" id="idSimpleFormPreReg">
 								<f:content>
-									<Label text="Email" required="true"/>
-									<Input id="idEmail" type="Email" value="{oVisitorModel>/email}" change="onVerifyVisitor" required="true"/>
-									<Label text="First Name" required="true"/>
-									<Input id="idfName" type="Text" value="{oVisitorModel>/firstName}" required="true"/>
-									<Label text="Last Name" required="true"/>
-									<Input id="idlName" type="Text" value="{oVisitorModel>/lastName}" required="true"/>
-									<Label text="Mobile No" required="true"/>
-									<Input id="idPhone" type="Number" value="{oVisitorModel>/contactNo}" required="true"/>
-									<Label text="ID Proof"/>
-									<ComboBox id="idPerID" selectedKey="{oVisitorModel>/personalIdType}" items="{oViewModel>/list}" class="InputBox">
-										<core:Item text="{oViewModel>Identity}" key="{oViewModel>Identity}"></core:Item>
+									<core:Title text="Personal Details:"></core:Title>
+									<Label text="Email" design="Bold" required="true"/>
+									<Input id="idEmail" type="Email" value="{oVisitorModel>/visitorData/email}" change="onVerifyVisitor" required="true"/>
+									<Label text="First Name" design="Bold" required="true"/>
+									<Input id="idfName" type="Text" value="{oVisitorModel>/visitorData/firstName}" required="true"/>
+									<Label text="Last Name" design='Bold' required="true"/>
+									<Input id="idlName" type="Text" value="{oVisitorModel>/visitorData/lastName}" required="true"/>
+									<Label text="Mobile No" design="Bold" required="true"/>
+									<Input id="idPhone" type="Number" value="{oVisitorModel>/visitorData/contactNo}" required="true"/>
+									<Label text="ID Proof" design="Bold"/>
+									<ComboBox selectedKey="{oVisitorModel>/visitorData/proofType}" placeholder="Select ID Type">
+										<core:Item text="Aadhar" key="Aadhar"/>
+										<core:Item text="Passport" key="Passport"/>
+										<core:Item text="Voter Id" key="Voter Id"/>
+										<core:Item text="Driving Licence" key="Driving Licence"/>
+										<core:Item text="Pancard" key="Pancard"/>
 									</ComboBox>
-									<Label text="ID Number"/>
-									<Input id="idPerIDNum" type="Number" value="{oVisitorModel>/identityNo}"/>
-									<Label text="Organisation" required="true"/>
-									<Input id="idVisOrg" value="{oVisitorModel>/organisation}" required="true"/>
-									<Label text="Locality"></Label>
-									<Input></Input>
+									<Label design="Bold" text="ID Number"/>
+									<Input id="idPerIDNum" type="Number" value="{oVisitorModel>/visitorData/proofNo}"/>
+									<Label text="Organisation" design="Bold" required="true"/>
+									<Input id="idVisOrg" value="{oVisitorModel>/visitorData/organisation}" required="true"/>
+									<Label design="Bold" text="Locality"></Label>
+									<Input value="{oVisitorModel>/visitorData/locality}"></Input>
 								</f:content>
 							</f:SimpleForm >
 						</VBox>
 						<VBox>
-							<f:SimpleForm layout="ColumnLayout" editable="true" id="idSimpleFormPreReg1" title="Enter Meeting Details">
+							<f:SimpleForm layout="ColumnLayout" editable="true" id="idSimpleFormPreReg1">
 								<f:content>
-									<Label text="Purpose" required="true"/>
-									<Input id="idVisPurp" value="{oVisitorModel>/purpose}"/>
-									<Label text="Host Name" required="true"/>
-									<ComboBox id="idHostName" selectedKey="{oVisitorModel>/eId}" items="{oVisitorModel1>/getEmployeeList}">
-										<core:Item text="{oVisitorModel1>name}" key="{oVisitorModel1>eId}"/>
+									<core:Title text="Meeting Details:"></core:Title>
+									<Label text="Purpose" design="Bold" required="true"/>
+									<ComboBox selectedKey="{oVisitorModel>/oMeetingData/purpose}" placeholder="Select">
+										<core:Item text="Client Meeting" key="Client Meeting"/>
+										<core:Item text="Interview" key="Interview"/>
+										<core:Item text="Others" key="Others"/>
 									</ComboBox>
-									<Label text="Begin Time" required="true"/>
-									<TimePicker id="idMeetbegin" valueFormat="HH:mm:ss" displayFormat="HH:mm:ss" value="{oVisitorModel>/begin}" change="handleChange"
-										required="true"/>
-									<Label text="End Time" required="true"/>
-									<TimePicker id="idMeetend" valueFormat="HH:mm:ss" displayFormat="HH:mm:ss" value="{oVisitorModel>/end}" change="handleChange"
-										required="true"/>
+									<Label text="Host Name" design="Bold" required="true"/>
+									<Input id="idHostName" class="InputBox" value="{oVisitorModel>/oMeetingData/hostName}" showSuggestion="true" showValueHelp="true"
+										suggestionItems="{oVisitorModel>/getEmployeeList}" selectedKey="{oVisitorModel>/oMeetingData/eId}">
+										<suggestionItems>
+											<core:Item text="{oVisitorModel>employeeFirstName}{oVisitorModel>employeeLastName}" key="{oVisitorModel>eId}"/>
+										</suggestionItems>
+									</Input>
+									<Label text="Begin Time" design="Bold" required="true"/>
+									<TimePicker id="idMeetbegin" valueFormat="HH:mm:ss" displayFormat="HH:mm:ss" value="{oVisitorModel>/oMeetingData/beginTime}"
+										change="handleChange" required="true"/>
+									<Label text="End Time" design="Bold" required="true"/>
+									<TimePicker id="idMeetend" valueFormat="HH:mm:ss" displayFormat="HH:mm:ss" value="{oVisitorModel>/oMeetingData/endTime}"
+										change="handleChange" required="true"/>
 								</f:content>
 							</f:SimpleForm>
 							<!--<Table id="idNewVisitor" inset="true" items="{path: 'oPreRegForm>/PreRegFormData'}" visible="{oViewModel>/AddVisVisibility}">
@@ -110,7 +123,7 @@
 						<OverflowToolbar>
 							<ToolbarSpacer/>
 							<Button text="Add Visitor" type="Emphasized" press="addVisitor"/>
-							<Button id="idSubmitBtn" type="Success" text="Submit" press="onSubmit" enabled="false"/>
+							<Button id="idSubmitBtn" type="Success" text="Register" press="onRegister" enabled="false"/>
 							<Button text="Close" type="Reject" press="onCancel"/>
 						</OverflowToolbar>
 					</Panel>

@@ -129,12 +129,12 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
     background-color: #ffffff;
 }
 
-.visitor .sapMLabel {
-    color: #030303;
-    font-size: 1rem;
-    font-weight: Bold;
-    font-family: roboto, sans-serif;
-}
+/*.visitor .sapMLabel {*/
+/*    color: #030303;*/
+/*    font-size: 1rem;*/
+/*    font-weight: Bold;*/
+/*    font-family: roboto, sans-serif;*/
+/*}*/
 
 .visitor .sapUiForm .sapUiFormTitle {
     border-width: 1px;
