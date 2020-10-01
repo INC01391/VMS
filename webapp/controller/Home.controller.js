@@ -197,32 +197,32 @@ sap.ui.define([
 			// console.log(visitorData);
 			// var payload = visitorData;
 			// var vhId = that.getView().byId("idVhid").getValue();
-			var payload = {
-				"visitorFirstName": "priya",
-				"visitorLastName": "prasad",
-				"visitorAddress": "abc",
-				"visitorEmail": "priyaganga98@gmail.com",
-				"visitorPhoneNumber": "+917025545433",
-				"photo": "ty123ycb",
-				"organization": "tcs",
-				"visitorIdProofType": "aadhar",
-				"visitorIdProofNumber": "7894568",
-				"purpose": "interview"
-			};
 			// var payload = {
-
-			// 	"visitorFirstName": visitorData.visitorFirstName,
-			// 	"visitorLastName": visitorData.visitorLastName,
+			// 	"visitorFirstName": "priya",
+			// 	"visitorLastName": "prasad",
 			// 	"visitorAddress": "abc",
-			// 	"visitorEmail": visitorData.visitorEmail,
-			// 	"visitorPhoneNumber": visitorData.visitorPhoneNumber,
-			// 	"photo": image,
-			// 	"organization": visitorData.organization,
-			// 	"visitorIdProofType": visitorData.visitorIdProofType,
-			// 	"visitorIdProofNumber": visitorData.visitorIdProofNumber,
+			// 	"visitorEmail": "priyaganga98@gmail.com",
+			// 	"visitorPhoneNumber": "+917025545433",
+			// 	"photo": "ty123ycb",
+			// 	"organization": "tcs",
+			// 	"visitorIdProofType": "aadhar",
+			// 	"visitorIdProofNumber": "7894568",
 			// 	"purpose": "interview"
-
 			// };
+			var payload = {
+
+				"visitorFirstName": visitorData.visitorFirstName,
+				"visitorLastName": visitorData.visitorLastName,
+				"visitorAddress": "abc",
+				"visitorEmail": visitorData.visitorEmail,
+				"visitorPhoneNumber": visitorData.visitorPhoneNumber,
+				"photo": image,
+				"organization": visitorData.organization,
+				"visitorIdProofType": visitorData.visitorIdProofType,
+				"visitorIdProofNumber": visitorData.visitorIdProofNumber,
+				"purpose": "interview"
+
+			};
 			console.log(payload);
 			$.ajax({
 				url: "/VMS/rest/visitorController/updateVisitorById?id=" + vhId,
