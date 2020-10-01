@@ -52,7 +52,7 @@ sap.ui.define([
 						that.getRouter().navTo("AdminDetails");
 					} else if (response.status === 200 && data.employeeRole === "host") {
 						sap.m.MessageToast.show("Successfully Logged IN");
-							oLoginModel.setProperty("/loginDetails", data);
+						oLoginModel.setProperty("/loginDetails", data);
 						that.getRouter().navTo("HostDetails");
 					} else if (response.status === 200 && data.employeeRole === "security") {
 						sap.m.MessageToast.show("Successfully Logged IN");
@@ -109,7 +109,7 @@ sap.ui.define([
 					console.log(oResult);
 					vhId = oResult.text;
 					console.log(vhId);
-					var sUrl = "/VMS_Service/visitor/getVisitorDetails?vhId=" + vhId;
+					var sUrl = "/VMS/rest/visitorController/getVisitorById?id=" + vhId;
 					$.ajax({
 						url: sUrl,
 						data: null,
@@ -121,7 +121,7 @@ sap.ui.define([
 						},
 						success: function (data) {
 							console.log(data);
-							oVisitorModel.setProperty("/userDetails", data);
+							oFormModel.setProperty("/userDetails", data);
 						},
 						type: "GET"
 					});
@@ -146,6 +146,82 @@ sap.ui.define([
 			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
 			this._oDialog.open();
 		},
+		onEditDetails: function () {
+			this.bEdit = true;
+			Fragment.byId("idCheckinDetails", "idSimpleFormEditable").setVisible(true);
+			Fragment.byId("idCheckinDetails", "idSimpleForm").setVisible(false);
+		},
+		onConfirmDetails: function () {
+			var that = this;
+			var oFormModel = that.getOwnerComponent().getModel("oFormModel");
+			var visitorData = oFormModel.getProperty("/userDetails/data");
+			// var image = oFormModel.getProperty("/photo");
+			// var res = image.split("base64,");
+			// console.log(visitorData);
+			// var payload = visitorData;
+			// var vhId = that.getView().byId("idVhid").getValue();
+			// 			{
+			// "firstName":"abc",
+			// "lastName":"def",
+			// "email":"rohithv63@gmail.com",
+			// "contactNo":"7025508696",
+			// "organisation":"TCS",
+			// "proofType":"aadhar",
+			// "proofNo":"asdfghhk123",
+			// "mId":69
+			// }
+			var payload = {
+
+				"firstName": visitorData.visitorFirstName,
+				"lastName": visitorData.visitorLastName,
+				"email": visitorData.visitorEmail,
+				"contactNo": visitorData.visitorPhoneNumber,
+				"organisation": visitorData.organization,
+				"proofType": visitorData.visitorIdProofType,
+				"proofNo": visitorData.visitorIdProofNumber,
+				"mId": visitorData.mId
+					// "image": res[1]
+
+			};
+			// var vhId = 3;
+			// var sUrl = "/VMS_Service/visitor/getVisitorDetails?vhId=1";
+			console.log(payload);
+			$.ajax({
+				url: "/VMS/rest/visitorController/editVisitor",
+				type: "POST",
+				data: JSON.stringify(payload),
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					console.log(data);
+					if (data.status === 200) {
+						// sap.m.MessageToast.show("Successfully Pre-Registered");
+						MessageBox.success(
+							"Welcome to Incture Technologies!!Please Collect Access Card From the Security."
+						);
+						that.bEdit = false;
+					} else if (data.status === 300) {
+						sap.m.MessageToast.show("Having a Meeting Clash");
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+					}
+
+					console.log(status);
+					console.log(response);
+
+					// that._oDialog1.close();
+					// that._oDialog1.destroy();
+					// that._oDialog1 = null;
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			that._oDialog.close();
+			that._oDialog.destroy();
+			that._oDialog = null;
+		},
 
 		onScanCodeCheckOut: function () {
 			var that = this;
@@ -157,12 +233,9 @@ sap.ui.define([
 					vhId = oResult.text;
 
 					$.ajax({
-						url: "/VMS_Service/visitor/checkOut",
+						url: "/VMS/rest/visitorController/updateCheckOut?id=" + vhId,
 						type: "POST",
-						data: {
-							"vhId": vhId
-
-						},
+						data:null,
 						dataType: "json",
 						success: function (data, status, response) {
 							console.log(data);
@@ -173,7 +246,7 @@ sap.ui.define([
 							} else if (data.status === 300) {
 								MessageBox.information("Already Checked out");
 							} else {
-								MessageToast.show("Something Went Wrong");
+								sap.m.MessageToast.show("Something Went Wrong");
 							}
 
 						},
@@ -192,7 +265,7 @@ sap.ui.define([
 			);
 
 		},
-		onVisitorRegisterPress:function(){
+		onVisitorRegisterPress: function () {
 			this.getRouter().navTo("VisitorDetails");
 		},
 		getRouter: function () {

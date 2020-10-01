@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Please Check Your Details" draggable="true" resizable="true" contentWidth="37rem" class="sapUiSizeCompact"
+		verticalScrolling="true">
+		<content>
+			<f:SimpleForm id="idSimpleForm" editable="false">
+				<f:content>
+					<Label text="First Name"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorFirstName}"></Text>
+					<Label text="Last Name"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorLastName}"></Text>
+					<Label text="Mobile No"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorPhoneNumber}"></Text>
+					<Label text="Mail Id"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorEmail}"></Text>
+					<Label text="Id Type"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorIdProofType}"></Text>
+					<Label text="Id No"></Label>
+					<Text text="{oFormModel>/userDetails/data/visitorIdProofNumber}"></Text>
+					<Label text="Locality"></Label>
+					<Text text="{oFormModel>/userDetails/data/locality}"></Text>
+					<Label text="Organization"></Label>
+					<Text text="{oFormModel>/userDetails/data/organization}"></Text>
+				</f:content>
+			</f:SimpleForm>
+			<f:SimpleForm id="idSimpleFormEditable" editable="true" visible="false">
+				<f:content>
+					<HBox>
+						<VBox width="100%">
+							<Label text="First Name" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/visitorFirstName}"></Input>
+							<Label text="Mobile No" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/visitorPhoneNumber}"></Input>
+							<Label text="ID Type" required="true"></Label>
+							<ComboBox selectedKey="{oFormModel>/userDetails/data/visitorIdProofType}" width="100%">
+								<core:Item text="Aadhar" key="Aadhar"/>
+								<core:Item text="Passport" key="Passport"/>
+								<core:Item text="Voter Id" key="Voter Id"/>
+								<core:Item text="Drving Licence" key="Drving Licence"/>
+								<core:Item text="Pancard" key="Pancard"/>
+							</ComboBox>
+							<Label text="Locality" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/locality}"></Input>
+							<Label text="Organization" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/organization}"></Input>
+						</VBox>
+						<VBox class="sapUiLargeMarginBegin" width="100%">
+							<Label text="Last Name" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/visitorLastName}"></Input>
+							<Label text="Mail Id" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/visitorEmail}"></Input>
+							<Label text="ID No" required="true"></Label>
+							<Input value="{oFormModel>/userDetails/data/visitorIdProofNumber}"></Input>
+							<Label></Label>
+							<HBox>
+							<Button text="Take Photo" press="onCapture" type="Emphasized"/>
+							<Image id="idPhoto" src="{oFormModel>/photo}" visible="false" class="sapUiSmallMarginBegin" width="100px" height="100px"></Image>
+							<!--<Avatar id="idPhoto" src="{oVisitorModel>/photo}" displaySize="XL" visible="false" class="sapUiSmallMarginBegin"></Avatar>-->
+							</HBox>
+						</VBox>
+					</HBox>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<Toolbar>
+			<Button text="Edit" type="Emphasized" press=".onEditDetails"></Button>
+			<ToolbarSpacer></ToolbarSpacer>
+			<Button text="Confirm" type="Emphasized" press=".onConfirmDetails"></Button>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>
