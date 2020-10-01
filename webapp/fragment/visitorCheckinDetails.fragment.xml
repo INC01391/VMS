@@ -53,7 +53,7 @@
 							<Label></Label>
 							<HBox>
 							<Button text="Take Photo" press="onCapture" type="Emphasized"/>
-							<Image id="idPhoto" src="{oFormModel>/photo}" visible="false" class="sapUiSmallMarginBegin" width="100px" height="100px"></Image>
+							<Image id="idPhoto" src="data:image/png;base64,{oFormModel>/photo}" visible="false" class="sapUiSmallMarginBegin" width="100px" height="100px"></Image>
 							<!--<Avatar id="idPhoto" src="{oVisitorModel>/photo}" displaySize="XL" visible="false" class="sapUiSmallMarginBegin"></Avatar>-->
 							</HBox>
 						</VBox>

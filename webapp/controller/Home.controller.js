@@ -1,3 +1,4 @@
+jQuery.sap.require("sap.ndc.BarcodeScanner");
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
@@ -146,6 +147,40 @@ sap.ui.define([
 			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
 			this._oDialog.open();
 		},
+		onCapture: function () {
+			var that = this;
+			navigator.camera.getPicture(function (imageData) {
+				console.log(imageData);
+				var oFormModel = that.getView().getModel("oFormModel");
+				var res = imageData.split("base64,");
+				var image = res[1];
+				if (that.bEdit === true) {
+					Fragment.byId("idCheckinDetails", "idPhoto").setVisible(true);
+					oFormModel.setProperty("/photo", image);
+				}
+				// else {
+				// 	oVisitorModel.setProperty("/visitorData/photo", image);
+				// 	that.getView().byId("idImage").setVisible(true);
+				// }
+
+			}, that.onFail, {
+				quality: 75,
+				targetWidth: 300,
+				targetHeight: 300,
+				sourceType: navigator.camera.PictureSourceType.CAMERA,
+				destinationType: navigator.camera.DestinationType.FILE_URI
+			});
+		},
+		// onSuccess: function (imageData) {
+		// 	console.log(imageData);
+		// 	Fragment.byId("idCheckinDetails", "idPhoto").setVisible(true);
+		// 	var oVisitorModel = this.getView().getModel("oVisitorModel");
+		// 	oVisitorModel.setProperty("/photo", imageData);
+
+		// },
+		onFail: function (message) {
+			alert("Failed because: " + message);
+		},
 		onEditDetails: function () {
 			this.bEdit = true;
 			Fragment.byId("idCheckinDetails", "idSimpleFormEditable").setVisible(true);
@@ -155,50 +190,54 @@ sap.ui.define([
 			var that = this;
 			var oFormModel = that.getOwnerComponent().getModel("oFormModel");
 			var visitorData = oFormModel.getProperty("/userDetails/data");
-			// var image = oFormModel.getProperty("/photo");
-			// var res = image.split("base64,");
+			// var vhId = visitorData.visitorId;
+			var vhId = 5;
+			var image = oFormModel.getProperty("/photo");
+
 			// console.log(visitorData);
 			// var payload = visitorData;
 			// var vhId = that.getView().byId("idVhid").getValue();
-			// 			{
-			// "firstName":"abc",
-			// "lastName":"def",
-			// "email":"rohithv63@gmail.com",
-			// "contactNo":"7025508696",
-			// "organisation":"TCS",
-			// "proofType":"aadhar",
-			// "proofNo":"asdfghhk123",
-			// "mId":69
-			// }
 			var payload = {
-
-				"firstName": visitorData.visitorFirstName,
-				"lastName": visitorData.visitorLastName,
-				"email": visitorData.visitorEmail,
-				"contactNo": visitorData.visitorPhoneNumber,
-				"organisation": visitorData.organization,
-				"proofType": visitorData.visitorIdProofType,
-				"proofNo": visitorData.visitorIdProofNumber,
-				"mId": visitorData.mId
-					// "image": res[1]
-
+				"visitorFirstName": "priya",
+				"visitorLastName": "prasad",
+				"visitorAddress": "abc",
+				"visitorEmail": "priyaganga98@gmail.com",
+				"visitorPhoneNumber": "+917025545433",
+				"photo": "ty123ycb",
+				"organization": "tcs",
+				"visitorIdProofType": "aadhar",
+				"visitorIdProofNumber": "7894568",
+				"purpose": "interview"
 			};
-			// var vhId = 3;
-			// var sUrl = "/VMS_Service/visitor/getVisitorDetails?vhId=1";
+			// var payload = {
+
+			// 	"visitorFirstName": visitorData.visitorFirstName,
+			// 	"visitorLastName": visitorData.visitorLastName,
+			// 	"visitorAddress": "abc",
+			// 	"visitorEmail": visitorData.visitorEmail,
+			// 	"visitorPhoneNumber": visitorData.visitorPhoneNumber,
+			// 	"photo": image,
+			// 	"organization": visitorData.organization,
+			// 	"visitorIdProofType": visitorData.visitorIdProofType,
+			// 	"visitorIdProofNumber": visitorData.visitorIdProofNumber,
+			// 	"purpose": "interview"
+
+			// };
 			console.log(payload);
 			$.ajax({
-				url: "/VMS/rest/visitorController/editVisitor",
+				url: "/VMS/rest/visitorController/updateVisitorById?id=" + vhId,
 				type: "POST",
 				data: JSON.stringify(payload),
-
-				// dataType: "json",
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					console.log(data);
 					if (data.status === 200) {
 						// sap.m.MessageToast.show("Successfully Pre-Registered");
-						MessageBox.success(
-							"Welcome to Incture Technologies!!Please Collect Access Card From the Security."
-						);
+						that.fnCheckIn(vhId);
+						// MessageBox.success(
+						// 	"Welcome to Incture Technologies!!Please Collect Access Card From the Security."
+						// );
 						that.bEdit = false;
 					} else if (data.status === 300) {
 						sap.m.MessageToast.show("Having a Meeting Clash");
@@ -222,7 +261,38 @@ sap.ui.define([
 			that._oDialog.destroy();
 			that._oDialog = null;
 		},
+		fnCheckIn: function (vhId) {
+			$.ajax({
+				url: "/VMS/rest/visitorController/updateCheckIn?id=" + vhId,
+				type: "POST",
+				data: null,
 
+				// dataType: "json",
+				success: function (data, status, response) {
+					console.log(data);
+					if (data.status === 200) {
+
+						MessageBox.success(
+							"Welcome to Incture Technologies!!Please Collect Access Card From the Security."
+						);
+
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+					}
+
+					console.log(status);
+					console.log(response);
+
+					// that._oDialog1.close();
+					// that._oDialog1.destroy();
+					// that._oDialog1 = null;
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+		},
 		onScanCodeCheckOut: function () {
 			var that = this;
 			// var oVisitorModel = that.getView().getModel("oVisitorModel");
@@ -235,7 +305,7 @@ sap.ui.define([
 					$.ajax({
 						url: "/VMS/rest/visitorController/updateCheckOut?id=" + vhId,
 						type: "POST",
-						data:null,
+						data: null,
 						dataType: "json",
 						success: function (data, status, response) {
 							console.log(data);
