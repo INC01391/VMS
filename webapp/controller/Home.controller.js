@@ -232,14 +232,14 @@ sap.ui.define([
 				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					console.log(data);
-					if (data.status === 200) {
+					if (response.status === 200) {
 						// sap.m.MessageToast.show("Successfully Pre-Registered");
 						that.fnCheckIn(vhId);
 						// MessageBox.success(
 						// 	"Welcome to Incture Technologies!!Please Collect Access Card From the Security."
 						// );
 						that.bEdit = false;
-					} else if (data.status === 300) {
+					} else if (response.status === 300) {
 						sap.m.MessageToast.show("Having a Meeting Clash");
 					} else {
 						sap.m.MessageToast.show("Something Went Wrong");
