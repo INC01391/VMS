@@ -17,6 +17,24 @@ sap.ui.define([
 			};
 			var oLoginModel = this.getOwnerComponent().getModel("oLoginModel");
 			oLoginModel.setProperty("/oLoginFormData", oLoginFormData);
+
+			var oData = {
+				"vhId": "",
+				"visitorParkingData": "",
+				"newVisitorParkingData": "",
+				"oFormData": {
+					"parkingType": "",
+					"vehicleNo": "",
+					"pId": ""
+				},
+				"AvailableParkingSlots": "",
+				"AllParkingSlots": "",
+				"sSelectedKey": ""
+
+			};
+			var oModel = new JSONModel(oData);
+			this.getView().setModel(oModel, "oParkingModel");
+			// var oParkingModel = this.getView().getModel("oParkingModel");
 		},
 		onLogin: function () {
 			var oDialog = new sap.m.BusyDialog();
@@ -333,6 +351,197 @@ sap.ui.define([
 				}
 
 			);
+
+		},
+		onScanQRCode: function () {
+			var that = this;
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			var vhId, sUrl;
+			sap.ndc.BarcodeScanner.scan(
+				function (oResult) {
+					// console.log(oResult);
+					vhId = oResult.text;
+					// oParkingModel.setProperty("/vhId", vhId);
+					console.log(vhId);
+					if (oResult.cancelled === false) {
+						sUrl = "/VMS_Service/security/getParkingSlotByvhId?vhId=" + vhId;
+						$.ajax({
+							url: sUrl,
+							type: "GET",
+							data: null,
+
+							// dataType: "json",
+							success: function (data, status, response) {
+								// sap.m.MessageToast.show("Success");
+								console.log(data);
+
+								oParkingModel.setProperty("/visitorParkingData", data);
+								// console.log(status);
+								// console.log(response);
+
+								// that.fnGetData();
+
+							},
+							error: function (e) {
+								sap.m.MessageToast.show("fail");
+
+							}
+						});
+
+						that.getView().byId("idParking").setVisible(true);
+						// that.getView().byId("idParkingSignIn").setVisible(false);
+						that.getView().byId("idRegister").setVisible(false);
+					}
+					// alert("We got a bar code\n" +
+					// 	"Result: " + oResult.text + "\n" +
+					// 	"Format: " + oResult.format + "\n" +
+					// 	"Cancelled: " + oResult.cancelled);
+					// / * process scan result * /
+				},
+				function (oError) {
+					// alert(oError);
+					// / * handle scan error * /
+				},
+				function (oResult) {
+					// / * handle input dialog change * /
+				}
+			);
+		},
+		onParkingAvailabilityPress: function () {
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			var oFormData = oParkingModel.getProperty("/oFormData");
+			var parkingType = oFormData.parkingType;
+			var sUrl = "/VMS/rest/parkingSlotController/checkAvailableSlot?vehicleType=" + parkingType;
+			$.ajax({
+				url: sUrl,
+				type: "GET",
+				data: null,
+
+				// dataType: "json",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Success");
+					console.log(data);
+					oParkingModel.setProperty("/AvailableParkingSlots", data);
+					console.log(status);
+					console.log(response);
+
+					// that.fnGetData();
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			this.getView().byId("idParkingAvailability").setVisible(true);
+		},
+		onLoginSubmitPress: function () {
+			var that = this;
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			var pId = oParkingModel.getProperty("/visitorParkingData").pId;
+			var vehicleNumber = oParkingModel.getProperty("/visitorParkingData").vehicleNo;
+			console.log(pId);
+			console.log(vehicleNumber);
+			$.ajax({
+				url: "/VMS_Service/visitor/setPakingStatusOnParking",
+				type: "POST",
+				data: {
+					"pId": pId,
+					"vehicleNo": vehicleNumber
+				},
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				dataType: "json",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						oParkingModel.setProperty("/visitorParkingData", {});
+
+						MessageBox.success("Please Go ahead and Park Your Vehicle");
+						// var sUrl = "/VMS_Service/visitor/getAllParking";
+						// that.fnGetData(sUrl, "/AllParkingSlots");
+
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+					}
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			this.getView().byId("idParking").setVisible(false);
+			this.getView().byId("idRegister").setVisible(true);
+		},
+
+		onRegisterSubmitPress: function () {
+			var that = this;
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			var oFormData = oParkingModel.getProperty("/oFormData");
+			// var vehicleNumber = this.getView().byId("idVehicleNumber").getValue();
+			console.log(oFormData);
+			// console.log(vehicleNumber);
+			$.ajax({
+				url: "/VMS_Service/rest/parkingSlotController/allotslot?parkingid=" + oFormData.pId + "&vehiclenumber=" + oFormData.vehicleNo,
+				type: "POST",
+				data: null,
+				// headers: {
+				// 	"X-CSRF-Token": token
+				// },
+
+				dataType: "json",
+				success: function (data, status, response) {
+					if (response.status === 200) {
+						oParkingModel.setProperty("/oFormData", {});
+
+						MessageBox.success("Please Go ahead and Park Your Vehicle");
+						that.getView().byId("idParking").setVisible(true);
+						that.getView().byId("idRegister").setVisible(false);
+						// var sUrl = "/VMS_Service/visitor/getAllParking";
+						// that.fnGetData(sUrl, "/AllParkingSlots");
+
+					} else {
+						MessageBox.warning("Please Select Parking Slot by checking the Availability");
+					}
+
+					// that.fnGetData();
+
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			this.getView().byId("idParkingAvailability").setVisible(false);
+		},
+		onCheckOut: function () {
+			var that = this;
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			// var pId = oParkingModel.getProperty("/sSelectedKey");
+			var pId = 5;
+			$.ajax({
+				url: "/VMS/rest/parkingSlotController/freeslot?parkingid=" + pId,
+				type: "POST",
+				data: null,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				success: function (data, status, response) {
+
+					MessageBox.success("Thank You For Visiting!!Visit Again!!");
+					oParkingModel.setProperty("/sSelectedKey", "");
+					console.log(data);
+					// var sUrl = "/VMS_Service/visitor/getAllParking";
+					// that.fnGetData(sUrl, "/AllParkingSlots");
+
+					// that.fnGetData();
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
 
 		},
 		onVisitorRegisterPress: function () {

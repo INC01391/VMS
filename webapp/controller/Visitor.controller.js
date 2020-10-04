@@ -20,30 +20,25 @@ sap.ui.define([
 			var oVisitorModel = this.getOwnerComponent().getModel("oVisitorModel");
 			oVisitorModel.setProperty("/oMeetingData", oMeetingData);
 			var visitorData = {
-				// "vhId": "",
 				"firstName": "",
 				"lastName": "",
 				"email": "",
-				"contactNo": " ",
+				"contactNo": "",
+				"organisation": "",
 				"proofType": "",
 				"proofNo": "",
-				"locality": "",
-				"organisation": "",
-				"photo": ""
-					// "parkingType": "",
-					// "pId": ""
+				"locality": ""
 			};
 			oVisitorModel.setProperty("/visitorData", visitorData);
 			var addvisitorData = {
 				"firstName": "",
 				"lastName": "",
 				"email": "",
-				"contactNo": " ",
+				"contactNo": "",
+				"organisation": "",
 				"proofType": "",
 				"proofNo": "",
-				"locality": "",
-				"organisation": "",
-				"photo": ""
+				"locality": ""
 					// "parkingType": "",
 					// "pId": ""
 			};
@@ -90,6 +85,27 @@ sap.ui.define([
 			// oAdminModel.setProperty("/Visitors", visitors);
 			// var Visitors = oAdminModel.getProperty("/Visitors");
 			console.log(visitors);
+			// 			{
+			//     "purpose": "interview",
+			//     "comments": "developer",
+			//     "beginTime": "16:30:00",
+			//     "endTime":"17:00:00",
+			//     "eId":4,
+			//     "date":"oct 3, 2020",
+			//     "visitors":
+			//         [
+			//             {
+			//                 "firstName":"abc",
+			//                 "lastName":"def",
+			//                 "email":"rohithv@gmail.com",
+			//                 "contactNo":"702550896",
+			//                 "organisation":"TCS",
+			//                 "proofType":"aadhar",
+			//                 "proofNo":"asdfghhkfghf",
+			//                 "locality":"kerala"
+			//             }
+			//         ]
+			// }
 			var payload = {
 				"purpose": oMeetingData.purpose,
 				"beginTime": oMeetingData.beginTime,
@@ -112,10 +128,9 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/visitorController/onSpot",
 				type: "POST",
-				data: {
-					"data": JSON.stringify(payload)
-				},
-				// dataType: "json",
+				data: JSON.stringify(payload)
+				
+				dataType: "json",
 				success: function (data, status, response) {
 					if (data.status === 200) {
 						sap.m.MessageToast.show("Successfully Pre-Registered");

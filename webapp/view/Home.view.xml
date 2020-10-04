@@ -57,16 +57,16 @@
 									<items>
 										<Label text="Enter Your Vehicle Type" required="true" class="sapUiTinyMarginTop"/>
 										<ComboBox width="100%" selectedKey="{oParkingModel>/oFormData/parkingType}">
-											<core:Item text="Two Wheeler" key="2"/>
-											<core:Item text="Four Wheeler" key="4"/>
+											<core:Item text="Two Wheeler" key="Two wheeler"/>
+											<core:Item text="Four Wheeler" key="Four wheeler"/>
 										</ComboBox>
 										<Label text="Enter Your Vehicle Number"/>
 										<Input id="idVehicleNumber2" value="{oParkingModel>/oFormData/vehicleNo}"></Input>
 										<Button text="Check Availability" type="Success" press="onParkingAvailabilityPress" width="100%"></Button>
 										<Label text="Available Parking Slots" visible="false"/>
-										<ComboBox id="idParkingAvailability" visible="false" items="{oParkingModel>/AvailableParkingSlots}"
+										<ComboBox id="idParkingAvailability" visible="false" items="{oParkingModel>/AvailableParkingSlots/data}"
 											selectedKey="{oParkingModel>/oFormData/pId}" width="100%">
-											<core:Item text="{oParkingModel>parkingSlot}" key="{oParkingModel>pId}"/>
+											<core:Item text="{oParkingModel>pname}" key="{oParkingModel>pId}"/>
 										</ComboBox>
 										<Button text="Submit" width="100%" type="Emphasized" press="onRegisterSubmitPress"></Button>
 									</items>
