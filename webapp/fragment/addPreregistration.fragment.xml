@@ -40,14 +40,20 @@
 					<Label text="Locality"/><Input id="idLocality" type="Text" value="{oFormModel>/oFormData/locality}"/>
 					<Label text="Organization"/><Input id="idOrganization" type="Text" value="{oFormModel>/oFormData/organisation}"/>
 					<Label text=" Id Type "/>
-					<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}" change="onSelectChange">
-						<items>
-							<core:Item text="Adhaar" key="Adhaar"/>
-							<core:Item text="PAN Card" key="PAN"/>
-							<core:Item text="Driving License" key="DrivingLicense"/>
-							<core:Item text="Passport" key="Passport"/>
-						</items>
-					</Select>
+					<ComboBox id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}" change="onSelectChange">
+						<core:Item text="Adhaar" key="Adhaar"/>
+						<core:Item text="PAN Card" key="PAN"/>
+						<core:Item text="Driving License" key="DrivingLicense"/>
+						<core:Item text="Passport" key="Passport"/>
+					</ComboBox>
+					<!--<Select id="idIDType" selectedKey="{oFormModel>/oFormData/proofType}" change="onSelectChange">-->
+					<!--	<items>-->
+					<!--		<core:Item text="Adhaar" key="Adhaar"/>-->
+					<!--		<core:Item text="PAN Card" key="PAN"/>-->
+					<!--		<core:Item text="Driving License" key="DrivingLicense"/>-->
+					<!--		<core:Item text="Passport" key="Passport"/>-->
+					<!--	</items>-->
+					<!--</Select>-->
 					<Label text="ID No"/><Input id="idIDNo" value="{oFormModel>/oFormData/proofNo}"/>
 					<Button icon="sap-icon://add" text="Add Visitors" press="onAddVisitors" type="Emphasized"></Button>
 				</f:content>
@@ -57,12 +63,16 @@
 				<f:content>
 					<core:Title text="PARKING DETAILS"></core:Title>
 					<Label text=" Type Of Vehicle" required="true"/>
-					<Select id="idVehicletype" selectedKey="{oFormModel>/oFormData/parkingType}">
-						<items>
-							<core:Item text="2 Wheeler" key="Two wheeler"/>
-							<core:Item text="4 Wheeler" key="Four wheeler"/>
-						</items>
-					</Select>
+					<ComboBox id="idVehicletype" selectedKey="{oFormModel>/oFormData/parkingType}">
+						<core:Item text="2 Wheeler" key="Two wheeler"/>
+						<core:Item text="4 Wheeler" key="Four wheeler"/>
+					</ComboBox>
+					<!--<Select id="idVehicletype" selectedKey="{oFormModel>/oFormData/parkingType}">-->
+					<!--	<items>-->
+					<!--		<core:Item text="2 Wheeler" key="Two wheeler"/>-->
+					<!--		<core:Item text="4 Wheeler" key="Four wheeler"/>-->
+					<!--	</items>-->
+					<!--</Select>-->
 					<!--<Label text="Vehicle Number"/><Input id="idVehicleNumber" type="Text" />-->
 					<!--<Label text="Parking Slot"/><Input id="idParkingslot" type="Text"/>-->
 					<Button icon="sap-icon://show" text="Check Availability" press="onParkingAvailabilityPress" type="Emphasized"></Button>

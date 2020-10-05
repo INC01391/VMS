@@ -27,7 +27,8 @@ sap.ui.define([
 				"organisation": "",
 				"proofType": "",
 				"proofNo": "",
-				"locality": ""
+				"locality": "",
+				"photo": ""
 			};
 			oVisitorModel.setProperty("/visitorData", visitorData);
 			var addvisitorData = {
@@ -82,6 +83,11 @@ sap.ui.define([
 			console.log(oMeetingData);
 			var visitors = oVisitorModel.getProperty("/Visitors");
 			visitors.push(visitorData);
+			var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+				pattern: "MMM dd, yyyy"
+			});
+			var date = new Date();
+			var newdate = oDateFormat.format(date);
 			// oAdminModel.setProperty("/Visitors", visitors);
 			// var Visitors = oAdminModel.getProperty("/Visitors");
 			console.log(visitors);
@@ -108,9 +114,11 @@ sap.ui.define([
 			// }
 			var payload = {
 				"purpose": oMeetingData.purpose,
+				"comments": "developer",
 				"beginTime": oMeetingData.beginTime,
 				"endTime": oMeetingData.endTime,
 				"eId": oMeetingData.eId,
+				"date": newdate,
 				"visitors": visitors
 					// [{
 					// 	"firstName": "Ishita",
@@ -128,8 +136,8 @@ sap.ui.define([
 			$.ajax({
 				url: "/VMS/rest/visitorController/onSpot",
 				type: "POST",
-				data: JSON.stringify(payload)
-				
+				data: JSON.stringify(payload),
+
 				dataType: "json",
 				success: function (data, status, response) {
 					if (data.status === 200) {

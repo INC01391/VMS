@@ -118,7 +118,7 @@
 						<HBox class="checkHBox">
 							<CheckBox id="ch1" selected="false" select="onTermsandCond" enabled="true"/>
 							<Text text="I have read and agree to the " class="termsText1"></Text>
-							<Link text=" terms of service" press="handleLinkPress" class="termsText2"/>
+							<Link text=" terms of service" press="handleLinkPress" class="sapUiTinyMarginBegin"/>
 						</HBox>
 						<OverflowToolbar>
 							<ToolbarSpacer/>

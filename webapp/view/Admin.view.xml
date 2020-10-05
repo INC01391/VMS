@@ -300,7 +300,8 @@
 											<Text text="{oAdminModel>organization}"/>
 											<!--<Text text="{oAdminModel>visitorStatus}"></Text>-->
 											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
-											<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"></Button>
+											<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"
+												enabled="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"></Button>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -578,7 +579,8 @@
 										<cells>
 											<Text text="{oAdminModel>visitorName}"/>
 											<Text text="{oAdminModel>hostName}"/>
-											<Text text="{oAdminModel>date}"/>
+											<!--<Text text="{oAdminModel>date}"/>-->
+											<Text text="{path: 'oAdminModel>date', formatter:'com.incture.VMS.utility.formatter.displayDateFormat'}"/>
 											<Text text="{oAdminModel>remarks}"/>
 											<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
 										</cells>

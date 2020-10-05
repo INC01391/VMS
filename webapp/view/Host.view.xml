@@ -364,8 +364,10 @@
 									<ColumnListItem>
 										<cells>
 											<Text text="{oHostModel>title}"/>
-											<Text text="{oHostModel>beginTime}"/>
-											<Text text="{oHostModel>endTime}"/>
+											<!--<Text text="{oHostModel>beginTime}"/>-->
+											<Text text="{path: 'oHostModel>beginTime', formatter:'com.incture.VMS.utility.formatter.displayDateFormat'}"/>
+											<!--<Text text="{oHostModel>endTime}"/>-->
+											<Text text="{path: 'oHostModel>endTime', formatter:'com.incture.VMS.utility.formatter.displayDateFormat'}"/>
 											<Text text="{oHostModel>roomName}"/>
 											<Text text="{path: 'oHostModel>status', formatter:'com.incture.VMS.utility.formatter.changeColorUpcomingMeetings'}"/>
 											<Button icon="sap-icon://feeder-arrow" press="onShowUpcomingVisitorsPress"/>
@@ -451,7 +453,8 @@
 										<cells>
 											<Text text="{oHostModel>visitorName}"/>
 											<Text text="{oHostModel>hostName}"/>
-											<Text text="{oHostModel>date}"/>
+											<!--<Text text="{oHostModel>date}"/>-->
+											<Text text="{path: 'oHostModel>date', formatter:'com.incture.VMS.utility.formatter.displayDateFormat'}"/>
 											<Text text="{oHostModel>remarks}"/>
 											<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
 										</cells>

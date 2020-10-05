@@ -66,15 +66,18 @@ sap.ui.define([
 					console.log(response);
 					if (response.status === 200 && data.employeeRole === "admin") {
 						sap.m.MessageToast.show("Successfully Logged IN");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 						oLoginModel.setProperty("/loginDetails", data);
 						// oAdminModel.setProperty("/userDetails", data);
 						that.getRouter().navTo("AdminDetails");
 					} else if (response.status === 200 && data.employeeRole === "host") {
 						sap.m.MessageToast.show("Successfully Logged IN");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 						oLoginModel.setProperty("/loginDetails", data);
 						that.getRouter().navTo("HostDetails");
 					} else if (response.status === 200 && data.employeeRole === "security") {
 						sap.m.MessageToast.show("Successfully Logged IN");
+						$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
 						oLoginModel.setProperty("/loginDetails", data);
 						that.getRouter().navTo("SecurityDetails");
 					} else {

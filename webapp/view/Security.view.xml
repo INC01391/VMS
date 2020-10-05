@@ -302,7 +302,8 @@
 									<cells>
 										<Text text="{oSecurityModel>visitorName}"/>
 										<Text text="{oSecurityModel>hostName}"/>
-										<Text text="{oSecurityModel>date}"/>
+										<!--<Text text="{oSecurityModel>date}"/>-->
+										<Text text="{path: 'oSecurityModel>date', formatter:'com.incture.VMS.utility.formatter.displayDateFormat'}"/>
 										<Text text="{oSecurityModel>remarks}"/>
 										<Button text="Unblock" type="Accept" class="styleAcceptBtn" press="onPressUnblock"></Button>
 									</cells>
@@ -360,7 +361,8 @@
 								</ColumnListItem>
 							</items>
 						</Table>
-						<Table id="idEmoloyeestable" items="{oSecurityModel>/EmployeesList/data}" alternateRowColors="true" mode="MultiSelect" class="sapUiSizeCompact">
+						<Table id="idEmoloyeestable" items="{oSecurityModel>/EmployeesList/data}" alternateRowColors="true" mode="MultiSelect"
+							class="sapUiSizeCompact">
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
