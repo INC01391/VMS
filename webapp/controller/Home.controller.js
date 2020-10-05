@@ -83,7 +83,7 @@ sap.ui.define([
 					} else {
 						MessageBox.warning("Invalid Credentials");
 					}
-
+					console.log(oLoginModel);
 				},
 				error: function (e) {
 					MessageBox.information("Server Not Responding");
