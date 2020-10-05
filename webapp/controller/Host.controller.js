@@ -535,6 +535,15 @@ sap.ui.define([
 			});
 
 		},
+		onEditProfilePress: function () {
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idEditProfileFrag", "com.incture.VMS.fragment.editProfile",
+					this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog);
+			this._oDialog.open();
+		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
 			var oHostModel = that.getOwnerComponent().getModel("oHostModel");
