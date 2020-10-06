@@ -441,8 +441,8 @@ sap.ui.define([
 		onLoginSubmitPress: function () {
 			var that = this;
 			var oParkingModel = this.getView().getModel("oParkingModel");
-			var pId = oParkingModel.getProperty("/visitorParkingData").pId;
-			var vehicleNumber = oParkingModel.getProperty("/visitorParkingData").vehicleNo;
+			var pId = oParkingModel.getProperty("/visitorParkingData/data/0").parkingSlotId;
+			var vehicleNumber = this.getView().byId("idVehicleNumber").getValue();
 			console.log(pId);
 			console.log(vehicleNumber);
 			$.ajax({
@@ -473,8 +473,8 @@ sap.ui.define([
 
 				}
 			});
-			this.getView().byId("idParking").setVisible(false);
-			this.getView().byId("idRegister").setVisible(true);
+			this.getView().byId("idQRCode").setVisible(false);
+			this.getView().byId("idParking").setVisible(true);
 		},
 
 		onRegisterSubmitPress: function () {
@@ -493,7 +493,7 @@ sap.ui.define([
 				// },
 
 				dataType: "json",
-				contentType: "application/json; charset=utf-8",
+				// contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					if (response.status === 200) {
 						oParkingModel.setProperty("/oFormData", {});

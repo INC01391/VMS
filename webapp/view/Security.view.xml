@@ -222,7 +222,8 @@
 										<Text text="{oSecurityModel>organization}"/>
 										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
 										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
-										<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"></Button>
+										<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"
+											enabled="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>

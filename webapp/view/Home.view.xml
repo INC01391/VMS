@@ -25,13 +25,13 @@
 					<IconTabBar>
 						<items>
 							<IconTabFilter text="Login" key="login">
-								<VBox class="Login">
+								<VBox class="Login" height="250px">
 									<Label text="Username" design="Bold"/>
 									<Input placeholder="Enter Username" value="{oLoginModel>/oLoginFormData/username}" id="EmployeeId" type="Text"/>
 									<Label text="Password" design="Bold"/>
 									<Input placeholder="Enter Password" value="{oLoginModel>/oLoginFormData/password}" id="EmployeePassword" type="Password"/>
 									<Button width="100%" text="Login" press="onLogin" type="Emphasized"></Button>
-									<Button width="100%" text="Register" press="onRegister" type="Emphasized"></Button>
+									<!--<Button width="100%" text="Register" press="onRegister" type="Emphasized"></Button>-->
 									<Link class="sapUiTinyMarginTop link" text="Forgot Password?" press="onForgotPasswordpress"/>
 								</VBox>
 							</IconTabFilter>
@@ -45,9 +45,9 @@
 								</VBox>
 							</IconTabFilter>
 							<IconTabFilter text="Parking" key="parking">
-								<VBox justifyContent="Center" id="idParking" visible="true" height="250px">
-									<Button text="{i18n>CheckIn}" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onParkingCheckInPress"/>
-									<Button text="{i18n>CheckOut}" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onParkingCheckOutPress"/>
+								<VBox justifyContent="Center" id="idParking" visible="true" height="250px" class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+									<Button text="Park Your Vehicle" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onParkingCheckInPress"/>
+									<Button text="Check Out" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onParkingCheckOutPress"/>
 								</VBox>
 								<VBox justifyContent="Center" id="idRegister" visible="false" height="300px">
 									<HBox>
@@ -71,12 +71,12 @@
 										<Button text="Submit" width="100%" type="Emphasized" press="onRegisterSubmitPress"></Button>
 									</items>
 								</VBox>
-								<VBox id="idQRCode" visible="false" justifyContent="Center">
+								<VBox id="idQRCode" visible="false" justifyContent="Center" height="250px">
 									<items>
 										<Label text="Your Parking Slot"/>
-										<Input value="{oParkingModel>/visitorParkingData/data}" editable="false"></Input>
+										<Input value="{oParkingModel>/visitorParkingData/data/0/parkingSlotName}" editable="false"></Input>
 										<Label text="Enter Your Vehicle Number" required="true"/>
-										<Input id="idVehicleNumber" value="{oParkingModel>/visitorParkingData/vehicleNo}"></Input>
+										<Input id="idVehicleNumber" value=""></Input>
 										<Button text="Submit" press="onLoginSubmitPress" width="100%" type="Emphasized"></Button>
 									</items>
 								</VBox>

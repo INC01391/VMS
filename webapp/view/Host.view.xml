@@ -218,7 +218,8 @@
 											<Text text="{oHostModel>purpose}"/>
 											<Text text="{oHostModel>organization}"/>
 											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
-											<Button text="Add To BlackList" type="Critical" press="onAddToBlackListPress"/>
+											<Button text="Add To BlackList" type="Critical" press="onAddToBlackListPress"
+												enabled="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>

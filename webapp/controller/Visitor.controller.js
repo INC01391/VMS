@@ -127,46 +127,46 @@ sap.ui.define([
 			// oAdminModel.setProperty("/Visitors", visitors);
 			// var Visitors = oAdminModel.getProperty("/Visitors");
 			console.log(visitors);
-			var payload = {
-					"purpose": "interview",
+			// var payload = {
+			// 		"purpose": "interview",
+			// 		"comments": "developer",
+			// 		"beginTime": "16:30:00",
+			// 		"endTime": "17:00:00",
+			// 		"eId": 4,
+			// 		"date": "oct 6, 2020",
+			// 		"visitors": [{
+			// 			"firstName": "abc",
+			// 			"lastName": "def",
+			// 			"email": "rohithv@gmail.com",
+			// 			"contactNo": "702550896",
+			// 			"organisation": "TCS",
+			// 			"proofType": "aadhar",
+			// 			"proofNo": "asdfghhkfghf",
+			// 			"locality": "kerala",
+			// 			"photo": "hsjkalagnak"
+			// 		}]
+			// 	}
+				var payload = {
+					"purpose": oMeetingData.purpose,
 					"comments": "developer",
-					"beginTime": "16:30:00",
-					"endTime": "17:00:00",
-					"eId": 4,
-					"date": "oct 6, 2020",
-					"visitors": [{
-						"firstName": "abc",
-						"lastName": "def",
-						"email": "rohithv@gmail.com",
-						"contactNo": "702550896",
-						"organisation": "TCS",
-						"proofType": "aadhar",
-						"proofNo": "asdfghhkfghf",
-						"locality": "kerala",
-						"photo": "hsjkalagnak"
-					}]
-				}
-				// var payload = {
-				// 	"purpose": oMeetingData.purpose,
-				// 	"comments": "developer",
-				// 	"beginTime": oMeetingData.beginTime,
-				// 	"endTime": oMeetingData.endTime,
-				// 	"eId": oMeetingData.eId,
-				// 	"date": newdate,
-				// 	"visitors": visitors
-				// 		// [{
-				// 		// 	"firstName": "Ishita",
-				// 		// 	"lastName": "Iyer",
-				// 		// 	"email": "ishita@gmail.com",
-				// 		// 	"contactNo": "+91 9432178675",
-				// 		// 	"organisation": "TCS",
-				// 		// 	"proofType": "AADHAAR",
-				// 		// 	"proofNo": "78456925756",
-				// 		// 	"typeId": "1",
-				// 		// 	"locality": "Assam",
-				//      //  "photo":photo
-				// 		// }]
-				// };
+					"beginTime": oMeetingData.beginTime,
+					"endTime": oMeetingData.endTime,
+					"eId": oMeetingData.eId,
+					"date": newdate,
+					"visitors": visitors
+						// [{
+						// 	"firstName": "Ishita",
+						// 	"lastName": "Iyer",
+						// 	"email": "ishita@gmail.com",
+						// 	"contactNo": "+91 9432178675",
+						// 	"organisation": "TCS",
+						// 	"proofType": "AADHAAR",
+						// 	"proofNo": "78456925756",
+						// 	"typeId": "1",
+						// 	"locality": "Assam",
+				        //  "photo":photo
+						// }]
+				};
 			console.log(payload);
 			$.ajax({
 				url: "/VMS/rest/visitorController/onSpot",
@@ -176,7 +176,7 @@ sap.ui.define([
 				dataType: "json",
 				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
-					if (data.status === 200) {
+					if (response.status === 200) {
 						sap.m.MessageToast.show("Successfully Pre-Registered");
 						MessageBox.success(
 							"Registration Succesfull...Your Host Will be Informed About Your Arrival, Please Wait in the Lobby and Please Check your Mail for Any Upadtes about the Meeting"

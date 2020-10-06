@@ -446,27 +446,27 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getParent().getBindingContextPath();
 			var oProperty = oSecurityModel.getProperty(spath);
-			var mId = oProperty.visitorId;
-			var sUrl = "/VMS/rest/employeeController/printAccessCard?vId=" + mId;
-			this.fndoajax(sUrl, "/CheckInVisitorDetails");
-			console.log(oSecurityModel);
-			this.bFlag = true;
-			if (!this._oDialog) {
-				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
-				this._oDialog = sap.ui.xmlfragment("idaccessCard", "com.incture.VMS.fragment.accessCard", this); // Instantiating the Fragment
-			}
-			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
-			this._oDialog.open();
+			var vId = oProperty.visitorId;
+			var sUrl = "/VMS/rest/employeeController/printAccessCard?vId=" + vId;
+			sap.m.URLHelper.redirect(sUrl, true);
+			// console.log(oSecurityModel);
+			// this.bFlag = true;
+			// if (!this._oDialog) {
+			// 	//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+			// 	this._oDialog = sap.ui.xmlfragment("idaccessCard", "com.incture.VMS.fragment.accessCard", this); // Instantiating the Fragment
+			// }
+			// this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			// this._oDialog.open();
 		},
-		onAssignAccessCard: function () {
-			// var oSecurityModel = this.getView().getModel("oSecurityModel");
-			// var vhId = oSecurityModel.getProperty("/CheckInVisitorDetails").vhId;
-			// var sUrl = "/VMS_Service/security/printAccessCard?vhId=" + vhId;
-			// sap.m.URLHelper.redirect(sUrl, true);
-			this._oDialog.close();
-			this._oDialog.destroy();
-			this._oDialog = null;
-		},
+		// onAssignAccessCard: function () {
+		// 	var oSecurityModel = this.getView().getModel("oSecurityModel");
+		// 	var vhId = oSecurityModel.getProperty("/CheckInVisitorDetails").vId;
+		// 	var sUrl = "/VMS_Service/rest/employeeController/printAccessCard?mId=" + vhId;
+		// 	sap.m.URLHelper.redirect(sUrl, true);
+		// 	// this._oDialog.close();
+		// 	// this._oDialog.destroy();
+		// 	// this._oDialog = null;
+		// },
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oSecurityModel = that.getOwnerComponent().getModel("oSecurityModel");
