@@ -446,8 +446,8 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getParent().getBindingContextPath();
 			var oProperty = oSecurityModel.getProperty(spath);
-			var mId = oProperty.mId;
-			var sUrl = "/VMS/rest/employeeController/printAccessCard?mId=" + mId;
+			var mId = oProperty.visitorId;
+			var sUrl = "/VMS/rest/employeeController/printAccessCard?vId=" + mId;
 			this.fndoajax(sUrl, "/CheckInVisitorDetails");
 			console.log(oSecurityModel);
 			this.bFlag = true;
