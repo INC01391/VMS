@@ -56,7 +56,7 @@
 									</ComboBox>
 									<Label text="Host Name" design="Bold" required="true"/>
 									<Input id="idHostName" class="InputBox" value="{oVisitorModel>/oMeetingData/hostName}" showSuggestion="true" showValueHelp="true"
-										suggestionItems="{oVisitorModel>/getEmployeeList}" selectedKey="{oVisitorModel>/oMeetingData/eId}">
+										suggestionItems="{oVisitorModel>/getEmployeeList/data}" selectedKey="{oVisitorModel>/oMeetingData/eId}">
 										<suggestionItems>
 											<core:Item text="{oVisitorModel>employeeFirstName}{oVisitorModel>employeeLastName}" key="{oVisitorModel>eId}"/>
 										</suggestionItems>
@@ -119,12 +119,13 @@
 							<CheckBox id="ch1" selected="false" select="onTermsandCond" enabled="true"/>
 							<Text text="I have read and agree to the " class="termsText1"></Text>
 							<Link text=" terms of service" press="handleLinkPress" class="sapUiTinyMarginBegin"/>
+							<Image src="data:image/png;base64,{oVisitorModel>/visitorData/photo}" id="idPhoto" class="sapUiLargeMarginBegin" width="100px" height="100px" visible="false"/>
 						</HBox>
 						<OverflowToolbar>
 							<ToolbarSpacer/>
-							<Button text="Add Visitor" type="Emphasized" press="addVisitor"/>
-							<Button id="idSubmitBtn" type="Success" text="Register" press="onRegister" enabled="false"/>
-							<Button text="Close" type="Reject" press="onCancel"/>
+							<Button text="Take Photo" type="Emphasized" press="onCapture"/>
+							<Button id="idSubmitBtn" type="Success" text="Register" press="onRegister" enabled="true"/>
+							<!--<Button text="Close" type="Reject" press="onCancel"/>-->
 						</OverflowToolbar>
 					</Panel>
 				</content>

@@ -52,7 +52,7 @@
 								<VBox justifyContent="Center" id="idRegister" visible="false" height="300px">
 									<HBox>
 										<Text text="Click To Scan The QR Code If You Are Pre-Registered" class="sapUiTinyMarginTop sapUiTinyMarginRight sapUiTinyMarginBottom"></Text>
-										<Button icon="sap-icon://bar-code" press="onScancodeCheckIn" type="Emphasized" class="sapUiTinyMarginBegin" width="10px"/>
+										<Button icon="sap-icon://bar-code" press="onScanQRCode" type="Emphasized" class="sapUiTinyMarginBegin" width="10px"/>
 									</HBox>
 									<items>
 										<Label text="Enter Your Vehicle Type" required="true" class="sapUiTinyMarginTop"/>
@@ -66,9 +66,18 @@
 										<Label text="Available Parking Slots" visible="false"/>
 										<ComboBox id="idParkingAvailability" visible="false" items="{oParkingModel>/AvailableParkingSlots/data}"
 											selectedKey="{oParkingModel>/oFormData/pId}" width="100%">
-											<core:Item text="{oParkingModel>pname}" key="{oParkingModel>pId}"/>
+											<core:Item text="{oParkingModel>parkingSlotName}" key="{oParkingModel>parkingSlotId}"/>
 										</ComboBox>
 										<Button text="Submit" width="100%" type="Emphasized" press="onRegisterSubmitPress"></Button>
+									</items>
+								</VBox>
+								<VBox id="idQRCode" visible="false" justifyContent="Center">
+									<items>
+										<Label text="Your Parking Slot"/>
+										<Input value="{oParkingModel>/visitorParkingData/data}" editable="false"></Input>
+										<Label text="Enter Your Vehicle Number" required="true"/>
+										<Input id="idVehicleNumber" value="{oParkingModel>/visitorParkingData/vehicleNo}"></Input>
+										<Button text="Submit" press="onLoginSubmitPress" width="100%" type="Emphasized"></Button>
 									</items>
 								</VBox>
 								<VBox justifyContent="Center" visible="false" id="idCheckOut" height="300px">

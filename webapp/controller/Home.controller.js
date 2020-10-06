@@ -367,7 +367,7 @@ sap.ui.define([
 					// oParkingModel.setProperty("/vhId", vhId);
 					console.log(vhId);
 					if (oResult.cancelled === false) {
-						sUrl = "/VMS_Service/security/getParkingSlotByvhId?vhId=" + vhId;
+						sUrl = "/VMS/rest/parkingSlotController/slotfromqr?vid=" + vhId;
 						$.ajax({
 							url: sUrl,
 							type: "GET",
@@ -391,7 +391,7 @@ sap.ui.define([
 							}
 						});
 
-						that.getView().byId("idParking").setVisible(true);
+						that.getView().byId("idQRCode").setVisible(true);
 						// that.getView().byId("idParkingSignIn").setVisible(false);
 						that.getView().byId("idRegister").setVisible(false);
 					}
@@ -414,7 +414,7 @@ sap.ui.define([
 			var oParkingModel = this.getView().getModel("oParkingModel");
 			var oFormData = oParkingModel.getProperty("/oFormData");
 			var parkingType = oFormData.parkingType;
-			var sUrl = "/VMS/rest/parkingSlotController/checkAvailableSlot?vehicleType=" + parkingType;
+			var sUrl = "/VMS/rest/parkingSlotController/checkAvailableParkingSlot?vehicleType=" + parkingType;
 			$.ajax({
 				url: sUrl,
 				type: "GET",
@@ -446,19 +446,17 @@ sap.ui.define([
 			console.log(pId);
 			console.log(vehicleNumber);
 			$.ajax({
-				url: "/VMS_Service/visitor/setPakingStatusOnParking",
+				url: "/VMS_Service/rest/parkingSlotController/allotslot?parkingid=" + pId + "&vehiclenumber=" + vehicleNumber,
 				type: "POST",
-				data: {
-					"pId": pId,
-					"vehicleNo": vehicleNumber
-				},
+				data: null,
 				// headers: {
 				// 	"X-CSRF-Token": token
 				// },
 
 				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
-					if (data.status === 200) {
+					if (response.status === 200) {
 						oParkingModel.setProperty("/visitorParkingData", {});
 
 						MessageBox.success("Please Go ahead and Park Your Vehicle");
@@ -495,6 +493,7 @@ sap.ui.define([
 				// },
 
 				dataType: "json",
+				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
 					if (response.status === 200) {
 						oParkingModel.setProperty("/oFormData", {});
