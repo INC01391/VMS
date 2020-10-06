@@ -78,7 +78,7 @@ sap.ui.define([
 			this.fndoajax(sUrl3, "/CheckOutDetails");
 			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitors?date=" + date;
 			this.fndoajax(sUrl4, "/ExpectedVisitorDetails");
-
+			console.log(oSecurityModel);
 		},
 
 		onItemSelect: function (oEvent) {
@@ -404,6 +404,68 @@ sap.ui.define([
 			}
 			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
+		},
+		onEditProfileConfirm: function () {
+			var that = this;
+			var oLoginModel = that.getOwnerComponent().getModel("oLoginModel");
+			// var obj = oLoginModel.getProperty("/oLoginFormData");
+			var obj = oLoginModel.getProperty("/loginDetails");
+			// var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var eId = oLoginModel.getProperty("/loginDetails").eId;
+			var payload = {
+				"employeeId": obj.username,
+				"password": obj.password,
+				"employeeEmail": obj.email,
+				"employeePhoneNumber": obj.contactNo
+			};
+			$.ajax({
+				url: "/VMS/rest/employeeController/updateEmployee?id=" + eId,
+				type: "POST",
+				data: JSON.stringify(payload),
+
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Edited");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					console.log(response);
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+
+		},
+		onAccessCardPress: function (oEvent) {
+			var oSecurityModel = this.getView().getModel("oSecurityModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getBindingContextPath();
+			var oProperty = oSecurityModel.getProperty(spath);
+			var mId = oProperty.mId;
+			var sUrl = "/VMS/rest/employeeController/printAccessCard?mId=" + mId;
+			this.fndoajax(sUrl, "/CheckInVisitorDetails");
+			console.log(oSecurityModel);
+			this.bFlag = true;
+			if (!this._oDialog) {
+				//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+				this._oDialog = sap.ui.xmlfragment("idaccessCard", "com.incture.VMS.fragment.accessCard", this); // Instantiating the Fragment
+			}
+			this.getView().addDependent(this._oDialog); // Adding the fragment to your current view
+			this._oDialog.open();
+		},
+		onAssignAccessCard: function () {
+			// var oSecurityModel = this.getView().getModel("oSecurityModel");
+			// var vhId = oSecurityModel.getProperty("/CheckInVisitorDetails").vhId;
+			// var sUrl = "/VMS_Service/security/printAccessCard?vhId=" + vhId;
+			// sap.m.URLHelper.redirect(sUrl, true);
+			this._oDialog.close();
+			this._oDialog.destroy();
+			this._oDialog = null;
 		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;

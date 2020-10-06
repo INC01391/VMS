@@ -4,13 +4,13 @@
 		<content>
 			<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
 				<Label text="Username" class="sapUiTinyMarginTop"></Label>
-				<Input value="{oLoginModel>/oLoginFormData/username}"></Input>
+				<Input value="{oLoginModel>/loginDetails/username}"></Input>
 				<Label text="Password" class="sapUiTinyMarginTop"></Label>
-				<Input value="{oLoginModel>/oLoginFormData/password}"></Input>
+				<Input value="{oLoginModel>/loginDetails/password}"></Input>
 				<Label text="Mail" class="sapUiTinyMarginTop"></Label>
-				<Input value="{oLoginModel>/userDetails/email}"></Input>
+				<Input value="{oLoginModel>/loginDetails/email}"></Input>
 				<Label text="Mobile No" class="sapUiTinyMarginTop"></Label>
-				<Input value="{oLoginModel>/userDetails/contactNo}"></Input>
+				<Input value="{oLoginModel>/loginDetails/phone}"></Input>
 			</VBox>
 		</content>
 		<Toolbar>

@@ -159,6 +159,9 @@
 								<Column minScreenWidth="phone" demandPopin="true">
 									<Text text="{i18n>Status}" class="styleColumn"/>
 								</Column>
+								<Column minScreenWidth="phone" demandPopin="true">
+									<Text text="Action" class="styleColumn"/>
+								</Column>
 							</columns>
 							<items>
 								<ColumnListItem>
@@ -170,6 +173,7 @@
 										<Text text="{oSecurityModel>organization}"/>
 										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
 										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										<Button icon="sap-icon://business-card" press="onAccessCardPress"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -407,7 +411,7 @@
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
-										<Title text="Visitors" level="H3"/>
+										<Title text="Recent Deliveries" level="H3"/>
 										<ToolbarSpacer></ToolbarSpacer>
 										<SearchField width="20%" liveChange="onSearch"></SearchField>
 									</content>

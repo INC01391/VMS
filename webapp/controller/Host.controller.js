@@ -323,7 +323,7 @@ sap.ui.define([
 			that.getView().addDependent(that._oDialog); // Adding the fragment to your current view
 			that._oDialog.open();
 		},
-		onSelectChange:function(){
+		onSelectChange: function () {
 			console.log(oFormModel);
 		},
 		onAvailabilityPress: function () {
@@ -543,6 +543,42 @@ sap.ui.define([
 			}
 			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
+		},
+		onEditProfileConfirm: function () {
+			var that = this;
+			var oLoginModel = that.getOwnerComponent().getModel("oLoginModel");
+			// var obj = oLoginModel.getProperty("/oLoginFormData");
+			var obj = oLoginModel.getProperty("/loginDetails");
+			// var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var eId = oLoginModel.getProperty("/loginDetails").eId;
+			var payload = {
+				"employeeId": obj.username,
+				"password": obj.password,
+				"employeeEmail": obj.email,
+				"employeePhoneNumber": obj.contactNo
+			};
+			$.ajax({
+				url: "/VMS/rest/employeeController/updateEmployee?id=" + eId,
+				type: "POST",
+				data: JSON.stringify(payload),
+
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				success: function (data, status, response) {
+					sap.m.MessageToast.show("Successfully Edited");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					console.log(response);
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+
+				}
+			});
+
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;
