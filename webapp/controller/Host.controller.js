@@ -65,6 +65,40 @@ sap.ui.define([
 			oFormModel.setProperty("/oMeetingData", oMeetingData);
 			var visitors = [];
 			oFormModel.setProperty("/Visitors", visitors);
+			
+			var sUrl8 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var that = this;
+			// var sUrl1 = "/VMS_Service/chat/1";
+			var webSocket = new WebSocket(sUrl8);
+			webSocket.onerror = function (event) {
+				// alert(event.data);
+
+			};
+			webSocket.onopen = function (event) {
+				// alert(event.data);
+
+			};
+			webSocket.onmessage = function (event) {
+				var jsonData = event.data;
+				var msg = JSON.parse(jsonData);
+				console.log(msg.title);
+				if (msg.content !== "Connected!") {
+					var count1 = oHostModel.getProperty("/Notificationcount");
+					var count2 = parseInt(count1, 10);
+					count2 = count2 + 1;
+					var countupdated = count2.toString();
+					oHostModel.setProperty("/Notificationcount", countupdated);
+					MessageBox.information(msg.content);
+					that.fnGetData(sUrl1, "/Details");
+					that.fnGetData(sUrl5, "/CheckInDetails");
+				}
+				// var count1 = oHostModel.getProperty("/Notificationcount");
+				// count = count + 1;
+				// var countupdated = count.toString();
+				// oHostModel.setProperty("/Notificationcount", countupdated);
+				// alert(event.data);
+
+			};
 		},
 		onDate: function () {
 			var oDialog = new sap.m.BusyDialog();

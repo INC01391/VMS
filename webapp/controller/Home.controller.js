@@ -446,7 +446,7 @@ sap.ui.define([
 			console.log(pId);
 			console.log(vehicleNumber);
 			$.ajax({
-				url: "/VMS_Service/rest/parkingSlotController/allotslot?parkingid=" + pId + "&vehiclenumber=" + vehicleNumber,
+				url: "/VMS/rest/parkingSlotController/allotslot?parkingid=" + pId + "&vehiclenumber=" + vehicleNumber,
 				type: "POST",
 				data: null,
 				// headers: {
@@ -485,7 +485,7 @@ sap.ui.define([
 			console.log(oFormData);
 			// console.log(vehicleNumber);
 			$.ajax({
-				url: "/VMS_Service/rest/parkingSlotController/allotslot?parkingid=" + oFormData.pId + "&vehiclenumber=" + oFormData.vehicleNo,
+				url: "/VMS/rest/parkingSlotController/allotslot?parkingid=" + oFormData.pId + "&vehiclenumber=" + oFormData.vehicleNo,
 				type: "POST",
 				data: null,
 				// headers: {
