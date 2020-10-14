@@ -65,7 +65,7 @@ sap.ui.define([
 			oFormModel.setProperty("/oMeetingData", oMeetingData);
 			var visitors = [];
 			oFormModel.setProperty("/Visitors", visitors);
-			
+
 			var sUrl8 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
@@ -81,7 +81,6 @@ sap.ui.define([
 			webSocket.onmessage = function (event) {
 				var jsonData = event.data;
 				var msg = JSON.parse(jsonData);
-				console.log(msg.title);
 				if (msg.content !== "Connected!") {
 					var count1 = oHostModel.getProperty("/Notificationcount");
 					var count2 = parseInt(count1, 10);
@@ -90,7 +89,7 @@ sap.ui.define([
 					oHostModel.setProperty("/Notificationcount", countupdated);
 					MessageBox.information(msg.content);
 					that.fnGetData(sUrl1, "/Details");
-					that.fnGetData(sUrl5, "/CheckInDetails");
+					that.fnGetData(sUrl2, "/CheckInDetails");
 				}
 				// var count1 = oHostModel.getProperty("/Notificationcount");
 				// count = count + 1;
@@ -126,6 +125,21 @@ sap.ui.define([
 
 			this.getRouter().navTo("RouteHome");
 
+		},
+		onNotificationPress: function (oEvent) {
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+			this.fnGetData(sUrl, "/notificationList");
+			console.log(oHostModel);
+			if (!this._oPopover1) {
+				this._oPopover1 = sap.ui.xmlfragment("idNotifications", "com.incture.VMS.fragment.notification", this);
+				this.getView().addDependent(this._oPopover1);
+			}
+			this._oPopover1.openBy(oEvent.getSource());
+			var count = oHostModel.getProperty("/Notificationcount/data");
+			count = "0";
+			oHostModel.setProperty("/Notificationcount", count);
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
