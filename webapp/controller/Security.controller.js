@@ -56,7 +56,64 @@ sap.ui.define([
 			this.fndoajax(sUrl6, "/DeliveryDetails");
 			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
 			this.fndoajax(sUrl7, "/EmployeesList");
+			var eId = 6;
+				var sUrl9 = "/VMS/rest/visitorController/notificationCounter?eId=" + eId;
+			var count;
+			$.ajax({
+				url: sUrl9,
+				data: null,
+				async: true,
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				error: function (err) {
+					sap.m.MessageToast.show("Destination Failed");
+				},
+				success: function (data) {
+					// sap.m.MessageToast.show("Data Successfully Loaded");
+					console.log(data);
+					count = data.data;
+					var countupdated = count.toString();
+					oSecurityModel.setProperty("/Notificationcount", countupdated);
+					console.log(countupdated);
+					console.log(oSecurityModel);
+
+				},
+				type: "GET"
+			});
 			console.log(oSecurityModel);
+
+			var sUrl8 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var that = this;
+			// var sUrl1 = "/VMS_Service/chat/1";
+			var webSocket = new WebSocket(sUrl8);
+			webSocket.onerror = function (event) {
+				// alert(event.data);
+
+			};
+			webSocket.onopen = function (event) {
+				// alert(event.data);
+
+			};
+			webSocket.onmessage = function (event) {
+				// alert(event.data);
+				var jsonData = event.data;
+				var msg = JSON.parse(jsonData);
+				if (msg.content !== "Connected!") {
+					var count1 = oSecurityModel.getProperty("/Notificationcount");
+					var count2 = parseInt(count1, 10);
+					count2 = count2 + 1;
+					var countupdated = count2.toString();
+					oSecurityModel.setProperty("/Notificationcount", countupdated);
+					MessageBox.information(msg.content);
+					that.fndoajax(sUrl1, "/Details");
+					that.fndoajax(sUrl2, "/CheckInDetails");
+
+				}
+
+			};
 
 		},
 		onDate: function () {
@@ -101,7 +158,183 @@ sap.ui.define([
 
 			oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
 		},
+		fnGetNotificationsData: function () {
+			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
+			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			// var eId = oAdminModel.getProperty("/userDetails").eId;
+			var eId = 6;
+			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+			console.log(sUrl);
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
 
+				},
+				error: function (err) {
+					sap.m.MessageToast.show("Destination Failed");
+				},
+				success: function (data) {
+					// sap.m.MessageToast.show("Data Successfully Loaded");
+					// console.log(data);
+					oHostModel.setProperty("/notificationList", data);
+					console.log(oHostModel);
+
+				},
+				type: "GET"
+			});
+		},
+		onNotificationPress: function (oEvent) {
+			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
+			this.fnGetNotificationsData();
+			if (!this._oPopover1) {
+				this._oPopover1 = sap.ui.xmlfragment("idNotifications", "com.incture.VMS.fragment.notification", this);
+				this.getView().addDependent(this._oPopover1);
+			}
+			this._oPopover1.openBy(oEvent.getSource());
+			var count = oAdminModel.getProperty("/Notificationcount");
+			count = "0";
+			oAdminModel.setProperty("/Notificationcount", count);
+		},
+		onItemClose: function (oEvent) {
+			// var oSecurityModel = this.getView().getModel("oSecurityModel");
+			var that = this;
+			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			var sUrl = "/VMS/admin/readNotifications";
+			$.ajax({
+				url: sUrl,
+				type: "POST",
+				data: {
+					"nId": obj.nId
+				},
+
+				dataType: "json",
+				success: function (data, status, response) {
+					that.fnGetNotificationsData();
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+		},
+		onAcceptPress: function (oEvent) {
+			var that = this;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getParent().getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			if (obj.title === "Delivery Request") {
+				$.ajax({
+					url: "/VMS_Service/employee/acceptDelivery",
+					type: "POST",
+					data: {
+						"dId": obj.dId,
+						"nId": obj.nId
+					},
+
+					dataType: "json",
+					success: function (data, status, response) {
+						if (data.status === 200) {
+							sap.m.MessageToast.show("Delivery Accepted");
+							that.fnGetNotificationsData();
+						} else if (data.status === 300) {
+							MessageBox.information("Your Delivery Needs Signature");
+						} else {
+							sap.m.MessageToast.show("Something Went Wrong");
+						}
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/VMS_Service/admin/manageMeetingRequest",
+					type: "POST",
+					data: {
+						"mId": obj.mId,
+						"action": "accept",
+						"nId": obj.nId
+					},
+
+					dataType: 'json',
+					success: function (data, status, response) {
+
+						if (data.status === 200) {
+							sap.m.MessageToast.show("Meeting Accepted");
+							that.fnGetNotificationsData();
+						} else {
+							sap.m.MessageToast.show("Something Went Wrong");
+						}
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			}
+
+			that.fnGetNotificationsData();
+		},
+		onRejectPress: function (oEvent) {
+			var oHostModel = this.getView().getModel("oHostModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getParent().getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			if (obj.title === "Delivery Request") {
+				$.ajax({
+					url: "/VMS_Service/employee/rejectDelivery",
+					type: "POST",
+					data: {
+						"dId": obj.dId,
+						"nId": obj.nId
+					},
+
+					dataType: "json",
+					success: function (data, status, response) {
+						sap.m.MessageToast.show("Delivery Rejected");
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/VMS_Service/admin/manageMeetingRequest",
+					type: "POST",
+					data: {
+						"mId": obj.mId,
+						"action": "reject",
+						"nId": obj.nId
+					},
+
+					dataType: 'json',
+					success: function (data, status, response) {
+						sap.m.MessageToast.show("Meeting Rejected");
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			}
+
+			this.fnGetNotificationsData();
+		},
 		_setToggleButtonTooltip: function (bLarge) {
 			var oToggleButton = this.byId("sideNavigationToggleButton");
 			if (bLarge) {
