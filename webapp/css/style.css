@@ -172,3 +172,24 @@ html.sap-desktop .sapMGT:hover:not(.sapMGTPressActive):not(.sapMGTBackgroundImag
     border-color: #107e3e;
     color: black;
 }
+
+.number.sapMText {
+    color: white;
+    font-size: x-small;
+}
+
+.number {
+    border-radius: 50%;
+    padding: 0.1rem;
+    width: 16px;
+    height: 16px;
+    background: #c00;
+    box-sizing: border-box;
+    text-align: center!important;
+    margin-top: -1rem !important;
+    margin-left: -0.7rem !important;
+}
+
+.iconSize {
+    font-size: 1.2rem;
+}

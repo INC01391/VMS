@@ -79,6 +79,32 @@ sap.ui.define([
 			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
 			this.fndoajax(sUrl7, "/EmployeesList");
 			var eId = 5;
+			var sUrl8 = "/VMS/rest/visitorController/notificationCounter?eId=" + eId;
+			var count;
+			$.ajax({
+				url: sUrl8,
+				data: null,
+				async: true,
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				error: function (err) {
+					sap.m.MessageToast.show("Destination Failed");
+				},
+				success: function (data) {
+					// sap.m.MessageToast.show("Data Successfully Loaded");
+					console.log(data);
+					count = data.data;
+					var countupdated = count.toString();
+					oAdminModel.setProperty("/Notificationcount", countupdated);
+					console.log(countupdated);
+					console.log(oAdminModel);
+
+				},
+				type: "GET"
+			});
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
 			console.log(oAdminModel);
@@ -175,8 +201,9 @@ sap.ui.define([
 		fnGetNotificationsData: function () {
 			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
-			var eId = oAdminModel.getProperty("/userDetails").eId;
-			var sUrl = "/VMS_Service/admin/getAllNotifications?eId=" + eId;
+			// var eId = oAdminModel.getProperty("/userDetails").eId;
+			var eId = 5;
+			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
 			console.log(sUrl);
 			$.ajax({
 				url: sUrl,
@@ -219,7 +246,7 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
-			var sUrl = "/VMS_Service/admin/readNotifications";
+			var sUrl = "/VMS/admin/readNotifications";
 			$.ajax({
 				url: sUrl,
 				type: "POST",

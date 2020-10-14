@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
 	<Popover class="sapUiSizeCompact" placement="Bottom" showHeader="false">
 		<VBox>
-			<List items="{oHostModel>/notificationList}">
+			<List items="{oHostModel>/notificationList/data}">
 				<NotificationListItem title="{oHostModel>title}" description="{oHostModel>content}" showCloseButton="true" datetime="1 hour" unread="true"
 					priority="None" close=".onItemClose" press=".onListItemPress" authorPicture="data:image/png;base64,{oHostModel>image}">
 					<buttons>
