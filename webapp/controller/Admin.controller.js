@@ -247,7 +247,7 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
-			var sUrl = "/VMS/admin/readNotifications";
+			var sUrl = "/VMS/rest/employeeController/close";
 			$.ajax({
 				url: sUrl,
 				type: "POST",
@@ -272,16 +272,24 @@ sap.ui.define([
 			var spath = oSource.getParent().getParent().getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
 			console.log(obj);
+			var dId = obj.dId;
+			var nId = obj.nId;
+			var mId = obj.mId;
+			// "mId": obj.mId,
+			// 	"action": "accept",
+			// 	"nId": obj.nId
 			if (obj.title === "Delivery Request") {
 				$.ajax({
-					url: "/VMS_Service/employee/acceptDelivery",
+					url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
 					type: "POST",
-					data: {
-						"dId": obj.dId,
-						"nId": obj.nId
-					},
+					data: null,
+					// data: {
+					// 	"dId": obj.dId,
+					// 	"nId": obj.nId
+					// },
 
 					dataType: "json",
+					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 						if (data.status === 200) {
 							sap.m.MessageToast.show("Delivery Accepted");
@@ -300,15 +308,17 @@ sap.ui.define([
 				});
 			} else {
 				$.ajax({
-					url: "/VMS_Service/admin/manageMeetingRequest",
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=accept",
 					type: "POST",
-					data: {
-						"mId": obj.mId,
-						"action": "accept",
-						"nId": obj.nId
-					},
+					data: null,
+					// data: {
+					// 	"mId": obj.mId,
+					// 	"action": "accept",
+					// 	"nId": obj.nId
+					// },
 
 					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 
 						if (data.status === 200) {
@@ -334,16 +344,21 @@ sap.ui.define([
 			var spath = oSource.getParent().getParent().getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
 			console.log(obj);
+			var dId = obj.dId;
+			var nId = obj.nId;
+			var mId = obj.mId;
 			if (obj.title === "Delivery Request") {
 				$.ajax({
-					url: "/VMS_Service/employee/rejectDelivery",
+					url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
 					type: "POST",
-					data: {
-						"dId": obj.dId,
-						"nId": obj.nId
-					},
+					data: null,
+					// data: {
+					// 	"dId": obj.dId,
+					// 	"nId": obj.nId
+					// },
 
 					dataType: "json",
+					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 						sap.m.MessageToast.show("Delivery Rejected");
 					},
@@ -354,15 +369,17 @@ sap.ui.define([
 				});
 			} else {
 				$.ajax({
-					url: "/VMS_Service/admin/manageMeetingRequest",
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=reject",
 					type: "POST",
-					data: {
-						"mId": obj.mId,
-						"action": "reject",
-						"nId": obj.nId
-					},
+					data: null,
+					// data: {
+					// 	"mId": obj.mId,
+					// 	"action": "reject",
+					// 	"nId": obj.nId
+					// },
 
 					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 						sap.m.MessageToast.show("Meeting Rejected");
 
