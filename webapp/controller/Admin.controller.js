@@ -247,13 +247,11 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
-			var sUrl = "/VMS/rest/employeeController/close";
+			var sUrl = "/VMS/rest/employeeController/close?nId=" + obj.nId;
 			$.ajax({
 				url: sUrl,
 				type: "POST",
-				data: {
-					"nId": obj.nId
-				},
+				data: null,
 
 				dataType: "json",
 				success: function (data, status, response) {

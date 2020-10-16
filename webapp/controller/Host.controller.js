@@ -141,6 +141,163 @@ sap.ui.define([
 			count = "0";
 			oHostModel.setProperty("/Notificationcount", count);
 		},
+		onAcceptPress: function (oEvent) {
+			var that = this;
+			var eId = 7;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getParent().getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			var dId = obj.dId;
+			var nId = obj.nId;
+			var mId = obj.mId;
+			// "mId": obj.mId,
+			// 	"action": "accept",
+			// 	"nId": obj.nId
+			if (obj.title === "Delivery Request") {
+				$.ajax({
+					url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
+					type: "POST",
+					data: null,
+					// data: {
+					// 	"dId": obj.dId,
+					// 	"nId": obj.nId
+					// },
+
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					success: function (data, status, response) {
+						if (data.status === 200) {
+							sap.m.MessageToast.show("Delivery Accepted");
+							var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+							that.fnGetData(sUrl, "/notificationList");
+						} else if (data.status === 300) {
+							MessageBox.information("Your Delivery Needs Signature");
+						} else {
+							sap.m.MessageToast.show("Something Went Wrong");
+						}
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=accept",
+					type: "POST",
+					data: null,
+					// data: {
+					// 	"mId": obj.mId,
+					// 	"action": "accept",
+					// 	"nId": obj.nId
+					// },
+
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					success: function (data, status, response) {
+
+						if (data.status === 200) {
+							sap.m.MessageToast.show("Meeting Accepted");
+							var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+							that.fnGetData(sUrl, "/notificationList");
+						} else {
+							sap.m.MessageToast.show("Something Went Wrong");
+						}
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			}
+
+		},
+		onRejectPress: function (oEvent) {
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var oSource = oEvent.getSource();
+			var spath = oSource.getParent().getParent().getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			console.log(obj);
+			var dId = obj.dId;
+			var nId = obj.nId;
+			var mId = obj.mId;
+			if (obj.title === "Delivery Request") {
+				$.ajax({
+					url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
+					type: "POST",
+					data: null,
+					// data: {
+					// 	"dId": obj.dId,
+					// 	"nId": obj.nId
+					// },
+
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					success: function (data, status, response) {
+						sap.m.MessageToast.show("Delivery Rejected");
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=reject",
+					type: "POST",
+					data: null,
+					// data: {
+					// 	"mId": obj.mId,
+					// 	"action": "reject",
+					// 	"nId": obj.nId
+					// },
+
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					success: function (data, status, response) {
+						sap.m.MessageToast.show("Meeting Rejected");
+
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			}
+
+			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+			this.fnGetData(sUrl, "/notificationList");
+		},
+		onItemClose: function (oEvent) {
+			var that = this;
+			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
+			var eId = 7;
+			var oSource = oEvent.getSource();
+			var spath = oSource.getBindingContextPath();
+			var obj = oHostModel.getProperty(spath);
+			var nId = obj.nId;
+			var sUrl = "/VMS/rest/employeeController/close?nId=" + nId;
+			$.ajax({
+				url: sUrl,
+				type: "POST",
+				data: null,
+
+				dataType: "json",
+				success: function (data, status, response) {
+					var sUrl1 = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+					that.fnGetData(sUrl1, "/notificationList");
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
