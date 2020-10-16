@@ -199,20 +199,19 @@ sap.ui.define([
 			count = "0";
 			oAdminModel.setProperty("/Notificationcount", count);
 		},
-		onItemClose: function (oEvent) {
+	
+	onItemClose: function (oEvent) {
 			// var oSecurityModel = this.getView().getModel("oSecurityModel");
 			var that = this;
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			var oSource = oEvent.getSource();
 			var spath = oSource.getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
-			var sUrl = "/VMS/admin/readNotifications";
+			var sUrl = "/VMS/rest/employeeController/close?nId=" + obj.nId;
 			$.ajax({
 				url: sUrl,
 				type: "POST",
-				data: {
-					"nId": obj.nId
-				},
+				data: null,
 
 				dataType: "json",
 				success: function (data, status, response) {
@@ -224,117 +223,134 @@ sap.ui.define([
 				}
 			});
 		},
-		onAcceptPress: function (oEvent) {
-			var that = this;
-			var oHostModel = this.getView().getModel("oHostModel");
-			var oSource = oEvent.getSource();
-			var spath = oSource.getParent().getParent().getBindingContextPath();
-			var obj = oHostModel.getProperty(spath);
-			console.log(obj);
-			if (obj.title === "Delivery Request") {
-				$.ajax({
-					url: "/VMS_Service/employee/acceptDelivery",
-					type: "POST",
-					data: {
-						"dId": obj.dId,
-						"nId": obj.nId
-					},
+		// onAcceptPress: function (oEvent) {
+		// 	var that = this;
+		// 	var oHostModel = this.getView().getModel("oHostModel");
+		// 	var oSource = oEvent.getSource();
+		// 	var spath = oSource.getParent().getParent().getBindingContextPath();
+		// 	var obj = oHostModel.getProperty(spath);
+		// 	console.log(obj);
+		// 	var dId = obj.dId;
+		// 	var nId = obj.nId;
+		// 	var mId = obj.mId;
+		// 	// "mId": obj.mId,
+		// 	// 	"action": "accept",
+		// 	// 	"nId": obj.nId
+		// 	if (obj.title === "Delivery Request") {
+		// 		$.ajax({
+		// 			url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
+		// 			type: "POST",
+		// 			data: null,
+		// 			// data: {
+		// 			// 	"dId": obj.dId,
+		// 			// 	"nId": obj.nId
+		// 			// },
 
-					dataType: "json",
-					success: function (data, status, response) {
-						if (data.status === 200) {
-							sap.m.MessageToast.show("Delivery Accepted");
-							that.fnGetNotificationsData();
-						} else if (data.status === 300) {
-							MessageBox.information("Your Delivery Needs Signature");
-						} else {
-							sap.m.MessageToast.show("Something Went Wrong");
-						}
+		// 			dataType: "json",
+		// 			contentType: "application/json; charset=utf-8",
+		// 			success: function (data, status, response) {
+		// 				if (data.status === 200) {
+		// 					sap.m.MessageToast.show("Delivery Accepted");
+		// 					that.fnGetNotificationsData();
+		// 				} else if (data.status === 300) {
+		// 					MessageBox.information("Your Delivery Needs Signature");
+		// 				} else {
+		// 					sap.m.MessageToast.show("Something Went Wrong");
+		// 				}
 
-					},
-					error: function (e) {
-						sap.m.MessageToast.show("fail");
+		// 			},
+		// 			error: function (e) {
+		// 				sap.m.MessageToast.show("fail");
 
-					}
-				});
-			} else {
-				$.ajax({
-					url: "/VMS_Service/admin/manageMeetingRequest",
-					type: "POST",
-					data: {
-						"mId": obj.mId,
-						"action": "accept",
-						"nId": obj.nId
-					},
+		// 			}
+		// 		});
+		// 	} else {
+		// 		$.ajax({
+		// 			url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=accept",
+		// 			type: "POST",
+		// 			data: null,
+		// 			// data: {
+		// 			// 	"mId": obj.mId,
+		// 			// 	"action": "accept",
+		// 			// 	"nId": obj.nId
+		// 			// },
 
-					dataType: 'json',
-					success: function (data, status, response) {
+		// 			dataType: 'json',
+		// 			contentType: "application/json; charset=utf-8",
+		// 			success: function (data, status, response) {
 
-						if (data.status === 200) {
-							sap.m.MessageToast.show("Meeting Accepted");
-							that.fnGetNotificationsData();
-						} else {
-							sap.m.MessageToast.show("Something Went Wrong");
-						}
+		// 				if (data.status === 200) {
+		// 					sap.m.MessageToast.show("Meeting Accepted");
+		// 					that.fnGetNotificationsData();
+		// 				} else {
+		// 					sap.m.MessageToast.show("Something Went Wrong");
+		// 				}
 
-					},
-					error: function (e) {
-						sap.m.MessageToast.show("fail");
+		// 			},
+		// 			error: function (e) {
+		// 				sap.m.MessageToast.show("fail");
 
-					}
-				});
-			}
+		// 			}
+		// 		});
+		// 	}
 
-			that.fnGetNotificationsData();
-		},
-		onRejectPress: function (oEvent) {
-			var oHostModel = this.getView().getModel("oHostModel");
-			var oSource = oEvent.getSource();
-			var spath = oSource.getParent().getParent().getBindingContextPath();
-			var obj = oHostModel.getProperty(spath);
-			console.log(obj);
-			if (obj.title === "Delivery Request") {
-				$.ajax({
-					url: "/VMS_Service/employee/rejectDelivery",
-					type: "POST",
-					data: {
-						"dId": obj.dId,
-						"nId": obj.nId
-					},
+		// 	that.fnGetNotificationsData();
+		// },
+		// onRejectPress: function (oEvent) {
+		// 	var oHostModel = this.getView().getModel("oHostModel");
+		// 	var oSource = oEvent.getSource();
+		// 	var spath = oSource.getParent().getParent().getBindingContextPath();
+		// 	var obj = oHostModel.getProperty(spath);
+		// 	console.log(obj);
+		// 	var dId = obj.dId;
+		// 	var nId = obj.nId;
+		// 	var mId = obj.mId;
+		// 	if (obj.title === "Delivery Request") {
+		// 		$.ajax({
+		// 			url: "/VMS/rest/employeeController/acceptDelivery?dId=" + dId + "&nId=" + nId,
+		// 			type: "POST",
+		// 			data: null,
+		// 			// data: {
+		// 			// 	"dId": obj.dId,
+		// 			// 	"nId": obj.nId
+		// 			// },
 
-					dataType: "json",
-					success: function (data, status, response) {
-						sap.m.MessageToast.show("Delivery Rejected");
-					},
-					error: function (e) {
-						sap.m.MessageToast.show("fail");
+		// 			dataType: "json",
+		// 			contentType: "application/json; charset=utf-8",
+		// 			success: function (data, status, response) {
+		// 				sap.m.MessageToast.show("Delivery Rejected");
+		// 			},
+		// 			error: function (e) {
+		// 				sap.m.MessageToast.show("fail");
 
-					}
-				});
-			} else {
-				$.ajax({
-					url: "/VMS_Service/admin/manageMeetingRequest",
-					type: "POST",
-					data: {
-						"mId": obj.mId,
-						"action": "reject",
-						"nId": obj.nId
-					},
+		// 			}
+		// 		});
+		// 	} else {
+		// 		$.ajax({
+		// 			url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=reject",
+		// 			type: "POST",
+		// 			data: null,
+		// 			// data: {
+		// 			// 	"mId": obj.mId,
+		// 			// 	"action": "reject",
+		// 			// 	"nId": obj.nId
+		// 			// },
 
-					dataType: 'json',
-					success: function (data, status, response) {
-						sap.m.MessageToast.show("Meeting Rejected");
+		// 			dataType: 'json',
+		// 			contentType: "application/json; charset=utf-8",
+		// 			success: function (data, status, response) {
+		// 				sap.m.MessageToast.show("Meeting Rejected");
 
-					},
-					error: function (e) {
-						sap.m.MessageToast.show("fail");
+		// 			},
+		// 			error: function (e) {
+		// 				sap.m.MessageToast.show("fail");
 
-					}
-				});
-			}
+		// 			}
+		// 		});
+		// 	}
 
-			this.fnGetNotificationsData();
-		},
+		// 	this.fnGetNotificationsData();
+		// },
 		_setToggleButtonTooltip: function (bLarge) {
 			var oToggleButton = this.byId("sideNavigationToggleButton");
 			if (bLarge) {
