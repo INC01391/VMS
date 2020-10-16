@@ -19,7 +19,7 @@ sap.ui.define([
 			var date = new Date();
 			var newdate = oDateFormat.format(date);
 			oHostModel.setProperty("/date", newdate);
-			var eId = 4;
+			var eId = 7;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + newdate;
@@ -30,6 +30,30 @@ sap.ui.define([
 			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
 			this.fnGetData(sUrl5, "/BlackListed");
+			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId=7";
+			var count;
+			$.ajax({
+				url: sUrl6,
+				data: null,
+				async: true,
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				error: function (err) {
+					sap.m.MessageToast.show("Destination Failed");
+				},
+				success: function (data) {
+					// sap.m.MessageToast.show("Data Successfully Loaded");
+					console.log(data);
+					count = data.data;
+					var countupdated = count.toString();
+					oHostModel.setProperty("/Notificationcount", countupdated);
+
+				},
+				type: "GET"
+			});
 			console.log(oHostModel);
 			var oFormData = {
 				"firstName": "",
