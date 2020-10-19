@@ -57,7 +57,7 @@ sap.ui.define([
 			var sUrl7 = "/VMS/rest/employeeController/listAllEmployee";
 			this.fndoajax(sUrl7, "/EmployeesList");
 			var eId = 6;
-				var sUrl9 = "/VMS/rest/visitorController/notificationCounter?eId=" + eId;
+			var sUrl9 = "/VMS/rest/visitorController/notificationCounter?eId=" + eId;
 			var count;
 			$.ajax({
 				url: sUrl9,
@@ -110,6 +110,7 @@ sap.ui.define([
 					MessageBox.information(msg.content);
 					that.fndoajax(sUrl1, "/Details");
 					that.fndoajax(sUrl2, "/CheckInDetails");
+					that.fndoajax(sUrl6, "/DeliveryDetails");
 
 				}
 
@@ -188,19 +189,19 @@ sap.ui.define([
 			});
 		},
 		onNotificationPress: function (oEvent) {
-			var oAdminModel = this.getOwnerComponent().getModel("oAdminModel");
+			var oSecurityModel = this.getView().getModel("oSecurityModel");
 			this.fnGetNotificationsData();
 			if (!this._oPopover1) {
 				this._oPopover1 = sap.ui.xmlfragment("idNotifications", "com.incture.VMS.fragment.notification", this);
 				this.getView().addDependent(this._oPopover1);
 			}
 			this._oPopover1.openBy(oEvent.getSource());
-			var count = oAdminModel.getProperty("/Notificationcount");
+			var count = oSecurityModel.getProperty("/Notificationcount");
 			count = "0";
-			oAdminModel.setProperty("/Notificationcount", count);
+			oSecurityModel.setProperty("/Notificationcount", count);
 		},
-	
-	onItemClose: function (oEvent) {
+
+		onItemClose: function (oEvent) {
 			// var oSecurityModel = this.getView().getModel("oSecurityModel");
 			var that = this;
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");

@@ -121,9 +121,10 @@ sap.ui.define([
 
 			};
 			webSocket.onmessage = function (event) {
-				alert(event.data);
+				// alert(event.data);
 				var jsonData = event.data;
-				var msg = JSON.parse(jsonData);
+				console.log(jsonData);
+				var msg = JSON.parse(jsonData.content);
 				console.log(msg);
 				if (msg.content !== "Connected!") {
 					var count1 = oAdminModel.getProperty("/Notificationcount");
