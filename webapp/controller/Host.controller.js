@@ -210,7 +210,7 @@ sap.ui.define([
 				});
 			} else {
 				$.ajax({
-					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=accept",
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&nId=" + nId + "&comment=accept",
 					type: "POST",
 					data: null,
 					// data: {
@@ -272,7 +272,7 @@ sap.ui.define([
 				});
 			} else {
 				$.ajax({
-					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&mId=" + mId + "&comment=reject",
+					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&nId=" + nId + "&comment=reject",
 					type: "POST",
 					data: null,
 					// data: {
