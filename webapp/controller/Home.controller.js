@@ -86,7 +86,7 @@ sap.ui.define([
 					console.log(oLoginModel);
 				},
 				error: function (e) {
-					MessageBox.information("Server Not Responding");
+					MessageBox.information("Invalid Credentials");
 					oDialog.close();
 					console.log(e);
 					// that.getRouter().navTo("AdminDetails");
