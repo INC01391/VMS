@@ -90,7 +90,7 @@ sap.ui.define([
 			var visitors = [];
 			oFormModel.setProperty("/Visitors", visitors);
 
-			var sUrl8 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var sUrl8="wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
 			var webSocket = new WebSocket(sUrl8);
@@ -103,7 +103,10 @@ sap.ui.define([
 
 			};
 			webSocket.onmessage = function (event) {
+				alert(event.data);
+				console.log("Host");
 				var jsonData = event.data;
+				console.log(jsonData);
 				var msg = JSON.parse(jsonData);
 				if (msg.content !== "Connected!") {
 					var count1 = oHostModel.getProperty("/Notificationcount");
@@ -202,6 +205,30 @@ sap.ui.define([
 							sap.m.MessageToast.show("Something Went Wrong");
 						}
 
+					},
+					error: function (e) {
+						sap.m.MessageToast.show("fail");
+
+					}
+				});
+			} else if (obj.title === "Overstay Alert") {
+				$.ajax({
+					url: "/VMS_Service/rest/meetingController/extendMeeting?id="+mId,
+					type: "POST",
+					data: null,
+
+					dataType: "json",
+					success: function (data, status, response) {
+						if (data.status === 200) {
+							MessageBox.success("Your Meeting had Extended by 15 minutes");
+
+						} else {
+							sap.m.MessageToast.show("Something Went Wrong");
+						}
+
+						// that.fnGetData(sUrl1, "/BlackListed");
+						// that.fnGetData(sUrl2, "/CheckOutDetails");
+						// that.fnGetData(sUrl3, "/Details");
 					},
 					error: function (e) {
 						sap.m.MessageToast.show("fail");
@@ -389,7 +416,7 @@ sap.ui.define([
 			this.getView().byId("idPreRegistration").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idUpcoming").addStyleClass("HomeStyleTile");
 			var oHostModel = this.getOwnerComponent().getModel("oHostModel");
-			var eId = 4;
+			var eId = 7;
 			// var eId = oHostModel.getProperty("/userDetails").eId;
 			var date = oHostModel.getProperty("/date");
 			var sUrl = "/VMS/rest/meetingController/getAllUpcomingMeeting?eid=" + eId;
@@ -404,7 +431,7 @@ sap.ui.define([
 			this.getView().byId("idPreRegistration").addStyleClass("HomeStyleTile");
 			// var oHostModel = this.getOwnerComponent().getModel("oHostModel");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
-			var eId = 4;
+			var eId = 7;
 			var sUrl = "/VMS/rest/visitorController/getPreregistredVisitors?eid=" + eId;
 			this.fnGetData(sUrl, "/PreRegistration");
 		},

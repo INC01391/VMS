@@ -107,8 +107,12 @@ sap.ui.define([
 			});
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
+			var sUrl10 = "/VMS/rest/employeeController/getPurposePercent";
+			var sUrl11 = "/VMS/rest/employeeController/getOrganisationPercent";
+			this.fndoajax(sUrl10, "/PurposePercent");
+			this.fndoajax(sUrl11, "/OrganisationPercent");
 			console.log(oAdminModel);
-			var sUrl13 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var sUrl13 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
 			var webSocket = new WebSocket(sUrl13);

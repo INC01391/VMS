@@ -133,9 +133,12 @@
 										<items>
 											<chart:InteractiveDonutChart selectionChanged="onSelectionChanged">
 												<chart:segments>
-													<chart:InteractiveDonutChartSegment label="Client Meeting" value="46" displayedValue="46%"/>
-													<chart:InteractiveDonutChartSegment label="Interview" value="40" displayedValue="40%"/>
-													<chart:InteractiveDonutChartSegment label="Others" value="14" displayedValue="14%"/>
+												<chart:InteractiveDonutChartSegment label="Client Meeting" value="{oAdminModel>/PurposePercent/data/percentage/Client Meeting}"
+														displayedValue="{oAdminModel>/PurposePercent/data/percentage/Client Meeting}%"/>
+													<chart:InteractiveDonutChartSegment label="Interview" value="{oAdminModel>/PurposePercent/data/percentage/Interview}"
+														displayedValue="{oAdminModel>/PurposePercent/data/percentage/Interview}%"/>
+													<chart:InteractiveDonutChartSegment label="Others" value="{oAdminModel>/PurposePercent/data/percentage/Others}"
+														displayedValue="{oAdminModel>/PurposePercent/data/percentage/Others}%"/>
 												</chart:segments>
 											</chart:InteractiveDonutChart>
 										</items>
@@ -144,9 +147,9 @@
 										<items>
 											<chart:InteractiveBarChart labelWidth="35%" selectionChanged="selectionChanged" press="press">
 												<chart:bars>
-													<chart:InteractiveBarChartBar label="Client Meeting" value="46"/>
-													<chart:InteractiveBarChartBar label="Interview" value="40"/>
-													<chart:InteractiveBarChartBar label="Others" value="14"/>
+													<chart:InteractiveBarChartBar label="Client Meeting" value="{oAdminModel>/PurposePercent/percentage/Client Meeting}"/>
+													<chart:InteractiveBarChartBar label="Interview" value="{oAdminModel>/PurposePercent/percentage/Interview}"/>
+													<chart:InteractiveBarChartBar label="Others" value="{oAdminModel>/PurposePercent/percentage/Others}"/>
 												</chart:bars>
 											</chart:InteractiveBarChart>
 										</items>
@@ -162,10 +165,14 @@
 										<items>
 											<chart:InteractiveDonutChart selectionChanged="onSelectionChanged" displayedSegments="4">
 												<chart:segments>
-													<chart:InteractiveDonutChartSegment label="TCS" value="35" displayedValue="35%"/>
-													<chart:InteractiveDonutChartSegment label="Infosys" value="20" displayedValue="20%"/>
-													<chart:InteractiveDonutChartSegment label="SAP" value="30" displayedValue="30%"/>
-													<chart:InteractiveDonutChartSegment label="Others" value="15" displayedValue="15%"/>
+													<chart:InteractiveDonutChartSegment label="{oAdminModel>/OrganisationPercent/0/name}"
+														value="{oAdminModel>/OrganisationPercent/0/percentage}" displayedValue="{oAdminModel>/OrganisationPercent/0/percentage}%"/>
+													<chart:InteractiveDonutChartSegment label="{oAdminModel>/OrganisationPercent/1/name}"
+														value="{oAdminModel>/OrganisationPercent/1/percentage}" displayedValue="{oAdminModel>/OrganisationPercent/1/percentage}%"/>
+													<chart:InteractiveDonutChartSegment label="{oAdminModel>/OrganisationPercent/2/name}"
+														value="{oAdminModel>/OrganisationPercent/2/percentage}" displayedValue="{oAdminModel>/OrganisationPercent/2/percentage}%"/>
+													<chart:InteractiveDonutChartSegment label="{oAdminModel>/OrganisationPercent/3/name}"
+														value="{oAdminModel>/OrganisationPercent/3/percentage}" displayedValue="{oAdminModel>/OrganisationPercent/3/percentage}%"/>
 												</chart:segments>
 											</chart:InteractiveDonutChart>
 										</items>
