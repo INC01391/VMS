@@ -5,8 +5,9 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/ui/core/Fragment",
 	"../utility/formatter",
-	"sap/ui/model/json/JSONModel"
-], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/export/Spreadsheet"
+], function (Controller, MessageToast, UIComponent, MessageBox, Fragment, formatter, JSONModel, Spreadsheet) {
 	"use strict";
 
 	return Controller.extend("com.incture.VMS.controller.Admin", {
@@ -937,6 +938,13 @@ sap.ui.define([
 				}
 			});
 
+		},
+		onExport: function () {
+			var oAdminModel = this.getView().getModel("oAdminModel");
+			var date = oAdminModel.getProperty("/date");
+			var sUrl = "/VMS/rest/visitorController/downloadPDF?date=" + date;
+			console.log(sUrl);
+			sap.m.URLHelper.redirect(sUrl, true);
 		},
 		onLogOutPress: function () {
 			var eId = 5;
