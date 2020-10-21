@@ -214,8 +214,8 @@ sap.ui.define([
 			var that = this;
 			var oFormModel = that.getOwnerComponent().getModel("oFormModel");
 			var visitorData = oFormModel.getProperty("/userDetails/data");
-			// var vhId = visitorData.visitorId;
-			var vhId = 5;
+			var vhId = visitorData.visitorId;
+			// var vhId = 5;
 			var image = oFormModel.getProperty("/photo");
 
 			// console.log(visitorData);
