@@ -90,7 +90,7 @@ sap.ui.define([
 			var visitors = [];
 			oFormModel.setProperty("/Visitors", visitors);
 
-			var sUrl8="wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
+			var sUrl8 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
 			var webSocket = new WebSocket(sUrl8);
@@ -103,8 +103,8 @@ sap.ui.define([
 
 			};
 			webSocket.onmessage = function (event) {
-				alert(event.data);
-				console.log("Host");
+				// alert(event.data);
+				// console.log("Host");
 				var jsonData = event.data;
 				console.log(jsonData);
 				var msg = JSON.parse(jsonData);
@@ -213,7 +213,7 @@ sap.ui.define([
 				});
 			} else if (obj.title === "Overstay Alert") {
 				$.ajax({
-					url: "/VMS_Service/rest/meetingController/extendMeeting?id="+mId,
+					url: "/VMS_Service/rest/meetingController/extendMeeting?id=" + mId,
 					type: "POST",
 					data: null,
 
@@ -835,6 +835,15 @@ sap.ui.define([
 				}
 			});
 
+		},
+		onLogOutPress: function () {
+			var eId = 5;
+			var sUrl = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
+			var webSocket = new WebSocket(sUrl);
+			webSocket.close();
+			sap.m.MessageToast.show("Successfully LoggedOut");
+			$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+			this.getRouter().navTo("RouteHome");
 		},
 		fnGetData: function (sUrl, sProperty) {
 			var that = this;

@@ -107,8 +107,8 @@ sap.ui.define([
 			});
 			// var sUrl5 = "";
 			// this.fndoajax(sUrl5, "/FrequentVisits");
-			var sUrl10 = "/VMS/rest/employeeController/getPurposePercent";
-			var sUrl11 = "/VMS/rest/employeeController/getOrganisationPercent";
+			var sUrl10 = "/VMS/rest/meetingController/getPurposePercent";
+			var sUrl11 = "/VMS/rest/visitorController/getOrganisationPercent";
 			this.fndoajax(sUrl10, "/PurposePercent");
 			this.fndoajax(sUrl11, "/OrganisationPercent");
 			console.log(oAdminModel);
@@ -125,8 +125,8 @@ sap.ui.define([
 
 			};
 			webSocket.onmessage = function (event) {
-				console.log("sarath");
-				alert(event.data);
+				// console.log("sarath");
+				// alert(event.data);
 				var jsonData = event.data;
 				console.log(jsonData);
 				var msg = JSON.parse(jsonData);
@@ -937,6 +937,15 @@ sap.ui.define([
 				}
 			});
 
+		},
+		onLogOutPress: function () {
+			var eId = 5;
+			var sUrl = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
+			var webSocket = new WebSocket(sUrl);
+			webSocket.close();
+			sap.m.MessageToast.show("Successfully LoggedOut");
+			$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+			this.getRouter().navTo("RouteHome");
 		},
 
 		fndoajax: function (sUrl, sProperty) {

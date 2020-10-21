@@ -85,7 +85,7 @@ sap.ui.define([
 			});
 			console.log(oSecurityModel);
 
-			var sUrl8 = "wss://projectvmsp2002476966trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var sUrl8 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vms/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
 			var webSocket = new WebSocket(sUrl8);
@@ -98,8 +98,8 @@ sap.ui.define([
 
 			};
 			webSocket.onmessage = function (event) {
-				alert(event.data);
-				console.log("Security");
+				// alert(event.data);
+				// console.log("Security");
 				var jsonData = event.data;
 				console.log(jsonData);
 				var msg = JSON.parse(jsonData);
@@ -719,6 +719,15 @@ sap.ui.define([
 		// 	// this._oDialog.destroy();
 		// 	// this._oDialog = null;
 		// },
+		onLogOutPress: function () {
+			var eId = 5;
+			var sUrl = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
+			var webSocket = new WebSocket(sUrl);
+			webSocket.close();
+			sap.m.MessageToast.show("Successfully LoggedOut");
+			$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+			this.getRouter().navTo("RouteHome");
+		},
 		fndoajax: function (sUrl, sProperty) {
 			var that = this;
 			var oSecurityModel = that.getOwnerComponent().getModel("oSecurityModel");
