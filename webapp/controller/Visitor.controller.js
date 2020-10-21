@@ -109,6 +109,14 @@ sap.ui.define([
 		onFail: function (message) {
 			alert("Failed because: " + message);
 		},
+		onAcceptTandC:function(){
+			var bCheck = this.getView().byId("ch1").getSelected();
+			if (bCheck === true) {
+				this.getView().byId("idSubmitBtn").setEnabled(true);
+			} else {
+				this.getView().byId("idSubmitBtn").setEnabled(false);
+			}
+		},
 		onRegister: function () {
 			var that = this;
 			var oVisitorModel = that.getView().getModel("oVisitorModel");

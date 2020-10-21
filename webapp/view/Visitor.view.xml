@@ -116,15 +116,15 @@
 							</Table>-->
 						</VBox>
 						<HBox class="checkHBox">
-							<CheckBox id="ch1" selected="false" select="onTermsandCond" enabled="true"/>
-							<Text text="I have read and agree to the " class="termsText1"></Text>
-							<Link text=" terms of service" press="handleLinkPress" class="sapUiTinyMarginBegin"/>
+							<CheckBox id="ch1" selected="false" select="onAcceptTandC" enabled="true"/>
+							<Text text="I have read and agree to the" class="sapUiTinyMarginTop"></Text>
+							<Link text=" terms of service" press="handleLinkPress" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
 							<Image src="data:image/png;base64,{oVisitorModel>/visitorData/photo}" id="idPhoto" class="sapUiLargeMarginBegin" width="100px" height="100px" visible="false"/>
 						</HBox>
 						<OverflowToolbar>
 							<ToolbarSpacer/>
 							<Button text="Take Photo" type="Emphasized" press="onCapture"/>
-							<Button id="idSubmitBtn" type="Success" text="Register" press="onRegister" enabled="true"/>
+							<Button id="idSubmitBtn" type="Success" text="Register" press="onRegister" enabled="false"/>
 							<!--<Button text="Close" type="Reject" press="onCancel"/>-->
 						</OverflowToolbar>
 					</Panel>
