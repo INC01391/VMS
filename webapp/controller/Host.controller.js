@@ -212,30 +212,38 @@ sap.ui.define([
 
 					}
 				});
-			} else if (obj.title === "Overstay Alert") {
-				$.ajax({
-					url: "/VMS_Service/rest/meetingController/extendMeeting?id=" + mId,
-					type: "POST",
-					data: null,
+			} else if (obj.title === "overstay") {
+				if (!that._oDialog) {
+					//this._oDialog = sap.ui.xmlfragment("com.demo.odata.Demo_Odata_Service.view.addItem", this);
+					that._oDialog = sap.ui.xmlfragment("idExtendMeetingFrag",
+						"com.incture.VMS.fragment.extendMeeting",
+						this); // Instantiating the Fragment
+				}
+				that.getView().addDependent(that._oDialog); 
+				that._oDialog.open();
+				// $.ajax({
+				// 	url: "/VMS_Service/rest/meetingController/extendMeeting?id=" + mId,
+				// 	type: "POST",
+				// 	data: null,
 
-					dataType: "json",
-					success: function (data, status, response) {
-						if (data.status === 200) {
-							MessageBox.success("Your Meeting had Extended by 15 minutes");
+				// 	dataType: "json",
+				// 	success: function (data, status, response) {
+				// 		if (data.status === 200) {
+				// 			MessageBox.success("Your Meeting had Extended by 15 minutes");
 
-						} else {
-							sap.m.MessageToast.show("Something Went Wrong");
-						}
+				// 		} else {
+				// 			sap.m.MessageToast.show("Something Went Wrong");
+				// 		}
 
-						// that.fnGetData(sUrl1, "/BlackListed");
-						// that.fnGetData(sUrl2, "/CheckOutDetails");
-						// that.fnGetData(sUrl3, "/Details");
-					},
-					error: function (e) {
-						sap.m.MessageToast.show("fail");
+				// 		// that.fnGetData(sUrl1, "/BlackListed");
+				// 		// that.fnGetData(sUrl2, "/CheckOutDetails");
+				// 		// that.fnGetData(sUrl3, "/Details");
+				// 	},
+				// 	error: function (e) {
+				// 		sap.m.MessageToast.show("fail");
 
-					}
-				});
+				// 	}
+				// });
 			} else {
 				$.ajax({
 					url: "/VMS/rest/employeeController/acceptOnSpotVisitor?eId=5&nId=" + nId + "&comment=accept",
