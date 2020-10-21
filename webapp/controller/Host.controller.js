@@ -30,7 +30,7 @@ sap.ui.define([
 			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=" + eId;
 			this.fnGetData(sUrl5, "/BlackListed");
-			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId=7";
+			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId="+eId;
 			var count;
 			$.ajax({
 				url: sUrl6,

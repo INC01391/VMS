@@ -184,7 +184,7 @@ sap.ui.define([
 				dataType: "json",
 				contentType: "application/json; charset=utf-8",
 				success: function (data, status, response) {
-					if (response.status === 200) {
+					if (data.status === 200) {
 						sap.m.MessageToast.show("Successfully Pre-Registered");
 						MessageBox.success(
 							"Registration Succesfull...Your Host Will be Informed About Your Arrival, Please Wait in the Lobby and Please Check your Mail for Any Upadtes about the Meeting"
