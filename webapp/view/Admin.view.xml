@@ -347,13 +347,13 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<Text text="{oAdminModel>visitorName}"/>
-											<Text text="{oAdminModel>email}"/>
-											<Text text="{oAdminModel>contactNo}"/>
+											<Text text="{oAdminModel>visitorFirstName}{oAdminModel>visitorLastName}"/>
+											<Text text="{oAdminModel>visitorEmail}"/>
+											<Text text="{oAdminModel>visitorPhoneNumber}"/>
 											<Text text="{oAdminModel>purpose}"/>
-											<Text text="{oAdminModel>organisation}"/>
+											<Text text="{oAdminModel>organization}"/>
 											<!--<Text text="{oAdminModel>status}"/>-->
-											<Text text="{path: 'oAdminModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+											<Text text="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
