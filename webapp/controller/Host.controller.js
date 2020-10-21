@@ -28,7 +28,7 @@ sap.ui.define([
 			this.fnGetData(sUrl3, "/CheckOutDetails");
 			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitorsforhost?eid=" + eId + "&date=" + newdate;
 			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
-			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=" + eId;
 			this.fnGetData(sUrl5, "/BlackListed");
 			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId=7";
 			var count;
@@ -246,7 +246,7 @@ sap.ui.define([
 					// 	"nId": obj.nId
 					// },
 
-					dataType: 'json',
+					dataType: "json",
 					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 
@@ -308,7 +308,7 @@ sap.ui.define([
 					// 	"nId": obj.nId
 					// },
 
-					dataType: 'json',
+					dataType: "json",
 					contentType: "application/json; charset=utf-8",
 					success: function (data, status, response) {
 						sap.m.MessageToast.show("Meeting Rejected");
