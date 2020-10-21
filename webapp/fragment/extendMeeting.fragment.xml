@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="New Delivery" draggable="true" contentWidth="20rem" resizable="true" class="sapUiSizeCompact" verticalScrolling="true">
+		<content>
+			<f:SimpleForm id="idSimpleForm" editable="true">
+				<f:content>
+					<VBox alignContent="Center">
+						<Label text="Extend the meeting for" required="true"/>
+						<ComboBox width="12rem" selectedKey="{oHostModel>/sSelectedKey}">
+							<core:Item text="5 mins" key="5"/>
+							<core:Item text="10 mins" key="10"/>
+							<core:Item text="15 mins" key="15"/>
+						</ComboBox>
+					</VBox>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<Toolbar>
+			<ToolbarSpacer/>
+			<Button text="Submit" type="Accept" press="onExtendMeeting"></Button>
+			<Button text="Cancel" type="Reject" press="onCancel"/>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>

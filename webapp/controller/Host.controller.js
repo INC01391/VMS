@@ -89,6 +89,7 @@ sap.ui.define([
 			oFormModel.setProperty("/oMeetingData", oMeetingData);
 			var visitors = [];
 			oFormModel.setProperty("/Visitors", visitors);
+			oHostModel.setProperty("/sSelectedKey", "");
 
 			var sUrl8 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
 			var that = this;
@@ -273,6 +274,7 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var spath = oSource.getParent().getParent().getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
+			oHostModel.setProperty("/Object", obj);
 			console.log(obj);
 			var dId = obj.dId;
 			var nId = obj.nId;
@@ -323,6 +325,40 @@ sap.ui.define([
 
 			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
 			this.fnGetData(sUrl, "/notificationList");
+		},
+		onExtendMeeting: function () {
+			var that = this;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var sSelectedKey = oHostModel.getProperty("/sSelectedKey");
+			var obj = oHostModel.getProperty("/Object");
+			var mId = obj.mId;
+			$.ajax({
+				url: "/VMS_Service/rest/meetingController/extendMeeting?id=" + mId,
+				type: "POST",
+				data: null,
+
+				dataType: "json",
+				success: function (data, status, response) {
+					if (data.status === 200) {
+						MessageBox.success("Your Meeting has been Extended!");
+
+					} else {
+						sap.m.MessageToast.show("Something Went Wrong");
+					}
+
+					// that.fnGetData(sUrl1, "/BlackListed");
+					// that.fnGetData(sUrl2, "/CheckOutDetails");
+					// that.fnGetData(sUrl3, "/Details");
+				},
+				error: function (e) {
+					sap.m.MessageToast.show("fail");
+
+				}
+			});
+			var sUrl = "/VMS/rest/visitorController/getAllNotifications?eId=" + eId;
+			that.fnGetData(sUrl, "/notificationList");
+
 		},
 		onItemClose: function (oEvent) {
 			var that = this;
