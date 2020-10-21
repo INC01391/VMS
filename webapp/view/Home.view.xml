@@ -83,8 +83,8 @@
 								<VBox justifyContent="Center" visible="false" id="idCheckOut" height="300px">
 									<items>
 										<Text text="Please Choose Your Parking Slot and Click On CheckOut" width="100%"/>
-										<ComboBox items="{oParkingModel>/AllParkingSlots}" selectedKey="{oParkingModel>/sSelectedKey}" width="100%">
-											<core:Item text="{oParkingModel>parkingSlot}" key="{oParkingModel>pId}"/>
+										<ComboBox items="{oParkingModel>/AllParkingSlots/data}" selectedKey="{oParkingModel>/sSelectedKey}" width="100%">
+											<core:Item text="{oParkingModel>parkingSlotName}" key="{oParkingModel>parkingSlotId}"/>
 										</ComboBox>
 										<Button text="CheckOut" type="Emphasized" class="sapUiSmallMarginTop" width="100%" press="onCheckOut"/>
 									</items>

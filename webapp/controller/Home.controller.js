@@ -34,7 +34,10 @@ sap.ui.define([
 			};
 			var oModel = new JSONModel(oData);
 			this.getView().setModel(oModel, "oParkingModel");
-			// var oParkingModel = this.getView().getModel("oParkingModel");
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
+			this.fnGetData(sUrl, "/AllParkingSlots");
+			console.log(oParkingModel);
 		},
 		onLogin: function () {
 			var oDialog = new sap.m.BusyDialog();
@@ -475,6 +478,8 @@ sap.ui.define([
 			});
 			this.getView().byId("idQRCode").setVisible(false);
 			this.getView().byId("idParking").setVisible(true);
+			var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
+			that.fnGetData(sUrl, "/AllParkingSlots");
 		},
 
 		onRegisterSubmitPress: function () {
@@ -517,12 +522,14 @@ sap.ui.define([
 				}
 			});
 			this.getView().byId("idParkingAvailability").setVisible(false);
+			var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
+			this.fnGetData(sUrl, "/AllParkingSlots");
 		},
 		onCheckOut: function () {
 			var that = this;
 			var oParkingModel = this.getView().getModel("oParkingModel");
-			// var pId = oParkingModel.getProperty("/sSelectedKey");
-			var pId = 5;
+			var pId = oParkingModel.getProperty("/sSelectedKey");
+			// var pId = 5;
 			$.ajax({
 				url: "/VMS/rest/parkingSlotController/freeslot?parkingid=" + pId,
 				type: "POST",
@@ -534,10 +541,9 @@ sap.ui.define([
 					MessageBox.success("Thank You For Visiting!!Visit Again!!");
 					oParkingModel.setProperty("/sSelectedKey", "");
 					console.log(data);
-					// var sUrl = "/VMS_Service/visitor/getAllParking";
-					// that.fnGetData(sUrl, "/AllParkingSlots");
-
-					// that.fnGetData();
+					var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
+					that.fnGetData(sUrl, "/AllParkingSlots");
+					
 				},
 				error: function (e) {
 					sap.m.MessageToast.show("fail");
@@ -551,6 +557,30 @@ sap.ui.define([
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
+		},
+		fnGetData: function (sUrl, sProperty) {
+			var that = this;
+			var oParkingModel = this.getView().getModel("oParkingModel");
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				headers: {
+					dataType: "json",
+					contentType: "application/json; charset=utf-8"
+
+				},
+				error: function (err) {
+					sap.m.MessageToast.show("Destination Failed");
+					$(".sapMMessageToast").addClass("sapMMessageToastSuccess ");
+				},
+				success: function (data) {
+					// sap.m.MessageToast.show("Data Successfully Loaded");
+					oParkingModel.setProperty(sProperty, data);
+
+				},
+				type: "GET"
+			});
 		}
 	});
 });
