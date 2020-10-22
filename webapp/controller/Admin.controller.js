@@ -413,8 +413,10 @@ sap.ui.define([
 			var date = oAdminModel.getProperty("/date");
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=5&Date=" + date;
 			that.fndoajax(sUrl1, "/CheckInDetails");
+			console.log(sUrl1);
 			var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
 			this.fndoajax(sUrl4, "/Details");
+			console.log(oAdminModel);
 		},
 		onCheckOutPress: function () {
 			var that = this;
@@ -433,6 +435,7 @@ sap.ui.define([
 			that.fndoajax(sUrl2, "/CheckOutDetails");
 			var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
 			this.fndoajax(sUrl4, "/Details");
+			console.log(oAdminModel);
 		},
 		onYetToVisitPress: function () {
 			var that = this;
