@@ -85,7 +85,7 @@ sap.ui.define([
 			});
 			console.log(oSecurityModel);
 
-			var sUrl8 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vms/chat/" + eId;
+			var sUrl8 = "wss://vmsprojectp2002479281trial.hanatrial.ondemand.com/vmsproject/chat/" + eId;
 			var that = this;
 			// var sUrl1 = "/VMS_Service/chat/1";
 			var webSocket = new WebSocket(sUrl8);
@@ -379,6 +379,12 @@ sap.ui.define([
 			this.getView().byId("idCheckout").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idYettovisit").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").addStyleClass("HomeStyleTile");
+			var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var date = oSecurityModel.getProperty("/date");
+			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			this.fndoajax(sUrl1, "/Details");
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=6&Date=" + date;
+			this.fndoajax(sUrl2, "/CheckInDetails");
 		},
 		onCheckOutPress: function () {
 			var that = this;
@@ -390,6 +396,12 @@ sap.ui.define([
 			this.getView().byId("idCheckout").addStyleClass("HomeStyleTile");
 			this.getView().byId("idYettovisit").removeStyleClass("HomeStyleTile");
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
+			var oSecurityModel = that.getView().getModel("oSecurityModel");
+			var date = oSecurityModel.getProperty("/date");
+			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			this.fndoajax(sUrl1, "/Details");
+			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=6&Date=" + date;
+			this.fndoajax(sUrl3, "/CheckOutDetails");
 		},
 		onYetToVisitPress: function () {
 			var that = this;
