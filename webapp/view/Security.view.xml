@@ -262,13 +262,13 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Text text="{oSecurityModel>visitorName}"/>
-										<Text text="{oSecurityModel>email}"/>
-										<Text text="{oSecurityModel>contactNo}"/>
+										<Text text="{oSecurityModel>visitorFirstName} {oSecurityModel>visitorLastName}"/>
+										<Text text="{oSecurityModel>visitorEmail}"/>
+										<Text text="{oSecurityModel>visitorPhoneNumber}"/>
 										<Text text="{oSecurityModel>purpose}"/>
-										<Text text="{oSecurityModel>organisation}"/>
+										<Text text="{oSecurityModel>organization}"/>
 										<!--<Text text="{oSecurityModel>status}"/>-->
-										<Text text="{path: 'oSecurityModel>status', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
+										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 									</cells>
 								</ColumnListItem>
 							</items>

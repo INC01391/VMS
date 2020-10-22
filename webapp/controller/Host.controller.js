@@ -425,6 +425,13 @@ sap.ui.define([
 		},
 		onCheckInPress: function () {
 			var that = this;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var date = oHostModel.getProperty("/date");
+			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
+			that.fnGetData(sUrl1, "/Details");
+			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + date;
+			this.fnGetData(sUrl2, "/CheckInDetails");
 			this.getView().byId("idCheckInTable").setVisible(true);
 			this.getView().byId("idCheckOutTable").setVisible(false);
 			this.getView().byId("idYetToVisitTable").setVisible(false);
@@ -435,6 +442,11 @@ sap.ui.define([
 		},
 		onCheckOutPress: function () {
 			var that = this;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var date = oHostModel.getProperty("/date");
+			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
+			that.fnGetData(sUrl3, "/CheckOutDetails");
 			this.getView().byId("idCheckInTable").setVisible(false);
 			this.getView().byId("idCheckOutTable").setVisible(true);
 			this.getView().byId("idYetToVisitTable").setVisible(false);
@@ -445,6 +457,11 @@ sap.ui.define([
 		},
 		onYetToVisitPress: function () {
 			var that = this;
+			var oHostModel = this.getView().getModel("oHostModel");
+			var eId = 7;
+			var date = oHostModel.getProperty("/date");
+			var sUrl4 = "/VMS/rest/visitorController/getExpectedVisitorsforhost?eid=" + eId + "&date=" + date;
+			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			this.getView().byId("idCheckInTable").setVisible(false);
 			this.getView().byId("idCheckOutTable").setVisible(false);
 			this.getView().byId("idYetToVisitTable").setVisible(true);
@@ -744,7 +761,7 @@ sap.ui.define([
 			var oHostModel = that.getView().getModel("oHostModel");
 			var oFormModel = this.getOwnerComponent().getModel("oFormModel");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
-			var eId = 4;
+			var eId = 7;
 			var oMeetingData = oFormModel.getProperty("/oMeetingData");
 			var oFormData = oFormModel.getProperty("/oFormData");
 			// var facilities = oHostModel.getProperty("/facilities");
