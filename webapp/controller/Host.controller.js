@@ -429,6 +429,7 @@ sap.ui.define([
 			var eId = 7;
 			var date = oHostModel.getProperty("/date");
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
+			console.log(sUrl1);
 			that.fnGetData(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + date;
 			this.fnGetData(sUrl2, "/CheckInDetails");

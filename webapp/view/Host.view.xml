@@ -219,7 +219,7 @@
 											<Text text="{oHostModel>organization}"/>
 											<Text text="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 											<Button text="Add To BlackList" type="Critical" press="onAddToBlackListPress"
-												enabled="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"/>
+												enabled="{path: 'oHostModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -298,9 +298,9 @@
 									<Column minScreenWidth="Desktop" demandPopin="true">
 										<Text text="{i18n>Purpose}" class="styleColumn"/>
 									</Column>
-									<Column minScreenWidth="Desktop" demandPopin="true">
-										<Text text="{i18n>Date}" class="styleColumn"/>
-									</Column>
+									<!--<Column minScreenWidth="Desktop" demandPopin="true">-->
+									<!--	<Text text="{i18n>Date}" class="styleColumn"/>-->
+									<!--</Column>-->
 									<Column minScreenWidth="Desktop" demandPopin="true">
 										<Text text="{i18n>Organization}" class="styleColumn"/>
 									</Column>

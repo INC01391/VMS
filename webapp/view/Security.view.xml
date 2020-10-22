@@ -223,7 +223,7 @@
 										<!--<Text text="{oSecurityModel>visitorStatus}"></Text>-->
 										<Text text="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.changeColor'}"/>
 										<Button text="Add To Balcklist" press="onAddToBlacklist" type="Critical"
-											enabled="{path: 'oAdminModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"></Button>
+											enabled="{path: 'oSecurityModel>visitorStatus', formatter:'com.incture.VMS.utility.formatter.buttonVisibility'}"></Button>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -279,7 +279,7 @@
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
-										<Title text="BlackListedVisitors" level="H3"/>
+										<Title text="Black-Listed Visitors" level="H3"/>
 										<ToolbarSpacer></ToolbarSpacer>
 										<SearchField width="20%" liveChange="onSearch"></SearchField>
 									</content>

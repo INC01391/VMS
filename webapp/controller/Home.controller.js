@@ -461,7 +461,8 @@ sap.ui.define([
 				success: function (data, status, response) {
 					if (response.status === 200) {
 						oParkingModel.setProperty("/visitorParkingData", {});
-
+						var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
+						that.fnGetData(sUrl, "/AllParkingSlots");
 						MessageBox.success("Please Go ahead and Park Your Vehicle");
 						// var sUrl = "/VMS_Service/visitor/getAllParking";
 						// that.fnGetData(sUrl, "/AllParkingSlots");
@@ -478,8 +479,7 @@ sap.ui.define([
 			});
 			this.getView().byId("idQRCode").setVisible(false);
 			this.getView().byId("idParking").setVisible(true);
-			var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
-			that.fnGetData(sUrl, "/AllParkingSlots");
+
 		},
 
 		onRegisterSubmitPress: function () {
@@ -543,7 +543,7 @@ sap.ui.define([
 					console.log(data);
 					var sUrl = "/VMS/rest/parkingSlotController/checkUsedSlot";
 					that.fnGetData(sUrl, "/AllParkingSlots");
-					
+
 				},
 				error: function (e) {
 					sap.m.MessageToast.show("fail");
