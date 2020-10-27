@@ -31,7 +31,7 @@ sap.ui.define([
 			this.fnGetData(sUrl4, "/ExpectedVisitorDetails");
 			var sUrl5 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=" + eId;
 			this.fnGetData(sUrl5, "/BlackListed");
-			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId="+eId;
+			var sUrl6 = "/VMS/rest/visitorController/notificationCounter?eId=" + eId;
 			var count;
 			$.ajax({
 				url: sUrl6,
@@ -220,7 +220,7 @@ sap.ui.define([
 						"com.incture.VMS.fragment.extendMeeting",
 						this); // Instantiating the Fragment
 				}
-				that.getView().addDependent(that._oDialog); 
+				that.getView().addDependent(that._oDialog);
 				that._oDialog.open();
 				// $.ajax({
 				// 	url: "/VMS_Service/rest/meetingController/extendMeeting?id=" + mId,
@@ -609,10 +609,16 @@ sap.ui.define([
 			console.log(obj);
 			var bId = obj.bId;
 			$.ajax({
-				url: "/VMS/rest/blackListController/removeFromBlackList?id=" + bId,
+				url: "/VMS/rest/blackListController/deleteBlackList?id=" + bId,
 				type: "POST",
 				data: null,
+				headers: {
+					// "X-CSRF-Token": token
+					"content-type": "application/json"
+				},
+
 				dataType: "json",
+				// dataType: "json",
 				success: function (data, status, response) {
 					sap.m.MessageToast.show("Successfully Unblocked");
 					var oDialog = new sap.m.BusyDialog();
