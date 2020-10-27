@@ -541,11 +541,11 @@ sap.ui.define([
 			var oHostModel = that.getView().getModel("oHostModel");
 			var date = oHostModel.getProperty("/date");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
-			var eId = 4;
-			var eid = 2;
+			var eId = 7;
+			var eid = 7;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
-			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=7";
 			// var oSource = oHostModel.getProperty("/BlackListedSource");
 			var spath = oHostModel.getProperty("/BlackListedPath");
 			var obj = oHostModel.getProperty(spath);
