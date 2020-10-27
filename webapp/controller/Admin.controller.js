@@ -433,6 +433,7 @@ sap.ui.define([
 			that.fndoajax(sUrl2, "/CheckOutDetails");
 			/*var sUrl4 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
 			this.fndoajax(sUrl4, "/Details");*/
+			console.log("sarath");
 		},
 		onYetToVisitPress: function () {
 			var that = this;
