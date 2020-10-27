@@ -381,8 +381,8 @@ sap.ui.define([
 			this.getView().byId("idCheckin").addStyleClass("HomeStyleTile");
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var date = oSecurityModel.getProperty("/date");
-			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
-			this.fndoajax(sUrl1, "/Details");
+			/*var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			this.fndoajax(sUrl1, "/Details");*/
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=6&Date=" + date;
 			this.fndoajax(sUrl2, "/CheckInDetails");
 		},
@@ -398,8 +398,8 @@ sap.ui.define([
 			this.getView().byId("idCheckin").removeStyleClass("HomeStyleTile");
 			var oSecurityModel = that.getView().getModel("oSecurityModel");
 			var date = oSecurityModel.getProperty("/date");
-			var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
-			this.fndoajax(sUrl1, "/Details");
+			/*var sUrl1 = "/VMS/rest/visitorController/getAllVisitorHistory?date=" + date;
+			this.fndoajax(sUrl1, "/Details");*/
 			var sUrl3 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=6&Date=" + date;
 			this.fndoajax(sUrl3, "/CheckOutDetails");
 		},
