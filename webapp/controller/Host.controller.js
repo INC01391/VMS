@@ -21,6 +21,7 @@ sap.ui.define([
 			oHostModel.setProperty("/date", newdate);
 			var eId = 7;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + newdate;
+			console.log(sUrl1);
 			this.fnGetData(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + newdate;
 			this.fnGetData(sUrl2, "/CheckInDetails");
@@ -138,7 +139,7 @@ sap.ui.define([
 			console.log(date);
 			var oHostModel = that.getOwnerComponent().getModel("oHostModel");
 			oHostModel.setProperty("/date", date);
-			var eId = 4;
+			var eId = 7;
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
 			this.fnGetData(sUrl1, "/Details");
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckIn?eid=" + eId + "&Date=" + date;
@@ -597,11 +598,11 @@ sap.ui.define([
 			var that = this;
 			var oHostModel = that.getOwnerComponent().getModel("oHostModel");
 			// var eId = oHostModel.getProperty("/userDetails").eId;
-			var eId = 4;
+			var eId = 7;
 			var date = oHostModel.getProperty("/date");
 			var sUrl1 = "/VMS/rest/visitorController/getVisitorHistory?eid=" + eId + "&Date=" + date;
 			var sUrl2 = "/VMS/rest/visitorController/getVisitorCheckOut?eid=" + eId + "&Date=" + date;
-			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=2";
+			var sUrl3 = "/VMS/rest/blackListController/selectAllBlackListByEmployee?eid=7";
 			var oSource = oEvent.getSource();
 			var spath = oSource.getParent().getBindingContextPath();
 			var obj = oHostModel.getProperty(spath);
@@ -925,6 +926,8 @@ sap.ui.define([
 				},
 				success: function (data) {
 					// sap.m.MessageToast.show("Data Successfully Loaded");
+					console.log(sProperty);
+					console.log(data);
 					oHostModel.setProperty(sProperty, data);
 
 				},
